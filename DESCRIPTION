@@ -1,11 +1,16 @@
 Package: archiveRetriever
-Title: What the Package Does (One Line, Title Case)
+Title: Retrieve Archived Web Pages from the Internet Archive
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Konstantin",
+           family = "Gavras",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "konstantin.gavras@uni-mannheim.de",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person(given = "Lukas",
+           family = "Isermann",
+           role = c("aut", "cre"),
+           email = "lukas.isermann@mzes.uni-mannheim.de",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
