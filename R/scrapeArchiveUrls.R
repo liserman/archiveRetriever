@@ -12,67 +12,67 @@
 
 
 scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = NaN) {
-  
+
   #### A priori consistency checks
-  
+
   # Urls müssen mit http anfangen
-  
-  
-  
+
+
+
   #### Main function
-  
+
   # Generate list for output
   scrapedUrls <- vector(mode = "list", length = length(Urls))
-  
+
   # Loop over all Urls
   for (i in startnum:length(Urls)) {
-    
+
     # Scrape page, using rvest
     tryCatch(
       {
-        html <- Urls[i] %>% 
-          read_html()
-      }, 
+        html <- Urls[i] %>%
+          xml2::read_html()
+      },
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
-    
+
     #Extract nodes
-    data <- html %>% 
-      html_nodes(xpath = Xpaths) %>% 
-      html_text()
-    
-    
+    data <- html %>%
+      rvest::html_nodes(xpath = Xpaths) %>%
+      rvest::html_text()
+
+
     # Progress message
     if(length(Urls)>1){
     cat(paste0(i, " of ", length(Urls), " Urls scraped, ", (length(Urls)-i), " Urls left to go\n"))
     }
-      
+
   }
-  
-  
+
+
   # Can only take (output) one XPath at the moment, needs to be rewritten to be able to handle several XPaths
   # Data cleaning and processing missing
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
   #### A posteriori consistency checks
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   #### Return output
- return(data) 
+ return(data)
 }
 
 

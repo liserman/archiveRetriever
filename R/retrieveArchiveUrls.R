@@ -20,18 +20,21 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
   endDate <- anytime::anydate(endDate)
   endDate <- stringr::str_remove_all(endDate, "\\-")
 
+  # Check that domain ending exists
+  if(stringr::str_detect(homepage, "\\..*$") == FALSE) stop ("Please add a top-level-domain to the homepage.")
+
 
   #### Main function
 
   #Extract relevant information from homepage
+
+  #Only needed for full function!!! - Is not being used in this sub-function
+  #TODO:
   page <- stringr::str_remove(homepage, 'www.|http\\:\\/\\/|https\\:\\/\\/')
   page <- stringr::str_remove(page, '\\..*')
 
-  ending <- stringr::str_remove_all(homepage, "www.")
-  ending <- stringr::str_remove_all(ending, page)
-
-  #Do we need to capture format of date input?
-  # Solved it using the anytime package - see above :)
+  tld <- stringr::str_remove_all(homepage, "www.")
+  tld <- stringr::str_remove_all(tld, page)
 
   # Check homepage input
   # consistency checks are really difficult here. How about a test whether there has been any memento being saved in the Archive?

@@ -12,9 +12,10 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   # Check Archive Url input
 
-  if(stringr::str_detect(ArchiveUrls, "^http\\:\\/\\/web\\.archive\\.org") == F) stop ("Url is no Internet Archive URL.")
+  stopifnot("Urls need to be Internet Archive Urls" = stringr::str_detect(ArchiveUrls, "^http\\:\\/\\/web\\.archive\\.org") == T)
 
-  #Get main domain and ending
+  #Get homepage and top-level-domain
+  #(does this always work?) - needs lot of testing!!!
 
   extracting <- stringr::str_extract(ArchiveUrls, '\\/http.*\\..*\\/$')
   extracting <- stringr::str_remove_all(extracting, 'www.|http\\:\\/\\/|https\\:\\/\\/')
@@ -22,8 +23,8 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   page <- stringr::str_extract(extracting, '^.*\\.')
   page <- stringr::str_remove_all(page, "\\.")
-  ending <- stringr::str_extract(extracting, '\\..*$')
-  ending <- stringr::str_remove_all(ending, "\\.")
+  tld <- stringr::str_extract(extracting, '\\..*$')
+  tld <- stringr::str_remove_all(tld, "\\.")
 
   #### Main function
 
@@ -31,19 +32,19 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   for(i in 1:length(ArchiveUrls)){
     possibleError <- tryCatch(
-      r <- GET(ArchiveUrls[i]),
+      r <- httr::GET(ArchiveUrls[i]),
       error = function(e) e
     )
 
     if(inherits(possibleError, "error")) next
 
-    status <- status_code(r)
+    status <- httr::status_code(r)
     if(status == 200){
-      paper_html <- read_html(ArchiveUrls[i], encoding = encoding)
-      paper_urls <- paper_html %>%
-        html_nodes("a") %>%
-        html_attr("href")
-      paper_urls <- paper_urls[grepl(paste0(page[n],"\\", ending[n]), paper_urls)]
+      paper_html <- xml2::read_html(ArchiveUrls[i], encoding = encoding)
+
+      paper_urls <- rvest::html_nodes(paper_html, "a")
+      paper_urls <- rvest::html_attr(paper_urls, "href")
+      paper_urls <- paper_urls[grepl(paste0(page[i],"\\.", tld[i]), paper_urls)]
 
       paper_urlsFinal <- list()
 
@@ -66,7 +67,7 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
 
 
-      Sys.sleep(sample(1:5,1))
+      Sys.sleep(sample(1:2,1))
     } else{
       next
     }
@@ -74,6 +75,8 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
     print(i)
 
   }
+
+
 
 
   #### A posteriori consistency checks
