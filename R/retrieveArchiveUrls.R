@@ -74,6 +74,6 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
 
 }
 
-test <- retrieveArchiveUrls("www.spiegel.de", 20190701, "20190801")
+ArchiveUrls <- retrieveArchiveUrls("www.spiegel.de", 20190701, "20190801")
 
 

@@ -29,6 +29,7 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
   #### Main function
 
   fullUrls <- list()
+  pb <- txtProgressBar(min = 0, max = length(ArchiveUrls), style = 3)
 
   for(i in 1:length(ArchiveUrls)){
     possibleError <- tryCatch(
@@ -66,18 +67,21 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
       fullUrls[[i]] <- paper_urlsFinal
 
 
-
       Sys.sleep(sample(1:2,1))
     } else{
       next
     }
 
-    print(i)
+    setTxtProgressBar(pb, i)
 
   }
 
+  names(fullUrls) <- ArchiveUrls
 
+  dataReturn <- tibble::enframe(fullUrls)
+  dataReturn <- tidyr::unnest(dataReturn, cols = c(value))
 
+  names(dataReturn) <- c("baseUrl", "links")
 
   #### A posteriori consistency checks
 
@@ -85,6 +89,8 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   #### Return output
 
-  return(homepages)
+  return(dataReturn)
 
 }
+
+ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls)
