@@ -64,43 +64,83 @@ archiveOverview <- function(homepage, startDate, endDate){
   dfDates <- dplyr::left_join(allDates, collectDates, by = c("date" = "value"))
   dfDates <- dplyr::mutate(dfDates, homepage = homepage)
   dfDates$day <- lubridate::wday(dfDates$date, label = T, week_start = getOption("lubridate.week.start", 1), locale = Sys.getlocale("LC_TIME"))
-  dfDates$week <- factor(strftime(dfDates$date,format="%V"))
+  dfDates$week <- factor(lubridate::week(dfDates$date))
   dfDates$month <- lubridate::month(dfDates$date, label = T)
-  dfDates$ddate <- factor(strftime(dfDates$date,format="%d"))
+  dfDates$ddate <- factor(sprintf("%02d", lubridate::day(dfDates$date)))
   dfDates$year <- lubridate::year(dfDates$date)
 
   dfDates$availability <- "Available"
   dfDates$availability[is.na(dfDates$availableDates)] <- "Not available"
 
-
   #Noch zu lösendes Problem: Wie soll der Plot über mehrere Jahre hinweg angezeigt werden?
     # Vorschlag: grid.arrange? Zumindest bis zu einer bestimmten Anzahl Jahre sollte das ganz gut funktionieren
     #   Alternative: wir schränken den Zeitraum ein, der gleichzeitig angeschaut werden kann. Wenn Zeitraum zu groß, Fehlermeldung mit Aufforderung Zeitraum zu reduzieren.
-  p <- ggplot2::ggplot(dfDates, ggplot2::aes(x=week,y=day))+
-    ggplot2::geom_tile(ggplot2::aes(fill=availability))+
-    ggplot2::geom_text(ggplot2::aes(label=ddate))+
-    ggplot2::scale_y_discrete(limits = rev(levels(dfDates$day)))+
-    ggplot2::scale_fill_manual(values=c("#8dd3c7", "#fb8072"))+
-    ggplot2::facet_grid(~month,scales="free",space="free")+
-    ggplot2::labs(x="Week" ,y="", title = as.character(homepage), subtitle = as.character(unique(dfDates$year)))+
-    ggplot2::theme_bw(base_size=10)+
-    ggplot2::theme(legend.title=ggplot2::element_blank(),
-          panel.grid=ggplot2::element_blank(),
-          panel.border=ggplot2::element_blank(),
-          axis.ticks=ggplot2::element_blank(),
-          strip.background=ggplot2::element_blank(),
-          legend.position="top",
-          legend.justification="right",
-          legend.direction="horizontal",
-          legend.key.size=ggplot2::unit(0.3,"cm"),
-          legend.spacing.x=ggplot2::unit(0.2,"cm"))
 
-  return(p)
+  if(length(unique(dfDates$year)) == 1){
+    p <- ggplot2::ggplot(dfDates, ggplot2::aes(x=week,y=day))+
+      ggplot2::geom_tile(ggplot2::aes(fill=availability))+
+      ggplot2::geom_text(ggplot2::aes(label=ddate))+
+      ggplot2::scale_y_discrete(limits = rev(levels(dfDates$day)))+
+      ggplot2::scale_fill_manual(values=c("#8dd3c7", "#fb8072"))+
+      ggplot2::facet_grid(~month,scales="free",space="free")+
+      ggplot2::labs(x="Week" ,y="", title = as.character(homepage), subtitle = as.character(unique(dfDates$year)))+
+      ggplot2::theme_bw(base_size=10)+
+      ggplot2::theme(legend.title=ggplot2::element_blank(),
+                     panel.grid=ggplot2::element_blank(),
+                     panel.border=ggplot2::element_blank(),
+                     axis.ticks=ggplot2::element_blank(),
+                     strip.background=ggplot2::element_blank(),
+                     legend.position="top",
+                     legend.justification="right",
+                     legend.direction="horizontal",
+                     legend.key.size=ggplot2::unit(0.3,"cm"),
+                     legend.spacing.x=ggplot2::unit(0.2,"cm"))
+
+    return(p)
+  }
+
+  if(length(unique(dfDates$year)) > 1){
+
+    plotFunction <- function(dfDates, year){
+
+      dfDatesPlot <- dfDates[dfDates$year == year,]
+
+      ggplot2::ggplot(dfDatesPlot, ggplot2::aes(x=week,y=day))+
+        ggplot2::geom_tile(ggplot2::aes(fill=availability))+
+        ggplot2::geom_text(ggplot2::aes(label=ddate))+
+        ggplot2::scale_y_discrete(limits = rev(levels(dfDatesPlot$day)))+
+        ggplot2::scale_fill_manual(values=c("#8dd3c7", "#fb8072"))+
+        ggplot2::facet_grid(~month,scales="free",space="free")+
+        ggplot2::labs(x="Week" ,y="", title = as.character(unique(dfDatesPlot$year)))+
+        ggplot2::theme_bw(base_size=10)+
+        ggplot2::theme(legend.title=ggplot2::element_blank(),
+                       panel.grid=ggplot2::element_blank(),
+                       panel.border=ggplot2::element_blank(),
+                       axis.ticks=ggplot2::element_blank(),
+                       strip.background=ggplot2::element_blank(),
+                       legend.position="top",
+                       legend.justification="right",
+                       legend.direction="horizontal",
+                       legend.key.size=ggplot2::unit(0.3,"cm"),
+                       legend.spacing.x=ggplot2::unit(0.2,"cm"))
+    }
+
+    plot_list <- lapply(
+      unique(dfDates$year),
+      plotFunction,
+      dfDates = dfDates
+    )
+
+  plot <- gridExtra::grid.arrange(grobs = plot_list, top = as.character(homepage))
+
+  return(plot)
+  }
+
 
 }
 
 
-#weltOverview <- archiveOverview("www.welt.de", 20180101, "20181231")
+#weltOverview <- archiveOverview("www.welt.de", 20180601, "20190615")
 
 
 
