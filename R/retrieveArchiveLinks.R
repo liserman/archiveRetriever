@@ -1,6 +1,20 @@
 #Retrieving the Links within a main domain of the Internet Archive
 
+# Importing dependencies with roxygen2
+#' @import stringr
+#' @import httr
+#' @import xml2
+#' @import rvest
+#' @import tibble
+#' @import tidyr
+#' @importFrom utils setTxtProgressBar txtProgressBar
 
+
+
+
+
+
+### Function --------------------
 
 # Retrieve URLs function
 
@@ -93,4 +107,4 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
 }
 
-ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls)
+#ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls)

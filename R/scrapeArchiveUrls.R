@@ -11,6 +11,21 @@
 # MÖglichkeit verschiedene Xpaths für unterschiedliche Zeiträume anzugeben
 
 
+###----------------------------------------------------------------
+
+
+# Importing dependencies with roxygen2
+#' @import xml2
+#' @import rvest
+
+
+
+
+
+
+
+### Function --------------------
+
 scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = NaN) {
 
   #### A priori consistency checks
@@ -81,11 +96,11 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
 
 
 # Testing
-load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
+#load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
 
 
 
-scrapeArchiveUrls(test, Xpaths = c("(//h1)[1]", "//h2"))
+#scrapeArchiveUrls(test, Xpaths = c("(//h1)[1]", "//h2"))
 
 
 

@@ -1,6 +1,19 @@
 # Get an overview of available mementos of the homepage from the Internet Archive
 
+# Importing dependencies with roxygen2
+#' @import anytime
+#' @import stringr
+#' @import lubridate
+#' @import jsonlite
+#' @import tibble
+#' @import dplyr
+#' @import ggplot2
 
+
+
+
+
+### Function --------------------
 
 archiveOverview <- function(homepage, startDate, endDate){
 
@@ -9,6 +22,8 @@ archiveOverview <- function(homepage, startDate, endDate){
   if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date")
 
   if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date")
+
+  if(anytime::anydate(startDate) > anytime::anydate(endDate)) stop ("startDate cannot be later than endDate")
 
   startDate <- anytime::anydate(startDate)
   startDate <- stringr::str_remove_all(startDate, "\\-")
@@ -59,6 +74,8 @@ archiveOverview <- function(homepage, startDate, endDate){
 
 
   #Noch zu lösendes Problem: Wie soll der Plot über mehrere Jahre hinweg angezeigt werden?
+    # Vorschlag: grid.arrange? Zumindest bis zu einer bestimmten Anzahl Jahre sollte das ganz gut funktionieren
+    #   Alternative: wir schränken den Zeitraum ein, der gleichzeitig angeschaut werden kann. Wenn Zeitraum zu groß, Fehlermeldung mit Aufforderung Zeitraum zu reduzieren.
   p <- ggplot2::ggplot(dfDates, ggplot2::aes(x=week,y=day))+
     ggplot2::geom_tile(ggplot2::aes(fill=availability))+
     ggplot2::geom_text(ggplot2::aes(label=ddate))+
@@ -83,7 +100,7 @@ archiveOverview <- function(homepage, startDate, endDate){
 }
 
 
-weltOverview <- archiveOverview("www.welt.de", 20180101, "20181231")
+#weltOverview <- archiveOverview("www.welt.de", 20180101, "20181231")
 
 
 

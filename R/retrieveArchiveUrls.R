@@ -1,8 +1,17 @@
 #Retrieving the mementos of a homepage from the Internet Archive
 
+# Importing dependencies with roxygen2
+#' @import anytime
+#' @import stringr
+#' @import lubridate
+#' @import jsonlite
+
+
+
+
+### Function --------------------
 
 # Retrieve URLs function
-
 retrieveArchiveUrls <- function(homepage, startDate, endDate){
 
   #### A priori consistency checks
@@ -13,6 +22,8 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
   if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date")
 
   if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date")
+
+  if(anytime::anydate(startDate) > anytime::anydate(endDate)) stop ("startDate cannot be later than endDate")
 
   startDate <- anytime::anydate(startDate)
   startDate <- stringr::str_remove_all(startDate, "\\-")
@@ -37,7 +48,7 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
   tld <- stringr::str_remove_all(tld, page)
 
   # Check homepage input
-  # consistency checks are really difficult here. How about a test whether there has been any memento being saved in the Archive?
+  # consistency checks are really difficult here. How about a test whether there has been any memento being saved in the Archive?   Lukas: Gute Lösung! Scheint auch grundätzlich zu funktionieren.
   ArchiveCheck <- paste0("http://web.archive.org/cdx/search/cdx?url=",homepage,"&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=", "19900101", "&to=", stringr::str_remove_all(lubridate::today(), "\\-"), "&output=json&limit=1")
 
   if(nrow(as.data.frame(jsonlite::fromJSON(ArchiveCheck))) == 0) stop ("Homepage has never been saved in the Internet Archive. Please choose another homepage.")
@@ -74,6 +85,6 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
 
 }
 
-ArchiveUrls <- retrieveArchiveUrls("www.spiegel.de", 20190701, "20190801")
+#ArchiveUrls <- retrieveArchiveUrls("www.spiegel.de", "1.8.2019", "20190901")
 
 
