@@ -45,15 +45,17 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
     # Scrape page, using rvest
     tryCatch(
       {
-        html <- Urls[i] %>%
-          xml2::read_html()
+        html <- xml2::read_html(Urls[i])
+
+        #Extract nodes
+        for (x in 1:length(Xpaths)) {
+          data <- rvest::html_nodes(html, xpath = Xpaths[x])
+          data <- rvest::html_text(data)
+        }
       },
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
 
-    #Extract nodes
-    data <- html %>%
-      rvest::html_nodes(xpath = Xpaths) %>%
-      rvest::html_text()
+
 
 
     # Progress message
@@ -98,9 +100,9 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
 # Testing
 #load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
 
+test <- data[1:10]
 
-
-#scrapeArchiveUrls(test, Xpaths = c("(//h1)[1]", "//h2"))
+scrapeArchiveUrls(test, Xpaths = c("//h2"))
 
 
 
