@@ -64,10 +64,16 @@ archiveOverview <- function(homepage, startDate, endDate){
   dfDates <- dplyr::left_join(allDates, collectDates, by = c("date" = "value"))
   dfDates <- dplyr::mutate(dfDates, homepage = homepage)
   dfDates$day <- lubridate::wday(dfDates$date, label = T, week_start = getOption("lubridate.week.start", 1), locale = Sys.getlocale("LC_TIME"))
-  dfDates$week <- factor(lubridate::week(dfDates$date))
+  dfDates$week <- format(dfDates$date, format="%V")
   dfDates$month <- lubridate::month(dfDates$date, label = T)
   dfDates$ddate <- factor(sprintf("%02d", lubridate::day(dfDates$date)))
   dfDates$year <- lubridate::year(dfDates$date)
+
+  #Get calender week 53 correctly
+  dfDates$monthnum <- lubridate::month(dfDates$date)
+  dfDates$week[dfDates$monthnum==12 & dfDates$week == "01"] <- "53"
+
+  dfDates$week <- factor(dfDates$week)
 
   dfDates$availability <- "Available"
   dfDates$availability[is.na(dfDates$availableDates)] <- "Not available"
@@ -131,16 +137,13 @@ archiveOverview <- function(homepage, startDate, endDate){
       dfDates = dfDates
     )
 
-  plot <- gridExtra::grid.arrange(grobs = plot_list, top = as.character(homepage))
+  return(gridExtra::grid.arrange(grobs = plot_list, top = as.character(homepage)))
 
-  return(plot)
   }
 
 
 }
 
 
-#weltOverview <- archiveOverview("www.welt.de", 20180601, "20190615")
-
-
+#weltOverview <- archiveOverview(homepage = "www.welt.de", startDate = 20180601, endDate = "20190615")
 
