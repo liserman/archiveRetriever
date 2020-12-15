@@ -26,11 +26,13 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = NaN) {
+scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, attachto = NaN) {
 
   #### A priori consistency checks
 
   # Urls müssen mit http anfangen
+  if(!any(stringr::str_detect(Urls, "http\\:\\/\\/web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
+
 
 
 
@@ -38,6 +40,9 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
 
   # Generate list for output
   scrapedUrls <- vector(mode = "list", length = length(Urls))
+
+  #Progress bar
+  pb <- txtProgressBar(min = 0, max = length(Urls), style = 3)
 
   # Loop over all Urls
   for (i in startnum:length(Urls)) {
@@ -47,21 +52,46 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
       {
         html <- xml2::read_html(Urls[i])
 
-        #Extract nodes
-        for (x in 1:length(Xpaths)) {
-          data <- rvest::html_nodes(html, xpath = Xpaths[x])
-          data <- rvest::html_text(data)
+        if(missing(XpathHeader)){
+
+          for (x in 1:length(XpathContent)){
+            #Extract nodes
+            dataContent <- rvest::html_nodes(html, xpath = XpathContent[x])
+            dataContent <- rvest::html_text(dataContent)
+            dataContent <- paste(dataContent, collapse = ' ')
+          }
+
+
+
+          data <- tibble::tibble(content = dataContent)
+
         }
+
+        if(!missing(XpathHeader)){
+          #Extract nodes
+          for (x in 1:length(XpathHeader)) {
+            dataHeader <- rvest::html_nodes(html, xpath = XpathHeader[x])
+            dataHeader <- rvest::html_text(dataHeader)
+          }
+
+          for (x in 1:length(XpathContent)){
+            dataContent <- rvest::html_nodes(html, xpath = XpathContent[x])
+            dataContent <- rvest::html_text(dataContent)
+            dataContent <- paste(dataContent, collapse = ' ')
+          }
+
+
+          data <- tibble::tibble(header = dataHeader, content = dataContent)
+        }
+
+
+        scrapedUrls[[i]] <- data
+
       },
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
 
-
-
-
     # Progress message
-    if(length(Urls)>1){
-    cat(paste0(i, " of ", length(Urls), " Urls scraped, ", (length(Urls)-i), " Urls left to go\n"))
-    }
+    setTxtProgressBar(pb, i)
 
   }
 
@@ -102,7 +132,7 @@ scrapeArchiveUrls <- function(Urls, Xpaths = "//h1", startnum = 1, attachto = Na
 
 test <- data[1:10]
 
-scrapeArchiveUrls(test, Xpaths = c("//h2"))
+scrapeArchiveUrls(test, XpathHeader = c("//h2"))
 
 
 

@@ -107,4 +107,4 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
 }
 
-#ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls)
+#ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls[1])
