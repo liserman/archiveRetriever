@@ -8,7 +8,7 @@
 #' @import tibble
 #' @import dplyr
 #' @import ggplot2
-
+#' @import gridExtra
 
 
 
@@ -24,6 +24,9 @@ archiveOverview <- function(homepage, startDate, endDate){
   if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date")
 
   if(anytime::anydate(startDate) > anytime::anydate(endDate)) stop ("startDate cannot be later than endDate")
+
+  if(anytime::anydate(endDate) > anytime::anydate(lubridate::today())) stop ("endDate cannot be in the future")
+
 
   startDate <- anytime::anydate(startDate)
   startDate <- stringr::str_remove_all(startDate, "\\-")

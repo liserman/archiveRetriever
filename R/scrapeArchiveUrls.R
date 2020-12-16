@@ -17,8 +17,8 @@
 # Importing dependencies with roxygen2
 #' @import xml2
 #' @import rvest
-
-
+#' @import stringr
+#' @import tibble
 
 
 
@@ -96,17 +96,11 @@ scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, att
   }
 
 
-  # Can only take (output) one XPath at the moment, needs to be rewritten to be able to handle several XPaths
-  # Data cleaning and processing missing
 
 
-
-
-
-
-
-
-
+  # Generate output dataframe
+  output <- do.call("rbind", scrapedUrls)
+  output <- tibble::tibble(Urls, output)
 
 
 
@@ -119,7 +113,7 @@ scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, att
 
 
   #### Return output
- return(data)
+ return(output)
 }
 
 
@@ -128,11 +122,11 @@ scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, att
 
 
 # Testing
-#load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
+# load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
 
-test <- data[1:10]
+# test <- data[1:10]
 
-scrapeArchiveUrls(test, XpathHeader = c("//h2"))
+# scrapeArchiveUrls(test, XpathHeader = c("//h2"))
 
 
 
