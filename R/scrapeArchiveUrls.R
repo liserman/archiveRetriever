@@ -62,7 +62,12 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN) {
           }
 
         data <- as.data.frame(data)
-        colnames(data) <- names(Xpaths)
+
+        cnames <- seq(1:length(Xpaths))
+        cnames <- paste0("Xpath", cnames)
+        cnames[names(Xpaths)!=""] <- names(Xpaths)[names(Xpaths)!=""]
+
+        colnames(data) <- cnames
 
 
 
@@ -96,8 +101,6 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN) {
   #### Return output
  return(output)
 }
-
-
 
 
 
