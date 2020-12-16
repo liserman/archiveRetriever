@@ -26,14 +26,15 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, attachto = NaN) {
+scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN) {
 
   #### A priori consistency checks
 
   # Urls müssen mit http anfangen
   if(!any(stringr::str_detect(Urls, "http\\:\\/\\/web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
 
-
+  # Xpath vector sollte Namen haben
+  if(is.null(names(Xpaths))) stop ("Please provide a named vector of Xpaths")
 
 
   #### Main function
@@ -52,37 +53,17 @@ scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, att
       {
         html <- xml2::read_html(Urls[i])
 
-        if(missing(XpathHeader)){
-
-          for (x in 1:length(XpathContent)){
-            #Extract nodes
-            dataContent <- rvest::html_nodes(html, xpath = XpathContent[x])
-            dataContent <- rvest::html_text(dataContent)
-            dataContent <- paste(dataContent, collapse = ' ')
-          }
-
-
-
-          data <- tibble::tibble(content = dataContent)
-
-        }
-
-        if(!missing(XpathHeader)){
+        data <- list()
           #Extract nodes
-          for (x in 1:length(XpathHeader)) {
-            dataHeader <- rvest::html_nodes(html, xpath = XpathHeader[x])
-            dataHeader <- rvest::html_text(dataHeader)
+          for (x in 1:length(Xpaths)) {
+            data[[x]] <- rvest::html_nodes(html, xpath = Xpaths[x])
+            data[[x]] <- rvest::html_text(data[[x]])
+            data[[x]] <- paste(data[[x]], collapse = ' ')
           }
 
-          for (x in 1:length(XpathContent)){
-            dataContent <- rvest::html_nodes(html, xpath = XpathContent[x])
-            dataContent <- rvest::html_text(dataContent)
-            dataContent <- paste(dataContent, collapse = ' ')
-          }
+        data <- as.data.frame(data)
+        colnames(data) <- names(Xpaths)
 
-
-          data <- tibble::tibble(header = dataHeader, content = dataContent)
-        }
 
 
         scrapedUrls[[i]] <- data
@@ -126,7 +107,7 @@ scrapeArchiveUrls <- function(Urls, XpathHeader, XpathContent, startnum = 1, att
 
 # test <- data[1:10]
 
-# scrapeArchiveUrls(test, XpathHeader = c("//h2"))
+# scrapeArchiveUrls(test, Xpaths = c(title = "//h2", content = "//p"))
 
 
 
