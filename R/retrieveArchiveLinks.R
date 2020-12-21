@@ -26,7 +26,7 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   # Check Archive Url input
 
-  stopifnot("Urls need to be Internet Archive Urls" = stringr::str_detect(ArchiveUrls, "^http\\:\\/\\/web\\.archive\\.org") == T)
+  stopifnot("Urls need to be Internet Archive Urls" = stringr::str_detect(ArchiveUrls, "^http.?\\:\\/\\/web\\.archive\\.org") == T)
 
   #Get homepage and top-level-domain
   #(does this always work?) - needs lot of testing!!!
