@@ -1,14 +1,8 @@
 
-# Was für inputs brauchen wir?!
-# Output trotz Fehlermeldung (Alles bis Fehlermeldung)
 
-# Möglichkeit Output zu bestehendem Output zu attachen (falls Abbruch durch Fehlermeldung)
-# Falls attachment dataframe angegeben, Start automatisch ab nächster Url
 
 # Warnung bei großer Anzahl Urls -> Zeitabschätzung
 
-# Error wenn zu viele leere
-# Error wenn nicht alle XPaths
 
 
 ###----------------------------------------------------------------
@@ -26,7 +20,7 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10) {
+scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10) {
 
   #### A priori consistency checks
 
@@ -34,12 +28,23 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiv
   if(!any(stringr::str_detect(Urls, "http.?\\:\\/\\/web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
 
   # Xpath vector sollte Namen haben
-  if(is.null(names(Xpaths))) stop ("Please provide a named vector of Xpaths")
+  if(is.null(names(Paths))) stop ("Please provide a named vector of Xpath or CSS paths")
 
-  # attachto muss output der selben Funktion sein
-  if(!is.nan(attachto) & rownames(attachto)!= c("Urls", names(Xpaths), "progress")) stop ("attachto must be a failed output of this function.")
+  # attachto muss output derselben Funktion sein
+  if(!is.nan(attachto)) if (rownames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
 
-  if(!is.nan(attachto) & attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function.")
+  if(!is.nan(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function.")
+
+  # Warning and wait to proceed if large number of Urls
+  if (length(Urls) >= 100) {
+    message("Warning: You are about to scrape the information from a large number of Urls. This process may take some time. Press \"y\" to proceed.")
+    line <- readline()
+
+    if (line != "y") {stop("Execution halted")}
+
+  }
+
+
 
   #### Main function
 
@@ -70,18 +75,28 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiv
         html <- xml2::read_html(Urls[i])
 
         data <- list()
-          #Extract nodes
-          for (x in 1:length(Xpaths)) {
-            data[[x]] <- rvest::html_nodes(html, xpath = Xpaths[x])
+
+        if (CSS == T) {
+          # Extract nodes
+          for (x in 1:length(Paths)) {
+            data[[x]] <- rvest::html_nodes(html, css = Paths[x])
             data[[x]] <- rvest::html_text(data[[x]])
             data[[x]] <- paste(data[[x]], collapse = ' ')
           }
+        } else {
+          # Extract nodes
+          for (x in 1:length(Paths)) {
+            data[[x]] <- rvest::html_nodes(html, xpath = Paths[x])
+            data[[x]] <- rvest::html_text(data[[x]])
+            data[[x]] <- paste(data[[x]], collapse = ' ')
+          }
+        }
 
         data <- as.data.frame(data)
 
-        cnames <- seq(1:length(Xpaths))
+        cnames <- seq(1:length(Paths))
         cnames <- paste0("Xpath", cnames)
-        cnames[names(Xpaths)!=""] <- names(Xpaths)[names(Xpaths)!=""]
+        cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
 
         colnames(data) <- cnames
 
@@ -103,7 +118,7 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiv
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
 
     # Stop if non-matching number of paths could be extracted
-    if ((sum(stringr::str_length(scrapedUrls[[i]][1:length(Xpaths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Xpaths)]) == 0) != length(Xpaths)) & (ignoreErrors == F)) {
+    if ((sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
 
       # Preliminary output
       predata <- do.call("rbind", scrapedUrls)
@@ -113,7 +128,7 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiv
       predata <- rbind(predata, addempty)
 
       output <- tibble::tibble(Urls, predata, progress = 0)
-      output$progress[1:(i-1)] <- 1
+      output$progress[0:(i-1)] <- 1
 
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Only some of your Paths could be extracted. A preliminary output has been printed."))
       return(output)
@@ -170,11 +185,11 @@ scrapeArchiveUrls <- function(Urls, Xpaths, startnum = 1, attachto = NaN, archiv
 
 
 # Testing
-#load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
+load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
 
-#test <- data[1:10]
+test <- data[1:10]
 
-#scrapeArchiveUrls(test, Xpaths = c(title = "//h2", content = "//p"), emptylim = 2, ignoreErrors = T)
+scrapeArchiveUrls(test, Paths = c(title = "//h2", content = "//p"))
 
 
 
