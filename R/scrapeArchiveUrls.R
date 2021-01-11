@@ -185,11 +185,11 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
 
 # Testing
-load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
+#load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
 
-test <- data[1:10]
+#test <- data[1:10]
 
-scrapeArchiveUrls(test, Paths = c(title = "//h2", content = "//p"))
+#scrapeArchiveUrls(test, Paths = c(title = "//h2", content = "//p"))
 
 
 
