@@ -1,4 +1,8 @@
-# Get an overview of available mementos of the homepage from the Internet Archive
+#' archiveOverview: Getting a first glimpse of mementos available in the Internet Archive
+#'
+#' `archiveOverview` provides an overview of available mementos of the homepage from the Internet Archive
+#'
+#' This functions provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 
 # Importing dependencies with roxygen2
 #' @import anytime
