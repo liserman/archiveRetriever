@@ -12,7 +12,7 @@
 #' @import tibble
 #' @import dplyr
 #' @import ggplot2
-#' @import gridExtra
+#' @importFrom gridExtra grid.arrange
 
 
 
