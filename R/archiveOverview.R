@@ -21,6 +21,9 @@
 
 archiveOverview <- function(homepage, startDate, endDate){
 
+  # Globally bind variables
+  value <- availability <- ddate <- NULL
+
   # Check date inputs
 
   if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date")

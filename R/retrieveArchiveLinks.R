@@ -23,6 +23,9 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   #### A priori consistency checks
 
+  # Globally bind variables
+  value <- NULL
+
 
   # Check Archive Url input
 
