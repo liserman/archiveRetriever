@@ -17,7 +17,6 @@
 
 
 
-
 ### Function --------------------
 
 archiveOverview <- function(homepage, startDate, endDate){
