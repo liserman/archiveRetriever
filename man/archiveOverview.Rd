@@ -6,9 +6,22 @@
 \usage{
 archiveOverview(homepage, startDate, endDate)
 }
+\arguments{
+\item{homepage}{A string of the homepage, including the top-level-domain}
+
+\item{startDate}{A string of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
+
+\item{endDate}{A string of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
+}
+\value{
+This function provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+}
 \description{
 \code{archiveOverview} provides an overview of available mementos of the homepage from the Internet Archive
 }
-\details{
-This functions provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+\examples{
+\dontrun{
+archiveOverview(homepage = "www.spiegel.de", startDate = 20180601, endDate = "20190615")
+archiveOverview(homepage = "nytimes.com", startDate = 01/06/2018, endDate = "15/06/2019")
+}
 }

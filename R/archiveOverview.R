@@ -2,7 +2,16 @@
 #'
 #' `archiveOverview` provides an overview of available mementos of the homepage from the Internet Archive
 #'
-#' This functions provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @param homepage A string of the homepage, including the top-level-domain
+#' @param startDate A string of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#' @param endDate A string of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#'
+#' @return This function provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @examples
+#' \dontrun{
+#' archiveOverview(homepage = "www.spiegel.de", startDate = 20180601, endDate = "20190615")
+#' archiveOverview(homepage = "nytimes.com", startDate = 01/06/2018, endDate = "15/06/2019")
+#' }
 
 
 # Importing dependencies with roxygen2
@@ -153,7 +162,4 @@ archiveOverview <- function(homepage, startDate, endDate){
 
 
 }
-
-
-#weltOverview <- archiveOverview(homepage = "www.welt.de", startDate = 20180601, endDate = "20190615")
 

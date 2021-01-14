@@ -1,4 +1,17 @@
-#Retrieving the mementos of a homepage from the Internet Archive
+#' retrieveArchiveUrls: Retrieving Urls from the Internet Archive
+#'
+#' `retrieveArchiveUrls` retrieves the Urls of mementos stored in the Internet Archive
+#'
+#' @param homepage A string of the homepage, including the top-level-domain
+#' @param startDate A string of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#' @param endDate A string of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#'
+#' @return This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @examples
+#' \dontrun{
+#' retrieveArchiveUrls("www.spiegel.de", "20190801", "20190901")
+#' retrieveArchiveUrls("nytimes.com", startDate = 01/06/2018, endDate = "15/06/2019")
+#' }
 
 # Importing dependencies with roxygen2
 #' @import anytime
@@ -39,16 +52,6 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
 
   #### Main function
 
-  #Extract relevant information from homepage
-
-  #Only needed for full function!!! - Is not being used in this sub-function
-  #TODO:
-  page <- stringr::str_remove(homepage, 'www.|http\\:\\/\\/|https\\:\\/\\/')
-  page <- stringr::str_remove(page, '\\..*')
-
-  tld <- stringr::str_remove_all(homepage, "www.")
-  tld <- stringr::str_remove_all(tld, page)
-
   # Check homepage input
   # consistency checks are really difficult here. How about a test whether there has been any memento being saved in the Archive?   Lukas: Gute Lösung! Scheint auch grundätzlich zu funktionieren.
   ArchiveCheck <- paste0("http://web.archive.org/cdx/search/cdx?url=",homepage,"&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=", "19900101", "&to=", stringr::str_remove_all(lubridate::today(), "\\-"), "&output=json&limit=1")
@@ -86,7 +89,4 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
   return(homepages)
 
 }
-
-#ArchiveUrls <- retrieveArchiveUrls("www.spiegel.de", "20190801", "20190901")
-
 

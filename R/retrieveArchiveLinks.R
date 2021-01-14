@@ -1,4 +1,15 @@
-#Retrieving the Links within a main domain of the Internet Archive
+#' retrieveArchiveLinks: Retrieving Links of Lower-level web pages of mementos from the Internet Archive
+#'
+#' `retrieveArchiveLinks` retrieves the Urls of mementos stored in the Internet Archive
+#'
+#' @param ArchiveUrls A string of the memento of the Internet Archive
+#' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
+#'
+#' @return This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @examples
+#' \dontrun{
+#' retrieveArchiveLinks("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
+#' }
 
 # Importing dependencies with roxygen2
 #' @import stringr
@@ -18,7 +29,7 @@
 
 # Retrieve URLs function
 
-retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
+retrieveArchiveLinks <- function(ArchiveUrls, encoding = "UTF-8"){
 
 
   #### A priori consistency checks
@@ -29,7 +40,7 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
 
   # Check Archive Url input
 
-  stopifnot("Urls need to be Internet Archive Urls" = stringr::str_detect(ArchiveUrls, "^http.?\\:\\/\\/web\\.archive\\.org") == T)
+  stopifnot("Urls need to be Internet Archive Urls.  Please use the retrieveArchiveUrls function to obtain mementos from the Internet Archive." = stringr::str_detect(ArchiveUrls, "^http.?\\:\\/\\/web\\.archive\\.org") == T)
 
   #Get homepage and top-level-domain
   #(does this always work?) - needs lot of testing!!!
@@ -109,5 +120,3 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "latin1"){
   return(dataReturn)
 
 }
-
-#ArchiveLinks <- retrieveArchiveLinks(ArchiveUrls[1])
