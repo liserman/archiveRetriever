@@ -1,12 +1,19 @@
-
-
-
-# Warnung bei großer Anzahl Urls -> Zeitabschätzung
-
-
-
-###----------------------------------------------------------------
-
+#' scrapeArchiveUrls: Scraping Urls from the Internet Archive
+#'
+#' `scrapeArchiveUrls` scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
+#'
+#' @param Urls A string of the memento of the Internet Archive
+#' @param Paths XXX
+#' @param startnum XXX
+#' @param attachto XXX
+#' @param CSS XXX
+#' @param archiveDate XXX
+#' @param ignoreErrors XXX
+#' @param stopatempty XXX
+#' @param emptylim XXX
+#' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
+#'
+#' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 
 # Importing dependencies with roxygen2
 #' @import xml2
