@@ -20,7 +20,7 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10) {
+scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8") {
 
   #### A priori consistency checks
 
@@ -72,7 +72,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
     # Scrape page, using rvest
     tryCatch(
       {
-        html <- xml2::read_html(Urls[i])
+        html <- xml2::read_html(Urls[i], encoding = encoding)
 
         data <- list()
 
