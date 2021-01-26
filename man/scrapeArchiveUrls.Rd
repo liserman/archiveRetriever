@@ -18,23 +18,23 @@ scrapeArchiveUrls(
 )
 }
 \arguments{
-\item{Urls}{A string of the memento of the Internet Archive}
+\item{Urls}{A character vector of the memento of the Internet Archive}
 
-\item{Paths}{XXX}
+\item{Paths}{A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.}
 
-\item{startnum}{XXX}
+\item{startnum}{Specify the starting number for scraping the Urls. Important when scraping breaks during process.}
 
-\item{attachto}{XXX}
+\item{attachto}{Scraper attachs new content to existing object in working memory. Object should stem from same scraping process.}
 
-\item{CSS}{XXX}
+\item{CSS}{Use CSS selectors as input for the Paths}
 
-\item{archiveDate}{XXX}
+\item{archiveDate}{Retrieve the archiving date}
 
-\item{ignoreErrors}{XXX}
+\item{ignoreErrors}{Ignore errors for some Urls and proceed scraping}
 
-\item{stopatempty}{XXX}
+\item{stopatempty}{Stop if scraping does not succeed}
 
-\item{emptylim}{XXX}
+\item{emptylim}{Specify the number of Urls not being scraped until break-off}
 
 \item{encoding}{Specify a default encoding for the homepage. Default is 'UTF-8'}
 }

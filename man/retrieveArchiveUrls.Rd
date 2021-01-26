@@ -7,11 +7,11 @@
 retrieveArchiveUrls(homepage, startDate, endDate)
 }
 \arguments{
-\item{homepage}{A string of the homepage, including the top-level-domain}
+\item{homepage}{A character vector of the homepage, including the top-level-domain}
 
-\item{startDate}{A string of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
+\item{startDate}{A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
 
-\item{endDate}{A string of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
+\item{endDate}{A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
 }
 \value{
 This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
@@ -22,6 +22,6 @@ This function retrieves the mementos of a homepage available from the Internet A
 \examples{
 \dontrun{
 retrieveArchiveUrls("www.spiegel.de", "20190801", "20190901")
-retrieveArchiveUrls("nytimes.com", startDate = 01/06/2018, endDate = "15/06/2019")
+retrieveArchiveUrls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
 }
 }

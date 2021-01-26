@@ -2,15 +2,15 @@
 #'
 #' `scrapeArchiveUrls` scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
 #'
-#' @param Urls A string of the memento of the Internet Archive
-#' @param Paths XXX
-#' @param startnum XXX
-#' @param attachto XXX
-#' @param CSS XXX
-#' @param archiveDate XXX
-#' @param ignoreErrors XXX
-#' @param stopatempty XXX
-#' @param emptylim XXX
+#' @param Urls A character vector of the memento of the Internet Archive
+#' @param Paths A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.
+#' @param startnum Specify the starting number for scraping the Urls. Important when scraping breaks during process.
+#' @param attachto Scraper attachs new content to existing object in working memory. Object should stem from same scraping process.
+#' @param CSS Use CSS selectors as input for the Paths
+#' @param archiveDate Retrieve the archiving date
+#' @param ignoreErrors Ignore errors for some Urls and proceed scraping
+#' @param stopatempty Stop if scraping does not succeed
+#' @param emptylim Specify the number of Urls not being scraped until break-off
 #' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
 #'
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
@@ -32,7 +32,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
   #### A priori consistency checks
 
   # Urls müssen mit http anfangen
-  if(!any(stringr::str_detect(Urls, "http.?\\:\\/\\/web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
+  if(!any(stringr::str_detect(Urls, "web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
 
   # Xpath vector sollte Namen haben
   if(is.null(names(Paths))) stop ("Please provide a named vector of Xpath or CSS paths")
