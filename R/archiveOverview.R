@@ -2,15 +2,15 @@
 #'
 #' `archiveOverview` provides an overview of available mementos of the homepage from the Internet Archive
 #'
-#' @param homepage A string of the homepage, including the top-level-domain
-#' @param startDate A string of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
-#' @param endDate A string of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#' @param homepage A character vector of the homepage, including the top-level-domain
+#' @param startDate A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
+#' @param endDate A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
 #'
 #' @return This function provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 #' @examples
 #' \dontrun{
-#' archiveOverview(homepage = "www.spiegel.de", startDate = 20180601, endDate = "20190615")
-#' archiveOverview(homepage = "nytimes.com", startDate = 01/06/2018, endDate = "15/06/2019")
+#' archiveOverview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
+#' archiveOverview(homepage = "nytimes.com", startDate = "2018-06-01", endDate = "2019-05-01")
 #' }
 
 
@@ -35,6 +35,10 @@ archiveOverview <- function(homepage, startDate, endDate){
 
   # Check date inputs
 
+  if(!is.character(startDate)) stop ("startDate is not a character vector")
+
+  if(!is.character(endDate)) stop ("endDate is not a character vector")
+
   if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date")
 
   if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date")
@@ -51,7 +55,8 @@ archiveOverview <- function(homepage, startDate, endDate){
   endDate <- stringr::str_remove_all(endDate, "\\-")
 
   # Check that domain ending exists
-  if(stringr::str_detect(homepage, "\\..*$") == FALSE) stop ("Please add a top-level-domain to the homepage.")
+  UrlTest <- httr::GET(homepage)
+  if(httr::status_code(UrlTest) != 200) stop ("Please add an existing URL.")
 
   # Check homepage input
   ArchiveCheck <- paste0("http://web.archive.org/cdx/search/cdx?url=",homepage,"&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=", "19900101", "&to=", stringr::str_remove_all(lubridate::today(), "\\-"), "&output=json&limit=1")
@@ -96,10 +101,6 @@ archiveOverview <- function(homepage, startDate, endDate){
 
   dfDates$availability <- "Available"
   dfDates$availability[is.na(dfDates$availableDates)] <- "Not available"
-
-  #Noch zu lösendes Problem: Wie soll der Plot über mehrere Jahre hinweg angezeigt werden?
-    # Vorschlag: grid.arrange? Zumindest bis zu einer bestimmten Anzahl Jahre sollte das ganz gut funktionieren
-    #   Alternative: wir schränken den Zeitraum ein, der gleichzeitig angeschaut werden kann. Wenn Zeitraum zu groß, Fehlermeldung mit Aufforderung Zeitraum zu reduzieren.
 
   if(length(unique(dfDates$year)) == 1){
     p <- ggplot2::ggplot(dfDates, ggplot2::aes(x=week,y=day))+
