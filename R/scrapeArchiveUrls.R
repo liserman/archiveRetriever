@@ -31,16 +31,59 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
   #### A priori consistency checks
 
-  # Urls müssen mit http anfangen
+  # Urls must start with http
   if(!any(stringr::str_detect(Urls, "web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
 
-  # Xpath vector sollte Namen haben
-  if(is.null(names(Paths))) stop ("Please provide a named vector of Xpath or CSS paths")
+  # Xpath vector shall be named vector
+  if(is.null(names(Paths))) stop ("Paths is not a amed vector. Please provide a named vector of Xpath or CSS paths.")
 
-  # attachto muss output derselben Funktion sein
+  # Xpath vector must be a character vector
+  if(!is.character(Paths)) stop ("Paths is not a character vector. Please provide a named character vector of Xpath or CSS paths.")
+
+  # startnum must be a single numerical value in the range of the length of Urls
+  if(!is.numeric(startnum)) stop ("startnum is not a numeric. Please provide a numeric indicating at which Url you want to start the scraping process.")
+
+  if(startnum > length(Urls)) stop ("startnum value exceeds number of Urls given. Please provide a numeric indicating at which Url you want to start the scraping process.")
+
+  if(length(startnum) > 1) stop ("startnum is not a single value. Please provide a single numeric indicating at which Url you want to start the scraping process.")
+
+  # attachto must stem from the same scraping process
   if(!is.nan(attachto)) if (rownames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
 
-  if(!is.nan(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function.")
+  if(!is.nan(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
+
+  # CSS must be logical
+  if(!is.logical(CSS)) stop ("CSS is not a logical value. Please provide TRUE or FALSE.")
+
+  if(length(CSS) > 1) stop ("CSS is not a single value. Please provide TRUE or FALSE.")
+
+  # archiveDate must be logical
+
+  if(!is.logical(archiveDate)) stop ("archiveDate is not a logical value. Please provide TRUE or FALSE.")
+
+  if(length(archiveDate) > 1) stop ("archiveDate is not a single value. Please provide TRUE or FALSE.")
+
+  # ignoreErrors must be logical
+  if(!is.logical(ignoreErrors)) stop ("ignoreErrors is not a logical value. Please provide TRUE or FALSE.")
+
+  if(length(ignoreErrors) > 1) stop ("ignoreErrors is not a single value. Please provide TRUE or FALSE.")
+
+  # stopatempty must be logical
+  if(!is.logical(stopatempty)) stop ("stopatempty is not a logical value. Please provide TRUE or FALSE.")
+
+  if(length(stopatempty) > 1) stop ("stopatempty is not a single value. Please provide TRUE or FALSE.")
+
+
+  # emptylim must be numeric
+  if(!is.numeric(emptylim)) stop ("emptylim is not a numeric. Please provide a numeric value.")
+
+  if(length(emptylim) > 1) stop ("emptylim is not a single value. Please provide a single numeric value.")
+
+  # Encoding must be character
+  if(!is.character(encoding)) stop ("encoding is not a character value. Please provide a character string to indicate the encoding of the homepage you are about to scrape.")
+
+  if(length(encoding) > 1) stop ("encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape.")
+
 
   # Warning and wait to proceed if large number of Urls
   if (length(Urls) >= 100) {
