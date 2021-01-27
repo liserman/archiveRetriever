@@ -42,6 +42,12 @@ retrieveArchiveLinks <- function(ArchiveUrls, encoding = "UTF-8"){
 
   stopifnot("Urls need to be Internet Archive Urls. Please use the retrieveArchiveUrls function to obtain mementos from the Internet Archive." = stringr::str_detect(ArchiveUrls, "web\\.archive\\.org") == T)
 
+
+  # Encoding must be character
+  if(!is.character(encoding)) stop ("encoding is not a character value. Please provide a character string to indicate the encoding of the homepage you are about to scrape.")
+
+  if(length(encoding) > 1) stop ("encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape.")
+
   #Get homepage and top-level-domain
   #(does this always work?) - needs lot of testing!!!
 

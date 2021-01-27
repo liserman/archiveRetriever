@@ -32,17 +32,17 @@ retrieveArchiveUrls <- function(homepage, startDate, endDate){
 
   # Check date inputs
 
-  if(!is.character(startDate)) stop ("startDate is not a character vector")
+  if(!is.character(startDate)) stop ("startDate is not a character vector.")
 
-  if(!is.character(endDate)) stop ("endDate is not a character vector")
+  if(!is.character(endDate)) stop ("endDate is not a character vector.")
 
-  if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date")
+  if(is.na(anytime::anydate(startDate))) stop ("startDate is not a date.")
 
-  if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date")
+  if(is.na(anytime::anydate(endDate))) stop ("endDate is not a date.")
 
-  if(anytime::anydate(startDate) > anytime::anydate(endDate)) stop ("startDate cannot be later than endDate")
+  if(anytime::anydate(startDate) > anytime::anydate(endDate)) stop ("startDate cannot be later than endDate.")
 
-  if(anytime::anydate(endDate) > anytime::anydate(lubridate::today())) stop ("endDate cannot be in the future")
+  if(anytime::anydate(endDate) > anytime::anydate(lubridate::today())) stop ("endDate cannot be in the future.")
 
   startDate <- anytime::anydate(startDate)
   startDate <- stringr::str_remove_all(startDate, "\\-")
