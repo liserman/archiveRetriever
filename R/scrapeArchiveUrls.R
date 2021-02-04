@@ -84,7 +84,6 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
   if(length(encoding) > 1) stop ("encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape.")
 
-
   # Warning and wait to proceed if large number of Urls
   if (length(Urls) >= 100) {
     message("Warning: You are about to scrape the information from a large number of Urls. This process may take some time. Press \"y\" to proceed.")
@@ -93,7 +92,6 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
     if (line != "y") {stop("Execution halted")}
 
   }
-
 
 
   #### Main function
@@ -118,6 +116,11 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
   # Loop over all Urls
   for (i in startnum:length(Urls)) {
+
+    # Sys.sleep
+    if((i > startnum) & ((i-startnum)%%50 == 0)) {
+      Sys.sleep(10)
+    }
 
     # Scrape page, using rvest
     tryCatch(
