@@ -125,7 +125,10 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
     # Scrape page, using rvest
     tryCatch(
       {
+
+
         html <- xml2::read_html(Urls[i], encoding = encoding)
+
 
         data <- list()
 
@@ -157,6 +160,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
         scrapedUrls[[i]] <- data
 
+
         # Counter for empty outputs in a row
         if (i == 1) counter <- 0
 
@@ -167,15 +171,17 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
         }
 
 
+
       },
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
 
+
     # Stop if non-matching number of paths could be extracted
-    if ((sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
+    if ((is.null(scrapedUrls[[i]])) | (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
 
       # Preliminary output
       predata <- do.call("rbind", scrapedUrls)
-      addempty <- data.frame(matrix(nrow = length(Urls)-i, ncol = ncol(predata)))
+      addempty <- data.frame(matrix(nrow = length(Urls) - i + 1, ncol = ncol(predata)))
       names(addempty) <- names(predata)
 
       predata <- rbind(predata, addempty)
@@ -188,13 +194,12 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
     }
 
 
-
     # Stop if too many empty outputs in a row
     if (counter >= emptylim & stopatempty == T & ignoreErrors == F) {
 
       # Preliminary output
       predata <- do.call("rbind", scrapedUrls)
-      addempty <- data.frame(matrix(nrow = length(Urls)-i, ncol = ncol(predata)))
+      addempty <- data.frame(matrix(nrow = length(Urls)-i + 1, ncol = ncol(predata)))
       names(addempty) <- names(predata)
 
       predata <- rbind(predata, addempty)
@@ -205,6 +210,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Too many empty outputs in a row. A preliminary output has been printed."))
       return(output)
     }
+
 
     # Progress message
     setTxtProgressBar(pb, i)

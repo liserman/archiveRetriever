@@ -118,7 +118,7 @@ scrapeArchiveUrls(test, Paths = c(title = "//article//h1", content = "//article/
 load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/DE/taz/taz_2019-5.RData")
 test <- data[470:480]
 test #(er: Tibble columns must have compatible sizes.)
-scrapeArchiveUrls(test, Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"), ignoreErrors = T, encoding = "bytes")
+scrapeArchiveUrls(test, Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"), ignoreErrors = F, encoding = "bytes")
 # ==> Fehler: Tibble columns must have compatible sizes.
 
 scrapeArchiveUrls("http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/notizie/2015-06-08/le-razze-italiane-piccolo-levriero-italiano-204436.shtml", Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //article/div[@class='article-content ']/div/div/div//p//text() | //div[@class='aentry aentry--lined']//p//text())"), ignoreErrors = T, encoding = "bytes")
