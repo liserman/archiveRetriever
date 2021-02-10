@@ -122,6 +122,20 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
       Sys.sleep(10)
     }
 
+
+
+    # Avoid Urls that cannot be retrieved
+    possibleError <- tryCatch(
+        r <- httr::GET(Urls[i]),
+        error = function(e) e
+      )
+
+      if(inherits(possibleError, "error")) next
+
+      status <- httr::status_code(r)
+      if(status == 200){
+
+
     # Scrape page, using rvest
     tryCatch(
       {
@@ -174,7 +188,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
       },
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
-
+      }
 
     # Stop if non-matching number of paths could be extracted
     if ((is.null(scrapedUrls[[i]])) | (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
