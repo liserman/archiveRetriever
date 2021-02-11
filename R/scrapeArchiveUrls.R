@@ -191,7 +191,6 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
       }
 
 
-    ####SOLVE THIS ISSUE
     if(is.null(scrapedUrls[[i]])){
       scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
 
