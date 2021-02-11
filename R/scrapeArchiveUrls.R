@@ -190,17 +190,31 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
       error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
       }
 
+
+    ####SOLVE THIS ISSUE
+    if(is.null(scrapedUrls[[i]])){
+      scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
+
+      cnames <- seq(1:length(Paths))
+      cnames <- paste0("Xpath", cnames)
+      cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
+
+      colnames(scrapedUrls[[i]]) <- cnames
+
+    }
+
+
+
     # Stop if non-matching number of paths could be extracted
-    if ((is.null(scrapedUrls[[i]])) | (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
+    if ((sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != 0) & (sum(stringr::str_length(scrapedUrls[[i]][1:length(Paths)]) == 0) != length(Paths)) & (ignoreErrors == F)) {
 
       # Preliminary output
+
       predata <- do.call("rbind", scrapedUrls)
-      addempty <- data.frame(matrix(nrow = length(Urls) - i + 1, ncol = ncol(predata)))
-      names(addempty) <- names(predata)
 
-      predata <- rbind(predata, addempty)
+      UrlsBind <- Urls[startnum:nrow(predata)]
 
-      output <- tibble::tibble(Urls, predata, progress = 0)
+      output <- tibble::tibble(UrlsBind, predata, progress = 0)
       output$progress[0:(i-1)] <- 1
 
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Only some of your Paths could be extracted. A preliminary output has been printed."))
@@ -212,13 +226,12 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
     if (counter >= emptylim & stopatempty == T & ignoreErrors == F) {
 
       # Preliminary output
+
       predata <- do.call("rbind", scrapedUrls)
-      addempty <- data.frame(matrix(nrow = length(Urls)-i + 1, ncol = ncol(predata)))
-      names(addempty) <- names(predata)
 
-      predata <- rbind(predata, addempty)
+      UrlsBind <- Urls[startnum:nrow(predata)]
 
-      output <- tibble::tibble(Urls, predata, progress = 0)
+      output <- tibble::tibble(UrlsBind, predata, progress = 0)
       output$progress[0:(i-emptylim)] <- 1
 
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Too many empty outputs in a row. A preliminary output has been printed."))
@@ -235,8 +248,11 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
 
   # Generate output dataframe
+
   output <- do.call("rbind", scrapedUrls)
-  output <- tibble::tibble(Urls, output)
+
+  UrlsBind <- Urls[startnum:nrow(output)]
+  output <- tibble::tibble(UrlsBind, output)
 
   if (archiveDate == T){
     output$archiveDate <- anytime::anydate(stringr::str_extract(output$Urls, "(?<=\\:\\/\\/web\\.archive\\.org\\/web\\/)[0-9]{8}"))
@@ -253,17 +269,5 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
   #### Return output
  return(output)
 }
-
-
-
-
-# Testing
-#load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/corriere/corriere_2020-5.RData")
-
-#test <- data[1:10]
-
-#scrapeArchiveUrls(test, Paths = c(title = "//h2", content = "//p"))
-
-
 
 

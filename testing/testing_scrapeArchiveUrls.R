@@ -137,7 +137,7 @@ scrapeArchiveUrls("http://web.archive.org/web/20190528072311/https://www.taz.de/
 load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/IT/ilsole24ore/ilsole24ore_2017-1.RData")
 test <- data[15465:15470]
 test
-scrapeArchiveUrls(test, Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //div[@class='aentry aentry--lined']//p//text() | //div[@class='entry entry-indent relative no_h']/p//text() | //div[@class='entry relative']/p//text())"), startnum = 3, encoding = "bytes")
+scrapeArchiveUrls(test, Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //div[@class='aentry aentry--lined']//p//text() | //div[@class='entry entry-indent relative no_h']/p//text() | //div[@class='entry relative']/p//text())"), startnum = 2, encoding = "bytes")
 # ==> Fehler: Tibble columns must have compatible sizes.
 
 load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/DE/taz/taz_2019-5.RData")
