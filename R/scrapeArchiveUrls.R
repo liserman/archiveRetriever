@@ -48,7 +48,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
   if(length(startnum) > 1) stop ("startnum is not a single value. Please provide a single numeric indicating at which Url you want to start the scraping process.")
 
   # attachto must stem from the same scraping process
-  if(!is.nan(attachto)) if (rownames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
+  if(!is.nan(attachto)) if (colnames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
 
   if(!is.nan(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
 
