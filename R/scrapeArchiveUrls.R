@@ -109,7 +109,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
 
   # Start if attachto is used
   if(!is.null(attachto)) {
-    startnum <- sum(attachto$progress) + 1
+    #startnum <- sum(attachto$progress) + 1
 
     scrapedUrls <- split(attachto[1:sum(attachto$progress), 2:(ncol(attachto)-1)], seq(1:sum(attachto$progress)))
     length(scrapedUrls) <- length(Urls)
