@@ -224,9 +224,9 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
       predata <- do.call("rbind", scrapedUrls)
 
-      UrlsBind <- Urls[startnum:nrow(predata)]
+      Urls <- Urls[1:nrow(predata)]
 
-      output <- tibble::tibble(UrlsBind, predata, progress = 0)
+      output <- tibble::tibble(Urls, predata, progress = 0)
       output$progress[0:(i-1)] <- 1
 
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Only some of your Paths could be extracted. A preliminary output has been printed."))
@@ -241,9 +241,9 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
       predata <- do.call("rbind", scrapedUrls)
 
-      UrlsBind <- Urls[startnum:nrow(predata)]
+      Urls <- Urls[1:nrow(predata)]
 
-      output <- tibble::tibble(UrlsBind, predata, progress = 0)
+      output <- tibble::tibble(Urls, predata, progress = 0)
       output$progress[0:(i-emptylim)] <- 1
 
       warning(paste0("Error in scraping of Url ", i, " '", Urls[i], "'. Too many empty outputs in a row. A preliminary output has been printed."))
@@ -263,8 +263,8 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
   output <- do.call("rbind", scrapedUrls)
 
-  UrlsBind <- Urls[startnum:nrow(output)]
-  output <- tibble::tibble(UrlsBind, output)
+  Urls <- Urls[1:nrow(output)]
+  output <- tibble::tibble(Urls, output)
 
   if (archiveDate == T){
     output$archiveDate <- anytime::anydate(stringr::str_extract(output$Urls, "(?<=\\:\\/\\/web\\.archive\\.org\\/web\\/)[0-9]{8}"))
