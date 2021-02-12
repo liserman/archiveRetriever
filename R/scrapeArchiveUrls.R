@@ -114,6 +114,19 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
   }
 
 
+  if(startnum > 1){
+    for(i in 1:(startnum - 1)){
+      scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
+
+      cnames <- seq(1:length(Paths))
+      cnames <- paste0("Xpath", cnames)
+      cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
+
+      colnames(scrapedUrls[[i]]) <- cnames
+    }
+  }
+
+
   # Loop over all Urls
   for (i in startnum:length(Urls)) {
 
