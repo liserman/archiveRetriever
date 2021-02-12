@@ -27,7 +27,7 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8") {
+scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8") {
 
   #### A priori consistency checks
 
@@ -48,9 +48,11 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
   if(length(startnum) > 1) stop ("startnum is not a single value. Please provide a single numeric indicating at which Url you want to start the scraping process.")
 
   # attachto must stem from the same scraping process
-  if(!is.nan(attachto)) if (colnames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
+  if(!is.null(attachto)) if (colnames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
 
-  if(!is.nan(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
+
+  #TODO: Die Fehlermeldung funktioniert nicht, da das attachto File immer kürzer ist als das Url Objekt
+  if(!is.null(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
 
   # CSS must be logical
   if(!is.logical(CSS)) stop ("CSS is not a logical value. Please provide TRUE or FALSE.")
@@ -106,7 +108,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
 
   # Start if attachto is used
-  if(!is.nan(attachto)) {
+  if(!is.null(attachto)) {
     startnum <- sum(attachto$progress) + 1
 
     scrapedUrls <- split(attachto[1:sum(attachto$progress), 2:(ncol(attachto)-1)], seq(1:sum(attachto$progress)))
@@ -116,13 +118,15 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NaN, CSS = F
 
   if(startnum > 1){
     for(i in 1:(startnum - 1)){
-      scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
+      if(is.null(scrapedUrls[[i]])){
+        scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
 
-      cnames <- seq(1:length(Paths))
-      cnames <- paste0("Xpath", cnames)
-      cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
+        cnames <- seq(1:length(Paths))
+        cnames <- paste0("Xpath", cnames)
+        cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
 
-      colnames(scrapedUrls[[i]]) <- cnames
+        colnames(scrapedUrls[[i]]) <- cnames
+      }
     }
   }
 
