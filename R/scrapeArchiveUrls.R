@@ -135,8 +135,8 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
   for (i in startnum:length(Urls)) {
 
     # Sys.sleep
-    if((i > startnum) & ((i-startnum)%%50 == 0)) {
-      Sys.sleep(10)
+    if((i > startnum) & ((i-startnum)%%20 == 0)) {
+      Sys.sleep(abs(rnorm(1, 5, 2)))
     }
 
 
