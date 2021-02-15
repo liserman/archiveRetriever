@@ -12,6 +12,7 @@
 #' @param stopatempty Stop if scraping does not succeed
 #' @param emptylim Specify the number of Urls not being scraped until break-off
 #' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
+#' @param lengthwarning Warning function for large number of URLs appears. Set FALSE to disable default warning.
 #'
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 
@@ -20,6 +21,7 @@
 #' @import rvest
 #' @import stringr
 #' @import tibble
+#' @importFrom stats rnorm
 
 
 
@@ -27,7 +29,7 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8") {
+scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8", lengthwarning = T) {
 
   #### A priori consistency checks
 
@@ -87,8 +89,8 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
   if(length(encoding) > 1) stop ("encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape.")
 
   # Warning and wait to proceed if large number of Urls
-  if (length(Urls) >= 100) {
-    message("Warning: You are about to scrape the information from a large number of Urls. This process may take some time. Press \"y\" to proceed.")
+  if (length(Urls) >= 100 & lengthwarning != FALSE) {
+    message("Warning: You are about to scrape the information from a large number of Urls. This process may take some time. Press \"y\" to proceed. \n For automated processes using a virtual machine disable this warning message with the option lengthwarning = F")
     line <- readline()
 
     if (line != "y") {stop("Execution halted")}

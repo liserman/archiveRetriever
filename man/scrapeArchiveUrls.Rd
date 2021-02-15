@@ -8,13 +8,14 @@ scrapeArchiveUrls(
   Urls,
   Paths,
   startnum = 1,
-  attachto = NaN,
+  attachto = NULL,
   CSS = F,
   archiveDate = F,
   ignoreErrors = F,
   stopatempty = T,
   emptylim = 10,
-  encoding = "UTF-8"
+  encoding = "UTF-8",
+  lengthwarning = T
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ scrapeArchiveUrls(
 \item{emptylim}{Specify the number of Urls not being scraped until break-off}
 
 \item{encoding}{Specify a default encoding for the homepage. Default is 'UTF-8'}
+
+\item{lengthwarning}{Warning function for large number of URLs appears. Set FALSE to disable default warning.}
 }
 \value{
 This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
