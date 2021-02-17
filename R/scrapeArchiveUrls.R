@@ -52,9 +52,11 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
   # attachto must stem from the same scraping process
   if(!is.null(attachto)) if (colnames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
 
+  checkAttachtoUrl <- attachto$Urls[1]
+  checkUrl <- Urls[1]
 
   #TODO: Die Fehlermeldung funktioniert nicht, da das attachto File immer kürzer ist als das Url Objekt
-  if(!is.null(attachto)) if (attachto$Urls != Urls) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
+  if(!is.null(attachto)) if (checkAttachtoUrl != checkUrl) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
 
   # CSS must be logical
   if(!is.logical(CSS)) stop ("CSS is not a logical value. Please provide TRUE or FALSE.")
@@ -111,7 +113,6 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
 
   # Start if attachto is used
   if(!is.null(attachto)) {
-    #startnum <- sum(attachto$progress) + 1
 
     scrapedUrls <- split(attachto[1:sum(attachto$progress), 2:(ncol(attachto)-1)], seq(1:sum(attachto$progress)))
     length(scrapedUrls) <- length(Urls)
