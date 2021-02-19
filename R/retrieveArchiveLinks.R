@@ -20,9 +20,8 @@
 #' @import tidyr
 #' @importFrom utils setTxtProgressBar txtProgressBar
 
-
-
-
+# Export function
+#' @export
 
 
 ### Function --------------------

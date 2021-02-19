@@ -19,8 +19,8 @@
 #' @import lubridate
 #' @import jsonlite
 
-
-
+# Export function
+#' @export
 
 ### Function --------------------
 

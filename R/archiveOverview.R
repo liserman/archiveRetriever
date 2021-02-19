@@ -24,6 +24,8 @@
 #' @import ggplot2
 #' @importFrom gridExtra grid.arrange
 
+# Export function
+#' @export
 
 
 ### Function --------------------

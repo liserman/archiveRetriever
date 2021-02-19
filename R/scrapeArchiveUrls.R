@@ -23,7 +23,8 @@
 #' @import tibble
 #' @importFrom stats rnorm
 
-
+# Export function to namespace
+#' @export
 
 
 
