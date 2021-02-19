@@ -87,8 +87,11 @@ scrapeArchiveUrls("http://web.archive.org/web/20210121055015/https://twitter.com
 
 ### DATENOUTPUT TROTZ FEHLERMELDUNG
 ### ATTACHTO
+load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/DE/taz/taz_2019-1.RData")
 
+dataArticles <- data[stringr::str_detect(data, "\\/\\!\\d+\\/$")]
 
+test <- scrapeArchiveUrls(sample(dataArticles,50), Paths = c(content = "(//article/div[@class='entry-content']/p//text() | //*[@class='sectbody']/p[contains(@class, 'article')]//text() | //div[@id='zahl-ich-target']/article/p//text())"), stopatempty = F, encoding = "bytes")
 
 ### VERSCH WERTE EMPTYLIM
 load("L:/Hiwi/Marcel/Webscraping/Raw Data/fullUrls/DE/taz/taz_2019-5.RData")
