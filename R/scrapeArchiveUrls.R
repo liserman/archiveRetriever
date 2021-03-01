@@ -147,7 +147,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
 
     # Avoid Urls that cannot be retrieved
     possibleError <- tryCatch(
-        r <- httr::GET(Urls[i], timeout(5)),
+        r <- httr::GET(Urls[i], httr::timeout(5)),
         error = function(e) e
       )
 
