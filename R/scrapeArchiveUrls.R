@@ -151,7 +151,16 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
         error = function(e) e
       )
 
-      if(inherits(possibleError, "error")) next
+      if(inherits(possibleError, "error")){
+        scrapedUrls[[i]] <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
+
+        cnames <- seq(1:length(Paths))
+        cnames <- paste0("Xpath", cnames)
+        cnames[names(Paths)!=""] <- names(Paths)[names(Paths)!=""]
+
+        colnames(scrapedUrls[[i]]) <- cnames
+        next
+      }
 
       status <- httr::status_code(r)
       if(status == 200){
