@@ -34,3 +34,5 @@ Imports:
   tidyr,
   utils,
   gridExtra
+Suggests: 
+    testthat
