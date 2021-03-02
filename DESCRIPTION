@@ -1,6 +1,6 @@
 Package: archiveRetriever
 Title: Retrieve Archived Web Pages from the Internet Archive
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Konstantin",
            family = "Gavras",
@@ -16,6 +16,7 @@ Description: The archiveRetriever package allows user to scrape content from arc
     Using this package, users are able to get an overview of the mementos available from the homepage, retrieve the respective Urls and links and finally scrape the content.
     The final output is stored in tidy tibbles, which can be then easily used for further analysis.
 License: Apache License (>= 2.0)
+URL: https://github.com/liserman/archiveRetriever/
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
