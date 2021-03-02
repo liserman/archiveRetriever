@@ -38,7 +38,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
   if(!any(stringr::str_detect(Urls, "web\\.archive\\.org"))) stop ("Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive.")
 
   # Xpath vector shall be named vector
-  if(is.null(names(Paths))) stop ("Paths is not a amed vector. Please provide a named vector of Xpath or CSS paths.")
+  if(is.null(names(Paths))) stop ("Paths is not a named vector. Please provide a named vector of Xpath or CSS paths.")
 
   # Xpath vector must be a character vector
   if(!is.character(Paths)) stop ("Paths is not a character vector. Please provide a named character vector of Xpath or CSS paths.")
