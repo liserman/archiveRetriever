@@ -11,7 +11,7 @@ Authors@R:
            family = "Isermann",
            role = c("aut", "cre"),
            email = "lukas.isermann@mzes.uni-mannheim.de",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302"))
 Description: The archiveRetriever package allows user to scrape content from archived web pages stored the Internet Archive using a systematic workflow.
     Using this package, users are able to get an overview of the mementos available from the homepage, retrieve the respective Urls and links and finally scrape the content.
     The final output is stored in tidy tibbles, which can be then easily used for further analysis.
