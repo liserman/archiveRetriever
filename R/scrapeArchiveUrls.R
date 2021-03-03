@@ -17,10 +17,13 @@
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 
 # Importing dependencies with roxygen2
-#' @import xml2
-#' @import rvest
-#' @import stringr
-#' @import tibble
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_nodes
+#' @importFrom rvest html_text
+#' @importFrom stringr str_detect
+#' @importFrom stringr str_extract
+#' @importFrom stringr str_length
+#' @importFrom tibble tibble
 #' @importFrom stats rnorm
 
 # Export function to namespace

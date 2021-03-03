@@ -15,11 +15,12 @@
 
 
 # Importing dependencies with roxygen2
-#' @import anytime
-#' @import stringr
+#' @importFrom anytime anydate
+#' @importFrom stringr str_remove_all
+#' @importFrom stringr str_sub
 #' @import lubridate
-#' @import jsonlite
-#' @import tibble
+#' @importFROM jsonlite fromJSON
+#' @importFROM tibble as_tibble
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom gridExtra grid.arrange

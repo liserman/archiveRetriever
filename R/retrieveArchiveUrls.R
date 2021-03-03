@@ -14,10 +14,10 @@
 #' }
 
 # Importing dependencies with roxygen2
-#' @import anytime
-#' @import stringr
-#' @import lubridate
-#' @import jsonlite
+#' @importFrom anytime anydate
+#' @importFrom stringr str_remove_all
+#' @importFrom lubridate today
+#' @importFrom jsonlite fromJSON
 
 # Export function
 #' @export

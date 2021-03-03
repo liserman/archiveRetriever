@@ -12,12 +12,16 @@
 #' }
 
 # Importing dependencies with roxygen2
-#' @import stringr
-#' @import httr
-#' @import xml2
-#' @import rvest
-#' @import tibble
-#' @import tidyr
+#' @importFrom  stringr str_detect
+#' @importFrom stringr str_extract
+#' @importFrom stringr str_remove_all
+#' @importFrom  httr GET
+#' @importFrom httr status_code
+#' @importFrom xml2 read_html
+#' @importFrom  rvest html_nodes
+#' @importFrom rvest html_attr
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest
 #' @importFrom utils setTxtProgressBar txtProgressBar
 
 # Export function
