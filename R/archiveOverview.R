@@ -68,14 +68,9 @@ archiveOverview <- function(homepage, startDate, endDate){
 
   urlArchive <- paste0("http://web.archive.org/cdx/search/cdx?url=",homepage,"&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=", startDate, "&to=", endDate, "&output=json&limit=1")
 
-  tryCatch({
-    url_from_json <- as.data.frame(jsonlite::fromJSON(urlArchive))
-
-    names(url_from_json) <- lapply(url_from_json[1,], as.character)
-
-    url_from_json <- url_from_json[-1,]
-
-  }, error=function(e){cat("ERROR :", conditionMessage(e), "\n")})
+  url_from_json <- as.data.frame(jsonlite::fromJSON(urlArchive))
+  names(url_from_json) <- lapply(url_from_json[1,], as.character)
+  url_from_json <- url_from_json[-1,]
 
   collectDates <- url_from_json$timestamp
   collectDates <- stringr::str_sub(collectDates, 1, 8)
