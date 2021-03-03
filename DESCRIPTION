@@ -1,7 +1,7 @@
 Package: archiveRetriever
 Title: Retrieve Archived Web Pages from the Internet Archive
 Version: 0.0.1
-Authors@R: 
+Authors@R: c(
     person(given = "Konstantin",
            family = "Gavras",
            role = c("aut", "cre"),
@@ -12,6 +12,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lukas.isermann@mzes.uni-mannheim.de",
            comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302"))
+           )
 Description: The archiveRetriever package allows user to scrape content from archived web pages stored the Internet Archive using a systematic workflow. Using this package, users are able to get an overview of the mementos available from the homepage, retrieve the respective Urls and links and finally scrape the content. The final output is stored in tidy tibbles, which can be then easily used for further analysis.
 License: Apache License (>= 2.0)
 URL: https://github.com/liserman/archiveRetriever/
