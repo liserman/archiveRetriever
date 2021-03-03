@@ -4,15 +4,14 @@ Version: 0.0.1
 Authors@R: c(
     person(given = "Konstantin",
            family = "Gavras",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "konstantin.gavras@uni-mannheim.de",
-           comment = c(ORCID = "https://orcid.org/0000-0002-9222-0101"))
+           comment = c(ORCID = "https://orcid.org/0000-0002-9222-0101")),
     person(given = "Lukas",
            family = "Isermann",
            role = c("aut", "cre"),
            email = "lukas.isermann@mzes.uni-mannheim.de",
-           comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302"))
-           )
+           comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302")))
 Description: The archiveRetriever package allows user to scrape content from archived web pages stored the Internet Archive using a systematic workflow. Using this package, users are able to get an overview of the mementos available from the homepage, retrieve the respective Urls and links and finally scrape the content. The final output is stored in tidy tibbles, which can be then easily used for further analysis.
 License: Apache License (>= 2.0)
 URL: https://github.com/liserman/archiveRetriever/
