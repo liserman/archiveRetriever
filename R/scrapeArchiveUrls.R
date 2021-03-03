@@ -44,19 +44,18 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
   if(!is.character(Paths)) stop ("Paths is not a character vector. Please provide a named character vector of Xpath or CSS paths.")
 
   # startnum must be a single numerical value in the range of the length of Urls
-  if(!is.numeric(startnum)) stop ("startnum is not a numeric. Please provide a numeric indicating at which Url you want to start the scraping process.")
-
-  if(startnum > length(Urls)) stop ("startnum value exceeds number of Urls given. Please provide a numeric indicating at which Url you want to start the scraping process.")
+  if(!is.numeric(startnum)) stop ("startnum is not numeric. Please provide a numeric indicating at which Url you want to start the scraping process.")
 
   if(length(startnum) > 1) stop ("startnum is not a single value. Please provide a single numeric indicating at which Url you want to start the scraping process.")
 
+  if(startnum > length(Urls)) stop ("startnum value exceeds number of Urls given. Please provide a numeric indicating at which Url you want to start the scraping process.")
+
   # attachto must stem from the same scraping process
-  if(!is.null(attachto)) if (colnames(attachto)!= c("Urls", names(Paths), "progress")) stop ("attachto must be a failed output of this function.")
+  if(!is.null(attachto)) if (setequal(colnames(attachto), c("Urls", names(Paths), "progress")) == F) stop ("attachto must be a failed output of this function.")
 
   checkAttachtoUrl <- attachto$Urls[1]
   checkUrl <- Urls[1]
 
-  #TODO: Die Fehlermeldung funktioniert nicht, da das attachto File immer kürzer ist als das Url Objekt
   if(!is.null(attachto)) if (checkAttachtoUrl != checkUrl) stop ("Input Urls and Urls in attachto file differ. Please note that the attachto file can only be used for attaching failed output from the same function and scraping process.")
 
   # CSS must be logical
@@ -82,7 +81,7 @@ scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = 
 
 
   # emptylim must be numeric
-  if(!is.numeric(emptylim)) stop ("emptylim is not a numeric. Please provide a numeric value.")
+  if(!is.numeric(emptylim)) stop ("emptylim is not numeric. Please provide a numeric value.")
 
   if(length(emptylim) > 1) stop ("emptylim is not a single value. Please provide a single numeric value.")
 
