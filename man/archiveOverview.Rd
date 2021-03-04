@@ -14,7 +14,7 @@ archiveOverview(homepage, startDate, endDate)
 \item{endDate}{A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
 }
 \value{
-This function provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+This function provides an overview of mementos available from the Internet Archive. It returns a calendar indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 }
 \description{
 \code{archiveOverview} provides an overview of available mementos of the homepage from the Internet Archive

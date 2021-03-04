@@ -19,8 +19,8 @@
 #' @importFrom stringr str_remove_all
 #' @importFrom stringr str_sub
 #' @import lubridate
-#' @importFROM jsonlite fromJSON
-#' @importFROM tibble as_tibble
+#' @importFrom jsonlite fromJSON
+#' @importFrom tibble as_tibble
 #' @import dplyr
 #' @import ggplot2
 #' @importFrom gridExtra grid.arrange
