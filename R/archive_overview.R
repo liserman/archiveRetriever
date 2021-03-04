@@ -159,6 +159,4 @@ archive_overview <- function(homepage, startDate, endDate){
 
   }
 
-
 }
-

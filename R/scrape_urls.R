@@ -269,14 +269,10 @@ scrape_urls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, arc
       return(output)
     }
 
-
     # Progress message
     setTxtProgressBar(pb, i)
 
   }
-
-
-
 
   # Generate output dataframe
 
@@ -289,16 +285,6 @@ scrape_urls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, arc
     output$archiveDate <- anytime::anydate(stringr::str_extract(output$Urls, "(?<=\\:\\/\\/web\\.archive\\.org\\/web\\/)[0-9]{8}"))
   }
 
-  #### A posteriori consistency checks
-
-
-
-
-
-
-
   #### Return output
  return(output)
 }
-
-

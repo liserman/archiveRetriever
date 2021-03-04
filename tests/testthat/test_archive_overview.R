@@ -62,4 +62,3 @@ test_that("archive_overview() needs homepage to be saved in the Internet Archive
 test_that("archive_overview() needs homepage with status 200", {
   expect_error(archive_overview("https://www.sowi.uni-mannheim.de/schoen/team/akademische-mitarbeiterinnen-und-mitarbeiter/gavras-konstantin/", "2016-01-01", "2016-05-31"), "Please add an existing URL")
 })
-

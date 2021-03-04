@@ -49,5 +49,3 @@ test_that("retrieve_urls() needs homepage to be saved in the Internet Archive", 
 test_that("retrieve_urls() needs homepage with status 200", {
   expect_error(retrieve_urls("https://www.sowi.uni-mannheim.de/schoen/team/akademische-mitarbeiterinnen-und-mitarbeiter/gavras-konstantin/", "2016-01-01", "2016-05-31"), "Please add an existing URL")
 })
-
-

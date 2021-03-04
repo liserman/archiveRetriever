@@ -76,16 +76,8 @@ retrieve_urls <- function(homepage, startDate, endDate){
   }
   homepages <- homep
 
-
-
-
-  #### A posteriori consistency checks
-
-
-
   #### Return output
 
   return(homepages)
 
 }
-

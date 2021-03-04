@@ -120,10 +120,6 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8"){
 
   names(dataReturn) <- c("baseUrl", "links")
 
-  #### A posteriori consistency checks
-
-
-
   #### Return output
 
   return(dataReturn)

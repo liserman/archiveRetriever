@@ -248,6 +248,3 @@ test_that("scrape_urls() needs to sleep every 20 Urls", {
                                 "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"), c(title = "//header//h1"))
   expect_equal(nrow(output), 21)
 })
-
-
-
