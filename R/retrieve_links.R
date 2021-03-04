@@ -32,9 +32,7 @@
 
 # Retrieve URLs function
 
-retrieve_links <- function(ArchiveUrls, encoding = "UTF-8"){
-
-
+retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
   #### A priori consistency checks
 
   # Globally bind variables
@@ -43,19 +41,29 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8"){
 
   # Check Archive Url input
 
-  stopifnot("Urls need to be Internet Archive Urls. Please use the retrieve_urls function to obtain mementos from the Internet Archive." = stringr::str_detect(ArchiveUrls, "web\\.archive\\.org") == T)
+  stopifnot(
+    "Urls need to be Internet Archive Urls. Please use the retrieve_urls function to obtain mementos from the Internet Archive." = stringr::str_detect(ArchiveUrls, "web\\.archive\\.org") == T
+  )
 
 
   # Encoding must be character
-  if(!is.character(encoding)) stop ("encoding is not a character value. Please provide a character string to indicate the encoding of the homepage you are about to scrape.")
+  if (!is.character(encoding))
+    stop (
+      "encoding is not a character value. Please provide a character string to indicate the encoding of the homepage you are about to scrape."
+    )
 
-  if(length(encoding) > 1) stop ("encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape.")
+  if (length(encoding) > 1)
+    stop (
+      "encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape."
+    )
 
   #Get homepage and top-level-domain
   #(does this always work?) - needs lot of testing!!!
 
-  extracting <- stringr::str_extract(ArchiveUrls, '\\/http.*\\..*\\/$')
-  extracting <- stringr::str_remove_all(extracting, 'www.|http\\:\\/\\/|https\\:\\/\\/')
+  extracting <-
+    stringr::str_extract(ArchiveUrls, '\\/http.*\\..*\\/$')
+  extracting <-
+    stringr::str_remove_all(extracting, 'www.|http\\:\\/\\/|https\\:\\/\\/')
   extracting <- stringr::str_remove_all(extracting, '\\/|\\:.*')
 
   page <- stringr::str_extract(extracting, '^.*\\.')
@@ -66,34 +74,42 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8"){
   #### Main function
 
   fullUrls <- list()
-  pb <- txtProgressBar(min = 0, max = length(ArchiveUrls), style = 3)
+  pb <-
+    txtProgressBar(min = 0,
+                   max = length(ArchiveUrls),
+                   style = 3)
 
-  for(i in 1:length(ArchiveUrls)){
+  for (i in seq_len(length(ArchiveUrls))) {
     possibleError <- tryCatch(
       r <- httr::GET(ArchiveUrls[i]),
-      error = function(e) e
+      error = function(e)
+        e
     )
 
-    if(inherits(possibleError, "error")) next
+    if (inherits(possibleError, "error"))
+      next
 
     status <- httr::status_code(r)
-    if(status == 200){
+    if (status == 200) {
       paper_html <- xml2::read_html(ArchiveUrls[i], encoding = encoding)
 
       paper_urls <- rvest::html_nodes(paper_html, "a")
       paper_urls <- rvest::html_attr(paper_urls, "href")
-      paper_urls <- paper_urls[grepl(paste0(page[i],"\\.", tld[i]), paper_urls)]
+      paper_urls <-
+        paper_urls[grepl(paste0(page[i], "\\.", tld[i]), paper_urls)]
 
       paper_urlsFinal <- list()
 
-      if(length(paper_urls)>0){
-        for(j in 1:length(paper_urls)){
-          if(!grepl("http://web.archive.org", paper_urls[j]) & grepl("//web.archive.org", paper_urls[j])){
+      if (length(paper_urls) > 0) {
+        for (j in seq_len(length(paper_urls))) {
+          if (!grepl("http://web.archive.org", paper_urls[j]) &
+              grepl("//web.archive.org", paper_urls[j])) {
             paper_urls[j] <- paste0("http:", paper_urls[j])
           }
 
-          if(!grepl("http://web.archive.org", paper_urls[j])){
-            paper_urlsFinal[[j]] <- paste0("http://web.archive.org", paper_urls[j])
+          if (!grepl("http://web.archive.org", paper_urls[j])) {
+            paper_urlsFinal[[j]] <-
+              paste0("http://web.archive.org", paper_urls[j])
           } else
             paper_urlsFinal[[j]] <- paper_urls[j]
         }
@@ -104,7 +120,7 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8"){
       fullUrls[[i]] <- paper_urlsFinal
 
 
-      Sys.sleep(sample(1:2,1))
+      Sys.sleep(sample(1:2, 1))
     } else{
       next
     }

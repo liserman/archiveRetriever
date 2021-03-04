@@ -9,13 +9,13 @@ scrape_urls(
   Paths,
   startnum = 1,
   attachto = NULL,
-  CSS = F,
-  archiveDate = F,
-  ignoreErrors = F,
-  stopatempty = T,
+  CSS = FALSE,
+  archiveDate = FALSE,
+  ignoreErrors = FALSE,
+  stopatempty = TRUE,
   emptylim = 10,
   encoding = "UTF-8",
-  lengthwarning = T
+  lengthwarning = TRUE
 )
 }
 \arguments{
