@@ -6,7 +6,7 @@
 #' @param startDate A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
 #' @param endDate A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
 #'
-#' @return This function provides an overview of mementos available from the Internet Archive. It returns a calender indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @return This function provides an overview of mementos available from the Internet Archive. It returns a calendar indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 #' @examples
 #' \dontrun{
 #' archiveOverview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
@@ -91,7 +91,7 @@ archiveOverview <- function(homepage, startDate, endDate){
   dfDates$ddate <- factor(sprintf("%02d", lubridate::day(dfDates$date)))
   dfDates$year <- lubridate::year(dfDates$date)
 
-  #Get calender week 53 correctly
+  #Get calendar week 53 correctly
   dfDates$monthnum <- lubridate::month(dfDates$date)
   dfDates$week[dfDates$monthnum==12 & dfDates$week == "01"] <- "53"
 
