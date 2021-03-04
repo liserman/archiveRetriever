@@ -1,6 +1,6 @@
-#' scrapeArchiveUrls: Scraping Urls from the Internet Archive
+#' scrape_urls: Scraping Urls from the Internet Archive
 #'
-#' `scrapeArchiveUrls` scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
+#' `scrape_urls` scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
 #'
 #' @param Urls A character vector of the memento of the Internet Archive
 #' @param Paths A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.
@@ -33,7 +33,7 @@
 
 ### Function --------------------
 
-scrapeArchiveUrls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8", lengthwarning = T) {
+scrape_urls <- function(Urls, Paths, startnum = 1, attachto = NULL, CSS = F, archiveDate = F, ignoreErrors = F, stopatempty = T, emptylim = 10, encoding = "UTF-8", lengthwarning = T) {
 
   #### A priori consistency checks
 

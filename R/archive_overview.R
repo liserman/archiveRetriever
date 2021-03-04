@@ -1,6 +1,6 @@
-#' archiveOverview: Getting a first glimpse of mementos available in the Internet Archive
+#' archive_overview: Getting a first glimpse of mementos available in the Internet Archive
 #'
-#' `archiveOverview` provides an overview of available mementos of the homepage from the Internet Archive
+#' `archive_overview` provides an overview of available mementos of the homepage from the Internet Archive
 #'
 #' @param homepage A character vector of the homepage, including the top-level-domain
 #' @param startDate A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
@@ -9,8 +9,8 @@
 #' @return This function provides an overview of mementos available from the Internet Archive. It returns a calendar indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 #' @examples
 #' \dontrun{
-#' archiveOverview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
-#' archiveOverview(homepage = "nytimes.com", startDate = "2018-06-01", endDate = "2019-05-01")
+#' archive_overview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
+#' archive_overview(homepage = "nytimes.com", startDate = "2018-06-01", endDate = "2019-05-01")
 #' }
 
 
@@ -31,7 +31,7 @@
 
 ### Function --------------------
 
-archiveOverview <- function(homepage, startDate, endDate){
+archive_overview <- function(homepage, startDate, endDate){
 
   # Globally bind variables
   value <- availability <- ddate <- NULL

@@ -1,6 +1,6 @@
-#' retrieveArchiveUrls: Retrieving Urls from the Internet Archive
+#' retrieve_urls: Retrieving Urls from the Internet Archive
 #'
-#' `retrieveArchiveUrls` retrieves the Urls of mementos stored in the Internet Archive
+#' `retrieve_urls` retrieves the Urls of mementos stored in the Internet Archive
 #'
 #' @param homepage A character vector of the homepage, including the top-level-domain
 #' @param startDate A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
@@ -9,8 +9,8 @@
 #' @return This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 #' @examples
 #' \dontrun{
-#' retrieveArchiveUrls("www.spiegel.de", "20190801", "20190901")
-#' retrieveArchiveUrls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
+#' retrieve_urls("www.spiegel.de", "20190801", "20190901")
+#' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
 #' }
 
 # Importing dependencies with roxygen2
@@ -25,7 +25,7 @@
 ### Function --------------------
 
 # Retrieve URLs function
-retrieveArchiveUrls <- function(homepage, startDate, endDate){
+retrieve_urls <- function(homepage, startDate, endDate){
 
   #### A priori consistency checks
 
