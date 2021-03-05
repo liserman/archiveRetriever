@@ -25,7 +25,7 @@ scrape_urls(
 
 \item{startnum}{Specify the starting number for scraping the Urls. Important when scraping breaks during process.}
 
-\item{attachto}{Scraper attachs new content to existing object in working memory. Object should stem from same scraping process.}
+\item{attachto}{Scraper attaches new content to existing object in working memory. Object should stem from same scraping process.}
 
 \item{CSS}{Use CSS selectors as input for the Paths}
 
