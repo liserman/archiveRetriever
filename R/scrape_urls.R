@@ -5,7 +5,7 @@
 #' @param Urls A character vector of the memento of the Internet Archive
 #' @param Paths A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.
 #' @param startnum Specify the starting number for scraping the Urls. Important when scraping breaks during process.
-#' @param attachto Scraper attachs new content to existing object in working memory. Object should stem from same scraping process.
+#' @param attachto Scraper attaches new content to existing object in working memory. Object should stem from same scraping process.
 #' @param CSS Use CSS selectors as input for the Paths
 #' @param archiveDate Retrieve the archiving date
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
