@@ -1,5 +1,5 @@
 Package: archiveRetriever
-Title: Retrieve Archived Web Pages from the Internet Archive
+Title: Retrieve Archived Web Pages from the 'Internet Archive'
 Version: 0.0.1
 Authors@R: 
     c(person(given = "Konstantin",
@@ -13,7 +13,7 @@ Authors@R:
              email = "lukas.isermann@mzes.uni-mannheim.de",
              comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302")))
 Description: Scraping content from archived web pages stored in
-    the Internet Archive (<https://archive.org>) using a systematic
+    the 'Internet Archive' (<https://archive.org>) using a systematic
     workflow.  Get an overview of the mementos available from the
     respective homepage, retrieve the Urls and links of the page and
     finally scrape the content. The final output is stored in tibbles,
