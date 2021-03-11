@@ -56,7 +56,16 @@ retrieve_urls <- function(homepage, startDate, endDate) {
   endDate <- stringr::str_remove_all(endDate, "\\-")
 
   # Check that domain ending exists
-  UrlTest <- httr::GET(homepage)
+  possibleError <- tryCatch(
+    UrlTest <- httr::GET(homepage, httr::timeout(10)),
+    error = function(e)
+      e
+  )
+
+  if (inherits(possibleError, "error")) {
+    stop("URL is not accessible. Please try another URL.")
+  }
+
   if (httr::status_code(UrlTest) != 200)
     stop ("Please add an existing URL.")
 

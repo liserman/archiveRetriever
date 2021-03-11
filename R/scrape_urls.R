@@ -46,6 +46,8 @@ scrape_urls <-
            encoding = "UTF-8",
            lengthwarning = TRUE) {
     #### A priori consistency checks
+    # Globally bind variables
+    counter <- NULL
 
     # Urls must start with http
     if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")))

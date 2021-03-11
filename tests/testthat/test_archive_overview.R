@@ -26,7 +26,7 @@ test_that("archive_overview() returns a plot in gtable class", {
 test_that("archive_overview() only creates plot for existing URLs", {
   expect_error(
     archive_overview("www.independent..co.uk", "20Sep2014", "20Sep2015"),
-    "Could not resolve host"
+    "URL is not accessible"
   )
 })
 
