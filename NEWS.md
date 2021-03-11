@@ -1,3 +1,11 @@
+# archiveRetriever 0.0.2
+
+* Minor fixes and adjustments to Error-Messages
+
+
+---
+
+
 # archiveRetriever 0.0.1
 
 * Final version for Cran submission
