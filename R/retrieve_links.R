@@ -86,14 +86,6 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
         e
     )
 
-    if(!exists("r")) {
-      possibleError <- tryCatch(
-        r <- httr::GET(ArchiveUrls[i], httr::timeout(20)),
-        error = function(e)
-          e
-      )
-    }
-
     if (inherits(possibleError, "error"))
       next
 

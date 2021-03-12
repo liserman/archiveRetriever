@@ -213,14 +213,6 @@ scrape_urls <-
       )
 
 
-      if(!exists("r")) {
-        possibleError <- tryCatch(
-          r <- httr::GET(Urls[i], httr::timeout(20)),
-          error = function(e)
-            e
-        )
-      }
-
       if (inherits(possibleError, "error")) {
         scrapedUrls[[i]] <-
           as.data.frame(matrix(ncol = length(Paths), nrow = 1))
