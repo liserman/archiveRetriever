@@ -215,7 +215,7 @@ scrape_urls <-
 
       if(!exists("r")) {
         possibleError <- tryCatch(
-          r <- httr::GET(homepage, httr::timeout(20)),
+          r <- httr::GET(Urls[i], httr::timeout(20)),
           error = function(e)
             e
         )
