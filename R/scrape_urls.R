@@ -207,10 +207,19 @@ scrape_urls <-
 
       # Avoid Urls that cannot be retrieved
       possibleError <- tryCatch(
-        r <- httr::GET(Urls[i], httr::timeout(10)),
+        r <- httr::GET(Urls[i], httr::timeout(20)),
         error = function(e)
           e
       )
+
+
+      if(!exists("r")) {
+        possibleError <- tryCatch(
+          r <- httr::GET(homepage, httr::timeout(20)),
+          error = function(e)
+            e
+        )
+      }
 
       if (inherits(possibleError, "error")) {
         scrapedUrls[[i]] <-

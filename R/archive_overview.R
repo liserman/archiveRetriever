@@ -64,10 +64,18 @@ archive_overview <- function(homepage, startDate, endDate) {
 
   # Check that domain ending exists
   possibleError <- tryCatch(
-    UrlTest <- httr::GET(homepage, httr::timeout(10)),
+    UrlTest <- httr::GET(homepage, httr::timeout(20)),
     error = function(e)
       e
   )
+
+  if(!exists("UrlTest")) {
+  possibleError <- tryCatch(
+    UrlTest <- httr::GET(homepage, httr::timeout(20)),
+    error = function(e)
+      e
+  )
+  }
 
   if (inherits(possibleError, "error")) {
     stop("URL is not accessible. Please try another URL.")
