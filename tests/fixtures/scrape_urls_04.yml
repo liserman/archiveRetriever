@@ -19,7 +19,7 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       content-type: text/html; charset=utf-8
-      date: Sun, 14 Mar 2021 16:16:07 GMT
+      date: Sun, 14 Mar 2021 18:34:17 GMT
       link: <https://www.uni-mannheim.de/universitaet/profil/geschichte/>; rel="original",
         <http://web.archive.org/web/timemap/link/https://www.uni-mannheim.de/universitaet/profil/geschichte/>;
         rel="timemap"; type="application/link-format", <http://web.archive.org/web/https://www.uni-mannheim.de/universitaet/profil/geschichte/>;
@@ -31,12 +31,12 @@ http_interactions:
         rel="last memento"; datetime="Sat, 05 Dec 2020 18:08:26 GMT"
       memento-datetime: Fri, 09 Oct 2020 17:44:40 GMT
       server: nginx/1.19.5
-      server-timing: captures_list;dur=1040.719280, exclusion.robots;dur=0.119656,
-        exclusion.robots.policy;dur=0.111017, RedisCDXSource;dur=2.395369, esindex;dur=0.011228,
-        LoadShardBlock;dur=1015.191090, PetaboxLoader3.datanode;dur=885.170127, CDXLines.iter;dur=20.471128,
-        load_resource;dur=186.072706, PetaboxLoader3.resolve;dur=42.636160
+      server-timing: captures_list;dur=152.932075, exclusion.robots;dur=0.092699,
+        exclusion.robots.policy;dur=0.084776, RedisCDXSource;dur=6.726712, esindex;dur=0.010700,
+        LoadShardBlock;dur=122.647315, PetaboxLoader3.datanode;dur=76.836999, CDXLines.iter;dur=21.156139,
+        load_resource;dur=117.744556, PetaboxLoader3.resolve;dur=52.698126
       transfer-encoding: chunked
-      x-app-server: wwwb-app205
+      x-app-server: wwwb-app202
       x-archive-guessed-charset: utf-8
       x-archive-guessed-content-type: text/html
       x-archive-orig-cache-control: no-cache, must-revalidate
@@ -61,9 +61,9 @@ http_interactions:
       x-location: All
       x-na: '0'
       x-nid: '-'
-      x-page-cache: MISS
+      x-page-cache: HIT
       x-rl: '0'
-      x-tr: '1330'
+      x-tr: '387'
       x-ts: '200'
     body:
       encoding: UTF-8
@@ -71,7 +71,7 @@ http_interactions:
       string: "<!DOCTYPE html>\n<html class=\"no-js\" lang=\"de\">\n<head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app205.us.archive.org';v.server_ms=1242;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app202.us.archive.org';v.server_ms=281;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -1796,12 +1796,12 @@ http_interactions:
         button\">Tracking erlauben</div>\n\t</div>\n</div>\n<script src=\"/web/20201009174440js_/https://www.uni-mannheim.de/typo3conf/ext/uma_site/Resources/Public/JavaScripts/app.1602162449.js\"
         type=\"text/javascript\"></script>\n\n\n\n\n</body>\n</html><!--\n     FILE
         ARCHIVED ON 17:44:40 Oct 09, 2020 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE
-        ON 16:16:07 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT
+        ON 18:31:02 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT
         INTERNET ARCHIVE.\n\n     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT
         (17 U.S.C.\n     SECTION 108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n
-        \ captures_list: 1040.719\n  exclusion.robots: 0.119\n  exclusion.robots.policy:
-        0.111\n  RedisCDXSource: 2.395\n  esindex: 0.011\n  LoadShardBlock: 1015.191
-        (3)\n  PetaboxLoader3.datanode: 885.17 (4)\n  CDXLines.iter: 20.471 (3)\n
-        \ load_resource: 186.072\n  PetaboxLoader3.resolve: 42.636\n-->"
-  recorded_at: 2021-03-14 16:16:08 GMT
+        \ captures_list: 152.932\n  exclusion.robots: 0.092\n  exclusion.robots.policy:
+        0.084\n  RedisCDXSource: 6.726\n  esindex: 0.01\n  LoadShardBlock: 122.647
+        (3)\n  PetaboxLoader3.datanode: 76.836 (4)\n  CDXLines.iter: 21.156 (3)\n
+        \ load_resource: 117.744\n  PetaboxLoader3.resolve: 52.698\n-->"
+  recorded_at: 2021-03-14 18:34:18 GMT
   recorded_with: vcr/0.6.0, webmockr/0.7.4

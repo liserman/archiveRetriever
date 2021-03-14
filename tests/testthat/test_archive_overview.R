@@ -3,29 +3,28 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
-#### Problem!!!
+### Problem: Internet connection still required!
 #Check for the sensitivity of the date format
 test_that("archive_overview() returns a plot with the correct time frame", {
   vcr::use_cassette("archive_overview_01", {
   output_overview <-
-    archive_overview(homepage = "nytimes.com",
+    archive_overview(homepage = "https://www.nytimes.com/",
                      startDate = "2018-06-01",
                      endDate = "Dec/01/2018")
-  })
+  }, preserve_exact_body_bytes = TRUE)
   expect_equal(output_overview$data$date[1], as.Date("2018-06-01"))
   expect_equal(output_overview$data$date[nrow(output_overview$data)], as.Date("2018-12-01"))
 })
 
-
-#### Prolem!!!!
+### Problem: Internet connection still required!
 #Check for correct output when covering more than one year
 test_that("archive_overview() returns a plot in gtable class", {
   vcr::use_cassette("archive_overview_02", {
   output_overview <-
-    archive_overview(homepage = "nytimes.com",
+    archive_overview(homepage = "https://www.nytimes.com/",
                      startDate = "2018-06-01",
                      endDate = "Dec/01/2019")
-  })
+  }, preserve_exact_body_bytes = TRUE)
   expect_is(output_overview, "gtable")
 })
 
@@ -81,7 +80,7 @@ test_that("archive_overview() needs endDate to be not in the future", {
   )
 })
 
-
+### Problem: Internet connection still required!
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("archive_overview() needs homepage to be saved in the Internet Archive",
           {

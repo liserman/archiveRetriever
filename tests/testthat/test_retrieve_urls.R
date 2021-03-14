@@ -58,7 +58,7 @@ test_that("retrieve_urls() needs endDate to be not in the future", {
   )
 })
 
-
+### Problem: Internet connection still required!
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           {

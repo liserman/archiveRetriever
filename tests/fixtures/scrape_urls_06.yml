@@ -15,7 +15,7 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: nginx/1.19.5
-      date: Sun, 14 Mar 2021 16:16:12 GMT
+      date: Sun, 14 Mar 2021 18:34:19 GMT
       content-type: text/html;charset=utf-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -52,18 +52,18 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: NO404-GDELT-20190501192627-crawl409/NO404-GDELT-20190501204854-00390.warc.gz
-      server-timing: captures_list;dur=116.744625, exclusion.robots;dur=0.143173,
-        exclusion.robots.policy;dur=0.132275, RedisCDXSource;dur=2.324491, esindex;dur=0.013451,
-        LoadShardBlock;dur=88.221913, PetaboxLoader3.datanode;dur=68.560263, CDXLines.iter;dur=22.694667,
-        load_resource;dur=86.393806, PetaboxLoader3.resolve;dur=37.297567
+      server-timing: captures_list;dur=154.116839, exclusion.robots;dur=0.099969,
+        exclusion.robots.policy;dur=0.092535, RedisCDXSource;dur=2.552888, esindex;dur=0.009186,
+        LoadShardBlock;dur=123.391506, PetaboxLoader3.datanode;dur=93.069817, CDXLines.iter;dur=25.211375,
+        load_resource;dur=108.102079, PetaboxLoader3.resolve;dur=60.792858
       x-app-server: wwwb-app204
       x-ts: '200'
-      x-tr: '287'
+      x-tr: '352'
       x-location: All
       x-cache-key: httpweb.archive.org/web/20190501205310/http://taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/DE
       x-rl: '0'
       x-na: '0'
-      x-page-cache: MISS
+      x-page-cache: HIT
       x-nid: '-'
       content-encoding: gzip
     body:
@@ -77,7 +77,7 @@ http_interactions:
         XML, XSL, HTML, CSS, JS (+ toil, tears and sweat) webmaster@taz.de\n\t--><head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app204.us.archive.org';v.server_ms=216;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app204.us.archive.org';v.server_ms=279;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -1412,15 +1412,15 @@ http_interactions:
         alert('Cookie konnte nicht gesetzt werden');\n\t\t\t\t\t\n\t\t\t\t\"><span>zur
         mobilen Ansicht wechseln</span></a></div></div></div></div></div></body><!--
         DEBUG end 22:53:10+02:00--></html>\n<!--\n     FILE ARCHIVED ON 20:53:10 May
-        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 16:16:12 Mar 14,
+        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 18:31:06 Mar 14,
         2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.\n\n
         \    ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.\n     SECTION
-        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  captures_list: 116.744\n
-        \ exclusion.robots: 0.143\n  exclusion.robots.policy: 0.132\n  RedisCDXSource:
-        2.324\n  esindex: 0.013\n  LoadShardBlock: 88.221 (3)\n  PetaboxLoader3.datanode:
-        68.56 (4)\n  CDXLines.iter: 22.694 (3)\n  load_resource: 86.393\n  PetaboxLoader3.resolve:
-        37.297\n-->"
-  recorded_at: 2021-03-14 16:16:20 GMT
+        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  captures_list: 154.116\n
+        \ exclusion.robots: 0.099\n  exclusion.robots.policy: 0.092\n  RedisCDXSource:
+        2.552\n  esindex: 0.009\n  LoadShardBlock: 123.391 (3)\n  PetaboxLoader3.datanode:
+        93.069 (4)\n  CDXLines.iter: 25.211 (3)\n  load_resource: 108.102\n  PetaboxLoader3.resolve:
+        60.792\n-->"
+  recorded_at: 2021-03-14 18:34:24 GMT
   recorded_with: vcr/0.6.0, webmockr/0.7.4
 - request:
     method: get
@@ -1442,7 +1442,7 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       content-type: text/html; charset=UTF-8
-      date: Sun, 14 Mar 2021 16:16:15 GMT
+      date: Sun, 14 Mar 2021 18:34:20 GMT
       link: <http://blogs.taz.de:80/?>; rel="original", <http://web.archive.org/web/timemap/link/http://blogs.taz.de:80/?>;
         rel="timemap"; type="application/link-format", <http://web.archive.org/web/http://blogs.taz.de:80/?>;
         rel="timegate", <http://web.archive.org/web/20080618001231/http://blogs.taz.de:80/>;
@@ -1453,12 +1453,12 @@ http_interactions:
         rel="last memento"; datetime="Wed, 10 Mar 2021 11:33:52 GMT"
       memento-datetime: Fri, 03 May 2019 08:30:57 GMT
       server: nginx/1.19.5
-      server-timing: captures_list;dur=357.380602, exclusion.robots;dur=0.105104,
-        exclusion.robots.policy;dur=0.096375, RedisCDXSource;dur=1.317313, esindex;dur=0.008232,
-        LoadShardBlock;dur=306.210672, PetaboxLoader3.datanode;dur=306.847926, CDXLines.iter;dur=35.490186,
-        load_resource;dur=94.932571, PetaboxLoader3.resolve;dur=44.075663
+      server-timing: captures_list;dur=166.985308, exclusion.robots;dur=0.094668,
+        exclusion.robots.policy;dur=0.087074, RedisCDXSource;dur=1.646934, esindex;dur=0.010358,
+        LoadShardBlock;dur=108.619495, PetaboxLoader3.datanode;dur=67.935804, CDXLines.iter;dur=45.488829,
+        load_resource;dur=160.109490, PetaboxLoader3.resolve;dur=43.230197
       transfer-encoding: chunked
-      x-app-server: wwwb-app207
+      x-app-server: wwwb-app202
       x-archive-guessed-charset: utf-8
       x-archive-guessed-content-type: text/html
       x-archive-orig-age: '86'
@@ -1477,9 +1477,9 @@ http_interactions:
       x-location: All
       x-na: '0'
       x-nid: '-'
-      x-page-cache: MISS
+      x-page-cache: HIT
       x-rl: '0'
-      x-tr: '556'
+      x-tr: '441'
       x-ts: '200'
     body:
       encoding: UTF-8
@@ -1487,7 +1487,7 @@ http_interactions:
       string: "<!DOCTYPE html>\n<html lang=\"de-DE\" xmlns:og=\"https://opengraphprotocol.org/schema/\"
         xmlns:fb=\"https://www.facebook.com/2008/fbml\">\n  <head><script src=\"//archive.org/includes/analytics.js?v=cf34f82\"
         type=\"text/javascript\"></script>\n<script type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app207.us.archive.org';v.server_ms=475;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app202.us.archive.org';v.server_ms=351;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -2006,14 +2006,14 @@ http_interactions:
         ]]> */\n</script>\n<script type=\"text/javascript\" src=\"http://web.archive.org/web/20190503083057js_/http://cdn.jsdelivr.net/wp/wp-slimstat/tags/4.6.7/wp-slimstat.min.js\"></script>\n<script
         type=\"text/javascript\" src=\"http://web.archive.org/web/20190503083057js_/http://blogs.taz.de/wp-includes/js/wp-embed.min.js\"></script>\n<!--\n
         \    FILE ARCHIVED ON 08:30:57 May 03, 2019 AND RETRIEVED FROM THE\n     INTERNET
-        ARCHIVE ON 16:16:15 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
+        ARCHIVE ON 18:31:07 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
         COPYRIGHT INTERNET ARCHIVE.\n\n     ALL OTHER CONTENT MAY ALSO BE PROTECTED
         BY COPYRIGHT (17 U.S.C.\n     SECTION 108(a)(3)).\n-->\n<!--\nplayback timings
-        (ms):\n  captures_list: 357.38\n  exclusion.robots: 0.105\n  exclusion.robots.policy:
-        0.096\n  RedisCDXSource: 1.317\n  esindex: 0.008\n  LoadShardBlock: 306.21
-        (3)\n  PetaboxLoader3.datanode: 306.847 (4)\n  CDXLines.iter: 35.49 (3)\n
-        \ load_resource: 94.932\n  PetaboxLoader3.resolve: 44.075\n-->"
-  recorded_at: 2021-03-14 16:16:21 GMT
+        (ms):\n  captures_list: 166.985\n  exclusion.robots: 0.094\n  exclusion.robots.policy:
+        0.087\n  RedisCDXSource: 1.646\n  esindex: 0.01\n  LoadShardBlock: 108.619
+        (3)\n  PetaboxLoader3.datanode: 67.935 (4)\n  CDXLines.iter: 45.488 (3)\n
+        \ load_resource: 160.109\n  PetaboxLoader3.resolve: 43.23\n-->"
+  recorded_at: 2021-03-14 18:34:24 GMT
   recorded_with: vcr/0.6.0, webmockr/0.7.4
 - request:
     method: get
@@ -2031,9 +2031,9 @@ http_interactions:
       message: 'Client error: (400) Bad Request'
     headers:
       server: nginx/1.19.5
-      date: Sun, 14 Mar 2021 16:16:20 GMT
+      date: Sun, 14 Mar 2021 18:34:23 GMT
       content-type: text/html; charset=iso-8859-1
-      content-length: '1890'
+      content-length: '1881'
       connection: keep-alive
       x-archive-orig-date: Fri, 03 May 2019 06:14:54 GMT
       x-archive-orig-server: Apache/2.4.10 (Debian)
@@ -2053,13 +2053,13 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: alexa20190503-58/52_70_20190503061200_crawl303.arc.gz
-      server-timing: captures_list;dur=1591.901325, exclusion.robots;dur=0.194100,
-        exclusion.robots.policy;dur=0.181615, RedisCDXSource;dur=1.684738, esindex;dur=0.011587,
-        LoadShardBlock;dur=1550.042098, PetaboxLoader3.datanode;dur=1366.499171, CDXLines.iter;dur=16.652042,
-        PetaboxLoader3.resolve;dur=937.846358, load_resource;dur=936.973180
-      x-app-server: wwwb-app200
+      server-timing: exclusion.robots.policy;dur=0.197563, PetaboxLoader3.resolve;dur=58.446933,
+        exclusion.robots;dur=0.215048, RedisCDXSource;dur=1.999365, esindex;dur=0.016473,
+        captures_list;dur=629.543547, CDXLines.iter;dur=19.201195, LoadShardBlock;dur=552.581870,
+        PetaboxLoader3.datanode;dur=689.497657, load_resource;dur=288.047949
+      x-app-server: wwwb-app102
       x-ts: '400'
-      x-tr: '2549'
+      x-tr: '955'
       x-rl: '0'
       x-na: '0'
       x-page-cache: MISS
@@ -2070,7 +2070,7 @@ http_interactions:
       string: "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app200.us.archive.org';v.server_ms=2537;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app102.us.archive.org';v.server_ms=930;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -2082,12 +2082,12 @@ http_interactions:
         Request</h1>\n<p>Your browser sent a request that this server could not understand.<br/>\n</p>\n<hr>\n<address>Apache/2.4.10
         (Debian) Server at monty.taz.de Port 80</address>\n</body></html>\n<!--\n
         \    FILE ARCHIVED ON 06:14:54 May 03, 2019 AND RETRIEVED FROM THE\n     INTERNET
-        ARCHIVE ON 16:16:20 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
+        ARCHIVE ON 18:34:23 Mar 14, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
         COPYRIGHT INTERNET ARCHIVE.\n\n     ALL OTHER CONTENT MAY ALSO BE PROTECTED
         BY COPYRIGHT (17 U.S.C.\n     SECTION 108(a)(3)).\n-->\n<!--\nplayback timings
-        (ms):\n  captures_list: 1591.901\n  exclusion.robots: 0.194\n  exclusion.robots.policy:
-        0.181\n  RedisCDXSource: 1.684\n  esindex: 0.011\n  LoadShardBlock: 1550.042
-        (3)\n  PetaboxLoader3.datanode: 1366.499 (4)\n  CDXLines.iter: 16.652 (3)\n
-        \ PetaboxLoader3.resolve: 937.846 (3)\n  load_resource: 936.973\n-->"
-  recorded_at: 2021-03-14 16:16:21 GMT
+        (ms):\n  exclusion.robots.policy: 0.197\n  captures_list: 629.543\n  exclusion.robots:
+        0.215\n  RedisCDXSource: 1.999\n  PetaboxLoader3.resolve: 58.446\n  esindex:
+        0.016\n  CDXLines.iter: 19.201 (3)\n  LoadShardBlock: 552.581 (3)\n  PetaboxLoader3.datanode:
+        689.497 (4)\n  load_resource: 288.047\n-->"
+  recorded_at: 2021-03-14 18:34:24 GMT
   recorded_with: vcr/0.6.0, webmockr/0.7.4

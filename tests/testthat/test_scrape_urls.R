@@ -52,7 +52,7 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
   )
 })
 
-
+#### Problem: Internet connection still required!
 #Check whether Archive date is taken from the URL
 test_that("scrape_urls() option archiveDate stores archiving date", {
   vcr::use_cassette("scrape_urls_02", {
@@ -74,6 +74,7 @@ test_that("scrape_urls() option archiveDate stores archiving date", {
 })
 
 
+### Problem: Internet conntection still required!
 #Check whether function takes CSS instead of XPath
 test_that("scrape_urls() takes CSS instead of XPath", {
   vcr::use_cassette("scrape_urls_03", {
@@ -300,7 +301,7 @@ test_that("scrape_urls() needs encoding to be a character value", {
   )
 })
 
-
+### Problem: Internet Connection still required!
 #Check whether data is being correctly attached to existing data set
 test_that("scrape_urls() needs to fill first row when only second value is scraped",
           {

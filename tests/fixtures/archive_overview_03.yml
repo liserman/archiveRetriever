@@ -14,28 +14,27 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Sun, 14 Mar 2021 16:15:35 GMT
+      date: Sun, 14 Mar 2021 18:33:53 GMT
       content-type: text/html; charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
-      set-cookie: __cfduid=d1fa5d8ddc8f0595786975e0c8258e4081615738535; expires=Tue,
-        13-Apr-21 16:15:35 GMT; path=/; domain=.cyprus-mail.com; HttpOnly; SameSite=Lax;
+      set-cookie: __cfduid=d40bcb2e07c01db3d76627841e5f1e31f1615746833; expires=Tue,
+        13-Apr-21 18:33:53 GMT; path=/; domain=.cyprus-mail.com; HttpOnly; SameSite=Lax;
         Secure
-      cf-ray: 62fecd347a58bd91-AMS
+      cf-ray: 62ff97cb6ffdfa5c-AMS
       access-control-allow-origin: '*'
-      age: '435'
       cache-control: max-age=1800
       last-modified: Fri, 12 Mar 2021 08:14:56 GMT
       link: <https://cyprus-mail.com/wp-json/>; rel="https://api.w.org/", <https://cyprus-mail.com/wp-json/wp/v2/posts/395376>;
         rel="alternate"; type="application/json", <https://cyprus-mail.com/?p=395376>;
         rel=shortlink
-      vary: X-Forwarded-Proto,Accept-Encoding,Cookie
-      cf-cache-status: HIT
-      cf-apo-via: tcache
-      cf-request-id: 08d31e94d00000bd91c00b7000000001
+      vary: X-Forwarded-Proto,Accept-Encoding
+      cf-cache-status: EXPIRED
+      cf-apo-via: origin,miss
+      cf-request-id: 08d39d331d0000fa5cff898000000001
       expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       referrer-policy: no-referrer-when-downgrade
-      report-to: '{"group":"cf-nel","endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report?s=eQCnwIePOfVoLtX%2FX3bbUpD8Ai5CWCIa40mpXA8fskONoD2H8j7T3RRzV0lvozHIH%2BDue8xPjbwv9Mjf0%2FMXiwW3FNI%2F1P5Islv%2BZ8unqss%3D"}],"max_age":604800}'
+      report-to: '{"group":"cf-nel","endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report?s=D51WlmV58wjFiioF8%2FunM%2B7IMZW8yjHc%2FQIXaZvEtyhMH6GR3KDa4Yev3c2OG7J%2Bec9NGyE4%2BKKmk5DMCkpMy29%2FVAapkJO7MfP8EO1%2Fvi8%3D"}],"max_age":604800}'
       nel: '{"max_age":604800,"report_to":"cf-nel"}'
       server: cloudflare
       content-encoding: gzip
@@ -11690,11 +11689,11 @@ http_interactions:
         penci-slider-next \" data-block_id=\"penci_megamenu__68159block_content\"
         href=\"#\"><i class=\"fa fa-angle-right\"></i></a>\n</span>\n</div>\n<div
         class=\"penci-mega-row penci-mega-64252\" data-current=\"1\" data-blockUid=\"penci_megamenu__59434\">\n<div
-        id=\"penci_megamenu__59434block_content\" class=\"penci-block_content penci-mega-row_content\">\n
-        </div>\n<script>if( typeof(penciBlock) === \"undefined\" ) {function penciBlock()
-        {\r\n\t\t    this.atts_json = '';\r\n\t\t    this.content = '';\r\n\t\t}}var
-        penciBlocksArray = penciBlocksArray || [];var PENCILOCALCACHE = PENCILOCALCACHE
-        || {};var penci_megamenu__59434 = new penciBlock();penci_megamenu__59434.blockID=\"penci_megamenu__59434\";penci_megamenu__59434.atts_json
+        id=\"penci_megamenu__59434block_content\" class=\"penci-block_content penci-mega-row_content\">\n</div>\n<script>if(
+        typeof(penciBlock) === \"undefined\" ) {function penciBlock() {\r\n\t\t    this.atts_json
+        = '';\r\n\t\t    this.content = '';\r\n\t\t}}var penciBlocksArray = penciBlocksArray
+        || [];var PENCILOCALCACHE = PENCILOCALCACHE || {};var penci_megamenu__59434
+        = new penciBlock();penci_megamenu__59434.blockID=\"penci_megamenu__59434\";penci_megamenu__59434.atts_json
         = '{\"showposts\":4,\"style_pag\":\"next_prev\",\"post_types\":\"post\",\"block_id\":\"penci_megamenu__59434\",\"paged\":1,\"unique_id\":\"penci_megamenu__59434\",\"shortcode_id\":\"megamenu\",\"cat_id\":64252,\"tax\":\"category\",\"category_ids\":\"\",\"taxonomy\":\"\"}';penciBlocksArray.push(penci_megamenu__59434);var
         penci_megamenu__59434dataFirstItems = {action: 'penci_ajax_mega_menu',datafilter:
         {\"showposts\":4,\"style_pag\":\"next_prev\",\"post_types\":\"post\",\"block_id\":\"penci_megamenu__59434\",\"paged\":1,\"unique_id\":\"penci_megamenu__59434\",\"shortcode_id\":\"megamenu\",\"cat_id\":64252,\"tax\":\"category\",\"category_ids\":\"\",\"taxonomy\":\"\"},paged:
@@ -12118,7 +12117,7 @@ http_interactions:
         href=\"#\"><i class=\"fa fa-angle-right\"></i></a>\n</span>\n</div>\n<div
         class=\"penci-loader-effect penci-loading-animation-5 penci-three-bounce\"><div
         class=\"penci-loading-animation one\"></div><div class=\"penci-loading-animation
-        two\"></div><div class=\"penci-loading-animation three\"></div></div> </div>\n</div>\n</div></li>\n</ul>\n</li>\n<li
+        two\"></div><div class=\"penci-loading-animation three\"></div></div>  </div>\n</div>\n</div></li>\n</ul>\n</li>\n<li
         id=\"menu-item-48227\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category
         menu-item-has-children penci-mega-menu penci-megamenu-width1080 menu-item-48227\"><a
         href=\"https://cyprus-mail.com/category/world/\" itemprop=\"url\">World</a>\n<ul
@@ -13637,7 +13636,7 @@ http_interactions:
         href=\"#\"><i class=\"fa fa-whatsapp\"></i></a><a class=\"penci-social-item
         telegram\" target=\"_blank\" rel=\"noopener\" title=\"\" href=\"https://telegram.me/share/url?url=https%3A%2F%2Fcyprus-mail.com%2F2021%2F02%2F18%2Fthe-secret-helping-car-companies-stay-profitable%2F&#038;text=The%20secret%20helping%20car%20companies%20stay%20profitable\"><i
         class=\"fa fa-telegram\"></i></a><a class=\"penci-social-item email\" target=\"_blank\"
-        rel=\"noopener\" href=\"/cdn-cgi/l/email-protection#4e713d3b2c242b2d3a731a262b6b7c7e3d2b2d3c2b3a6b7c7e262b223e2720296b7c7e2d2f3c6b7c7e2d21233e2f20272b3d6b7c7e3d3a2f376b7c7e3e3c2128273a2f2c222b686d7e7d76750c010a1773263a3a3e3d7461612d373e3c3b3d63232f2722602d2123617c7e7c7f617e7c617f76613a262b633d2b2d3c2b3a63262b223e272029632d2f3c632d21233e2f20272b3d633d3a2f37633e3c2128273a2f2c222b61\"><i
+        rel=\"noopener\" href=\"/cdn-cgi/l/email-protection#bb84c8ced9d1ded8cf86efd3de9e898bc8ded8c9decf9e898bd3ded7cbd2d5dc9e898bd8dac99e898bd8d4d6cbdad5d2dec89e898bc8cfdac29e898bcbc9d4ddd2cfdad9d7de9d988b888380f9f4ffe286d3cfcfcbc8819494d8c2cbc9cec896d6dad2d795d8d4d694898b898a948b89948a8394cfd3de96c8ded8c9decf96d3ded7cbd2d5dc96d8dac996d8d4d6cbdad5d2dec896c8cfdac296cbc9d4ddd2cfdad9d7de94\"><i
         class=\"fa fa-envelope\"></i></a><a class=\"penci-social-item viber\" target=\"_blank\"
         rel=\"noopener\" title=\"\" href=\"https://3p3x.adj.st/?adjust_t=u783g1_kw9yml&#038;adjust_fallback=https%3A%2F%2Fwww.viber.com%2F%3Futm_source%3DPartner%26utm_medium%3DSharebutton%26utm_campaign%3DDefualt&#038;adjust_campaign=Sharebutton&#038;adjust_deeplink=%20+%20encodeURIComponent(viber://forward?text=%20+%20encodeURIComponent(The%20secret%20helping%20car%20companies%20stay%20profitable%20+%20%20%20+%20https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/))\"><span><svg
         aria-hidden=\"true\" data-prefix=\"fab\" data-icon=\"viber\" class=\"svg-inline--fa
@@ -13791,7 +13790,7 @@ http_interactions:
         href=\"#\"><i class=\"fa fa-whatsapp\"></i></a><a class=\"penci-social-item
         telegram\" target=\"_blank\" rel=\"noopener\" title=\"\" href=\"https://telegram.me/share/url?url=https%3A%2F%2Fcyprus-mail.com%2F2021%2F02%2F18%2Fthe-secret-helping-car-companies-stay-profitable%2F&#038;text=The%20secret%20helping%20car%20companies%20stay%20profitable\"><i
         class=\"fa fa-telegram\"></i></a><a class=\"penci-social-item email\" target=\"_blank\"
-        rel=\"noopener\" href=\"/cdn-cgi/l/email-protection#645b1711060e01071059300c014156541701071601104156540c0108140d0a03415654070516415654070b0914050a0d01174156541710051d41565414160b020d1005060801424754575c5f262b203d590c101014175e4b4b071d141611174909050d084a070b094b565456554b54564b555c4b100c0149170107160110490c0108140d0a034907051649070b0914050a0d0117491710051d4914160b020d10050608014b\"><i
+        rel=\"noopener\" href=\"/cdn-cgi/l/email-protection#2b14585e49414e485f167f434e0e191b584e48594e5f0e191b434e475b42454c0e191b484a590e191b4844465b4a45424e580e191b585f4a520e191b5b59444d425f4a49474e0d081b18131069646f7216435f5f5b5811040448525b595e5806464a42470548444604191b191a041b19041a13045f434e06584e48594e5f06434e475b42454c06484a59064844465b4a45424e5806585f4a52065b59444d425f4a49474e04\"><i
         class=\"fa fa-envelope\"></i></a><a class=\"penci-social-item viber\" target=\"_blank\"
         rel=\"noopener\" title=\"\" href=\"https://3p3x.adj.st/?adjust_t=u783g1_kw9yml&#038;adjust_fallback=https%3A%2F%2Fwww.viber.com%2F%3Futm_source%3DPartner%26utm_medium%3DSharebutton%26utm_campaign%3DDefualt&#038;adjust_campaign=Sharebutton&#038;adjust_deeplink=%20+%20encodeURIComponent(viber://forward?text=%20+%20encodeURIComponent(The%20secret%20helping%20car%20companies%20stay%20profitable%20+%20%20%20+%20https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/))\"><span><svg
         aria-hidden=\"true\" data-prefix=\"fab\" data-icon=\"viber\" class=\"svg-inline--fa
@@ -13815,7 +13814,7 @@ http_interactions:
         class=\"prev-post-inner penci_mobj__body\">\n<div class=\"prev-post-title\">\n<span><i
         class=\"fa fa-angle-left\"></i>previous post</span>\n</div>\n<div class=\"pagi-text\">\n<h5
         class=\"prev-title\"><a href=\"https://cyprus-mail.com/2021/02/18/tedxyouthengomi-encouraging-us-to-think-deep/\"><span
-        class=\"__cf_email__\" data-cfemail=\"6135242519380e14150921240f060e0c08\">[email&#160;protected]</span>
+        class=\"__cf_email__\" data-cfemail=\"4d1908093514223839250d08232a222024\">[email&#160;protected]</span>
         encouraging us to Think Deep</a></h5>\n</div>\n</div>\n</div>\n<div class=\"next-post
         \">\n<div class=\"next-post-inner\">\n<div class=\"prev-post-title next-post-title\">\n<span>next
         post<i class=\"fa fa-angle-right\"></i></span>\n</div>\n<div class=\"pagi-text\">\n<h5
@@ -14131,7 +14130,7 @@ http_interactions:
         I agree to the privacy policy and terms.</label></div>\n<div class=\"mailster-wrapper
         mailster-submit-wrapper form-submit\"><input name=\"submit\" type=\"submit\"
         value=\"Subscribe\" class=\"submit-button button\" aria-label=\"Subscribe\"></div>\n</div>\n</form>\n</div></div>
-        </div>\n<div id=\"footer-4\" class=\"footer-sidebar-item footer-4 penci-col-3\">\n<div
+        \ </div>\n<div id=\"footer-4\" class=\"footer-sidebar-item footer-4 penci-col-3\">\n<div
         id=\"nav_menu-4\" class=\"widget footer-widget penci-block-vc penci-fwidget-sidebar
         style-title-1 style-title-left widget_nav_menu\"><div class=\"penci-block-heading\"><h4
         class=\"widget-title penci-block__title\"><span>Information</span></h4></div><div
@@ -14166,8 +14165,8 @@ http_interactions:
         plus a myriad of scandals, murders, and human interests stories that capture
         the island and its -people. Observers describe it as politically conservative.\n<br>\n<a
         href=\"https://cyprus-mail.com/editorial-board/\">Editorial board</a>\n</span><div
-        class=\"footer-email-wrap\">Contact us: <a href=\"/cdn-cgi/l/email-protection#70191e161f301309000205035d1d11191c5e131f1d\"><span
-        class=\"__cf_email__\" data-cfemail=\"771e19111837140e070502045a1a161e1b5914181a\">[email&#160;protected]</span></a></div>\n</div>\n<div
+        class=\"footer-email-wrap\">Contact us: <a href=\"/cdn-cgi/l/email-protection#c3aaada5ac83a0bab3b1b6b0eeaea2aaafeda0acae\"><span
+        class=\"__cf_email__\" data-cfemail=\"bdd4d3dbd2fddec4cdcfc8ce90d0dcd4d193ded2d0\">[email&#160;protected]</span></a></div>\n</div>\n<div
         class=\"footer__bottom-item footer__social-media penci-col-3\">\n<div class=\"block-title\"><span>Follow
         us</span></div>\n<a class=\"social-media-item socail_media__facebook\" target=\"_blank\"
         href=\"https://www.facebook.com/CyprusMail/\" title=\"Facebook\" rel=\"noopener\"><span
@@ -14619,5 +14618,5 @@ http_interactions:
         Our view Spot 2\",\"target\":false}}};var advads_gatracking_anonym = true;</script><script>window.w3tc_lazyload=1,window.lazyLoadOptions={elements_selector:\".lazy\",callback_loaded:function(t){var
         e;try{e=new CustomEvent(\"w3tc_lazyload_loaded\",{detail:{e:t}})}catch(a){(e=document.createEvent(\"CustomEvent\")).initCustomEvent(\"w3tc_lazyload_loaded\",!1,!1,{e:t})}window.dispatchEvent(e)}}</script><script
         async src=\"https://cyprus-mail.com/wp-content/cache/minify/1615d.js\"></script>\n</body>\n</html>\n"
-  recorded_at: 2021-03-14 16:15:38 GMT
+  recorded_at: 2021-03-14 18:33:55 GMT
   recorded_with: vcr/0.6.0, webmockr/0.7.4
