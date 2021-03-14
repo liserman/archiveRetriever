@@ -1,24 +1,31 @@
 context("check-overview-output")
 library(testthat)
+library(webmockr)
 library(archiveRetriever)
 
-
+#### Problem!!!
 #Check for the sensitivity of the date format
 test_that("archive_overview() returns a plot with the correct time frame", {
+  vcr::use_cassette("archive_overview_01", {
   output_overview <-
     archive_overview(homepage = "nytimes.com",
                      startDate = "2018-06-01",
                      endDate = "Dec/01/2018")
+  })
   expect_equal(output_overview$data$date[1], as.Date("2018-06-01"))
   expect_equal(output_overview$data$date[nrow(output_overview$data)], as.Date("2018-12-01"))
 })
 
+
+#### Prolem!!!!
 #Check for correct output when covering more than one year
 test_that("archive_overview() returns a plot in gtable class", {
+  vcr::use_cassette("archive_overview_02", {
   output_overview <-
     archive_overview(homepage = "nytimes.com",
                      startDate = "2018-06-01",
                      endDate = "Dec/01/2019")
+  })
   expect_is(output_overview, "gtable")
 })
 
@@ -79,17 +86,24 @@ test_that("archive_overview() needs endDate to be not in the future", {
 test_that("archive_overview() needs homepage to be saved in the Internet Archive",
           {
             expect_error(
+              vcr::use_cassette("archive_overview_03", {
               archive_overview(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",
                 "2016-01-01",
                 "2016-05-31"
-              ),
+              )
+              }),
               "Homepage has never been saved in the Internet Archive"
             )
           })
 
 
 #Check whether URL exists with 200 status
+webmockr::enable(adapter = "httr")
+webmockr::stub_registry_clear()
+webmockr::stub_request("get", "https://www.sowi.uni-mannheim.de/schoen/team/akademische-mitarbeiterinnen-und-mitarbeiter/gavras-konstantin/") %>%
+  webmockr::to_return(status = 404)
+
 test_that("archive_overview() needs homepage with status 200", {
   expect_error(
     archive_overview(
@@ -100,3 +114,5 @@ test_that("archive_overview() needs homepage with status 200", {
     "Please add an existing URL"
   )
 })
+
+webmockr::disable()
