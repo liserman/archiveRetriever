@@ -4,7 +4,6 @@ library(webmockr)
 library(archiveRetriever)
 
 
-#### Problem!!!
 #Check whether vector is function output
 test_that("retrieve_urls() returns a character vector", {
   output <- retrieve_urls("nytimes.com", "Jun/01/2017", "Jun/01/2018")
@@ -56,7 +55,6 @@ test_that("retrieve_urls() needs endDate to be not in the future", {
   )
 })
 
-### Problem: Internet connection still required!
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           {

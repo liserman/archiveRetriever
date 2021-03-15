@@ -3,7 +3,6 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
-### Problem: Internet connection still required!
 #Check for the sensitivity of the date format
 test_that("archive_overview() returns a plot with the correct time frame", {
   output_overview <-
@@ -14,7 +13,6 @@ test_that("archive_overview() returns a plot with the correct time frame", {
   expect_equal(output_overview$data$date[nrow(output_overview$data)], as.Date("2018-12-01"))
 })
 
-### Problem: Internet connection still required!
 #Check for correct output when covering more than one year
 test_that("archive_overview() returns a plot in gtable class", {
   output_overview <-
@@ -76,7 +74,6 @@ test_that("archive_overview() needs endDate to be not in the future", {
   )
 })
 
-### Problem: Internet connection still required!
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("archive_overview() needs homepage to be saved in the Internet Archive",
           {

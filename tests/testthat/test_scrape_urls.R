@@ -3,7 +3,6 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
-#### Problem!!! Cassette empty
 #Check whether function output is data frame
 test_that("scrape_urls() returns a data frame", {
   vcr::use_cassette("scrape_urls_01", {
@@ -52,7 +51,6 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
   )
 })
 
-#### Problem: Internet connection still required!
 #Check whether Archive date is taken from the URL
 test_that("scrape_urls() option archiveDate stores archiving date", {
   vcr::use_cassette("scrape_urls_02", {
@@ -74,7 +72,6 @@ test_that("scrape_urls() option archiveDate stores archiving date", {
 })
 
 
-### Problem: Internet conntection still required!
 #Check whether function takes CSS instead of XPath
 test_that("scrape_urls() takes CSS instead of XPath", {
   vcr::use_cassette("scrape_urls_03", {
@@ -301,7 +298,6 @@ test_that("scrape_urls() needs encoding to be a character value", {
   )
 })
 
-### Problem: Internet Connection still required!
 #Check whether data is being correctly attached to existing data set
 test_that("scrape_urls() needs to fill first row when only second value is scraped",
           {
@@ -319,7 +315,6 @@ test_that("scrape_urls() needs to fill first row when only second value is scrap
             expect_equal(is.na(output$title[1]), T)
           })
 
-#### Problem!!! Cassette empty
 #Check whether only some XPaths could be scraped
 test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
   expect_warning(
