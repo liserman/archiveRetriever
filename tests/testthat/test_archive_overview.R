@@ -27,7 +27,7 @@ test_that("archive_overview() returns a plot in gtable class", {
 #Check for correct URLs only
 test_that("archive_overview() only creates plot for existing URLs", {
   expect_error(
-    archive_overview("www.independent..co.uk", "20Sep2014", "20Sep2015"),
+    archive_overview("www.independent..abc.def", "20Sep2014", "20Sep2015"),
     "Homepage has never been saved"
   )
 })
