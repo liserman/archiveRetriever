@@ -7,9 +7,7 @@ library(archiveRetriever)
 #### Problem!!!
 #Check whether vector is function output
 test_that("retrieve_urls() returns a character vector", {
-  vcr::use_cassette("retrieve_urls_01", {
   output <- retrieve_urls("nytimes.com", "Jun/01/2017", "Jun/01/2018")
-  })
   expect_is(output, "character")
 })
 
@@ -63,13 +61,11 @@ test_that("retrieve_urls() needs endDate to be not in the future", {
 test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           {
             expect_error(
-              vcr::use_cassette("retrieve_urls_02", {
               retrieve_urls(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",
                 "2016-01-01",
                 "2016-05-31"
-              )
-              }),
+              ),
               "Homepage has never been saved in the Internet Archive"
             )
           })
