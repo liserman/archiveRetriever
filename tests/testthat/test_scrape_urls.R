@@ -9,8 +9,8 @@ test_that("scrape_urls() returns a data frame", {
   vcr::use_cassette("scrape_urls_01", {
   output <-
     scrape_urls(
-      "http://web.archive.org/web/20170131060045/http://www.ilsole24ore.com/art/mondo/2017-01-30/marine-pen-front-national-145809.shtml?uuid=AEPbqfK&nmll=2707",
-      Paths = c(title = "//header/h1", content = "//div[@class='entry entry-indent relative no_h']/p//text()"),
+      "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
       encoding = "bytes"
     )
   })
@@ -325,8 +325,8 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
   expect_warning(
     vcr::use_cassette("scrape_urls_05", {
     scrape_urls(
-      "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/notizie/2015-06-08/le-razze-italiane-piccolo-levriero-italiano-204436.shtml",
-      Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //article/div[@class='article-content ']/div/div/div//p//text() | //div[@class='aentry aentry--lined']//p//text())"),
+      "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+      Paths = c(title = "//article//h10", content = "//article//p[contains(@class, 'article')]//text()"),
       ignoreErrors = F,
       encoding = "bytes"
     )
