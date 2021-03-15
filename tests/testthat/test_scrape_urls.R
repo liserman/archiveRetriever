@@ -507,3 +507,24 @@ test_that("scrape_urls() needs to sleep every 20 Urls", {
   })
   expect_equal(nrow(output), 21)
 })
+
+
+#Check whether script runs without problems in case of timeout of website
+test_that("scrape_urls() should not fail if website has timeout",
+          {
+
+            webmockr::enable()
+
+            webmockr::to_timeout(
+              webmockr::stub_request(
+                "get", "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/")
+            )
+            output <- scrape_urls(
+              "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+              Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+              encoding = "bytes"
+            )
+            expect_is(output, "data.frame")
+
+            webmockr::disable()
+          })
