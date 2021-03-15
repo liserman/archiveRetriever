@@ -3,7 +3,6 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
-### Problem: Internet connection still required!
 #Check whether function output is data frame
 test_that("retrieve_links() returns a data frame", {
   vcr::use_cassette("retrieve_links", {
