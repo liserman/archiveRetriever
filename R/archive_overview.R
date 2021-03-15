@@ -62,19 +62,6 @@ archive_overview <- function(homepage, startDate, endDate) {
   endDate <- anytime::anydate(endDate)
   endDate <- stringr::str_remove_all(endDate, "\\-")
 
-  # Check that domain ending exists
-  possibleError <- tryCatch(
-    UrlTest <- httr::GET(homepage, httr::timeout(20)),
-    error = function(e)
-      e
-  )
-
-  if (inherits(possibleError, "error")) {
-    stop("URL is not accessible. Please try another URL.")
-  }
-
-  if (httr::status_code(UrlTest) != 200)
-    stop ("Please add an existing URL.")
 
   # Check homepage input
   ArchiveCheck <-
