@@ -4,12 +4,14 @@
 \alias{retrieve_links}
 \title{retrieve_links: Retrieving Links of Lower-level web pages of mementos from the Internet Archive}
 \usage{
-retrieve_links(ArchiveUrls, encoding = "UTF-8")
+retrieve_links(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE)
 }
 \arguments{
 \item{ArchiveUrls}{A string of the memento of the Internet Archive}
 
 \item{encoding}{Specify a encoding for the homepage. Default is 'UTF-8'}
+
+\item{ignoreErrors}{Ignore errors for some Urls and proceed scraping}
 }
 \value{
 This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.

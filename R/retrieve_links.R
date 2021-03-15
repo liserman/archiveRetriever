@@ -4,6 +4,7 @@
 #'
 #' @param ArchiveUrls A string of the memento of the Internet Archive
 #' @param encoding  	Specify a encoding for the homepage. Default is 'UTF-8'
+#' @param ignoreErrors Ignore errors for some Urls and proceed scraping
 #'
 #' @return This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
 #' @examples
@@ -32,7 +33,7 @@
 
 # Retrieve URLs function
 
-retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
+retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE) {
   #### A priori consistency checks
 
   # Globally bind variables
@@ -86,8 +87,18 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
         e
     )
 
-    if (inherits(possibleError, "error"))
-      next
+    if (inherits(possibleError, "error")) {
+
+      if(!ignoreErrors){
+
+        stop(
+          possibleError[[1]]
+        )
+
+      } else {
+        next
+      }
+    }
 
     status <- httr::status_code(r)
     if (status == 200) {
@@ -122,14 +133,25 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
 
       Sys.sleep(sample(1:2, 1))
     } else{
+
+      if(!ignoreErrors){
+
+        stop(
+          paste0("HTTP status ", httr::status_code(r), ": Links could not be retrieved. Please try again with a different URL.")
+        )
+
+      } else {
       next
+      }
     }
 
     setTxtProgressBar(pb, i)
 
   }
 
+  if (length(fullUrls) > 0) {
   names(fullUrls) <- ArchiveUrls
+  }
 
   dataReturn <- tibble::enframe(fullUrls)
   dataReturn <- tidyr::unnest(dataReturn, cols = c(value))

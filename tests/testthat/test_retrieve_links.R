@@ -34,3 +34,58 @@ test_that("retrieve_links() requires encoding to be character with length 1",
               "encoding is not a single value"
             )
           })
+
+#Check error message if timeout
+test_that("retrieve_links() returns error if request timeout",
+          {
+            webmockr::enable()
+
+            webmockr::to_timeout(
+              webmockr::stub_request("get", "http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
+            )
+
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/"
+              ),
+              "Request Timeout"
+            )
+            webmockr::disable()
+          })
+
+#Check error message if status!=200
+test_that("retrieve_links() returns error if request timeout",
+          {
+            webmockr::enable()
+
+            webmockr::to_return(
+              webmockr::stub_request("get", "http://web.archive.org/web/20190801001228/https://www.spiegel.de/"),
+              status = 404
+            )
+
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/"
+              ),
+              "HTTP status 404"
+            )
+            webmockr::disable()
+          })
+
+#Check ignoreErrors function
+test_that("retrieve_links() returns error if request timeout",
+          {
+            webmockr::enable()
+
+            webmockr::to_return(
+              webmockr::stub_request("get", "http://web.archive.org/web/20190801001228/https://www.spiegel.de/"),
+              status = 404
+            )
+            output <- retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                ignoreErrors = TRUE
+              )
+            expect_is(output, "data.frame")
+
+            webmockr::disable()
+          })
