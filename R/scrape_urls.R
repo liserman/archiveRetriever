@@ -229,7 +229,7 @@ scrape_urls <-
       if (status == 200) {
         # Scrape page, using rvest
         tryCatch({
-          html <- xml2::read_html(Urls[i], encoding = encoding)
+          html <- xml2::read_html(r, encoding = encoding)
 
 
           data <- list()

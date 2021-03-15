@@ -91,7 +91,7 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8") {
 
     status <- httr::status_code(r)
     if (status == 200) {
-      paper_html <- xml2::read_html(ArchiveUrls[i], encoding = encoding)
+      paper_html <- xml2::read_html(r, encoding = encoding)
 
       paper_urls <- rvest::html_nodes(paper_html, "a")
       paper_urls <- rvest::html_attr(paper_urls, "href")
