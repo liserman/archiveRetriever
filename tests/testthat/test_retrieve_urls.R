@@ -73,22 +73,3 @@ test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
               "Homepage has never been saved in the Internet Archive"
             )
           })
-
-#Check whether URL exists with 200 status
-webmockr::enable(adapter = "httr")
-webmockr::stub_registry_clear()
-webmockr::stub_request("get", "https://www.sowi.uni-mannheim.de/schoen/team/akademische-mitarbeiterinnen-und-mitarbeiter/gavras-konstantin/") %>%
-  webmockr::to_return(status = 404)
-
-test_that("retrieve_urls() needs homepage with status 200", {
-  expect_error(
-    retrieve_urls(
-      "https://www.sowi.uni-mannheim.de/schoen/team/akademische-mitarbeiterinnen-und-mitarbeiter/gavras-konstantin/",
-      "2016-01-01",
-      "2016-05-31"
-    ),
-    "Please add an existing URL"
-  )
-})
-
-webmockr::disable()
