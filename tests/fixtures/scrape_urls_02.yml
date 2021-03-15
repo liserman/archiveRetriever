@@ -15,7 +15,7 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: nginx/1.19.5
-      date: Mon, 15 Mar 2021 14:32:48 GMT
+      date: Mon, 15 Mar 2021 14:42:48 GMT
       content-type: text/html;charset=utf-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -55,13 +55,13 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: NO404-GDELT-20190527181649-crawl409/NO404-GDELT-20190527185005-05084.warc.gz
-      server-timing: exclusion.robots.policy;dur=0.193580, PetaboxLoader3.resolve;dur=338.535984,
-        exclusion.robots;dur=0.210291, RedisCDXSource;dur=14.730888, esindex;dur=0.010920,
-        captures_list;dur=696.230102, CDXLines.iter;dur=23.462794, LoadShardBlock;dur=653.807476,
-        PetaboxLoader3.datanode;dur=279.527168, load_resource;dur=412.061851
-      x-app-server: wwwb-app102
+      server-timing: LoadShardBlock;dur=165.555416, exclusion.robots.policy;dur=0.200568,
+        captures_list;dur=243.732540, esindex;dur=0.022680, PetaboxLoader3.resolve;dur=65.321870,
+        exclusion.robots;dur=0.216065, PetaboxLoader3.datanode;dur=171.206633, CDXLines.iter;dur=22.358512,
+        load_resource;dur=148.232233, RedisCDXSource;dur=51.716603
+      x-app-server: wwwb-app105
       x-ts: '200'
-      x-tr: '1227'
+      x-tr: '607'
       x-location: All
       x-cache-key: httpweb.archive.org/web/20190527190348/http://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/DE
       x-rl: '0'
@@ -80,7 +80,7 @@ http_interactions:
         XML, XSL, HTML, CSS, JS (+ toil, tears and sweat) webmaster@taz.de\n\t--><head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app102.us.archive.org';v.server_ms=1125;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app105.us.archive.org';v.server_ms=419;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -1431,13 +1431,13 @@ http_interactions:
         alert('Cookie konnte nicht gesetzt werden');\n\t\t\t\t\t\n\t\t\t\t\"><span>zur
         mobilen Ansicht wechseln</span></a></div></div></div></div></div></body><!--
         DEBUG end 21:03:02+02:00--></html>\n<!--\n     FILE ARCHIVED ON 19:03:48 May
-        27, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 14:32:48 Mar 15,
+        27, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 14:42:48 Mar 15,
         2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.\n\n
         \    ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.\n     SECTION
-        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  exclusion.robots.policy:
-        0.193\n  captures_list: 696.23\n  exclusion.robots: 0.21\n  RedisCDXSource:
-        14.73\n  PetaboxLoader3.resolve: 338.535\n  esindex: 0.01\n  CDXLines.iter:
-        23.462 (3)\n  LoadShardBlock: 653.807 (3)\n  PetaboxLoader3.datanode: 279.527
-        (4)\n  load_resource: 412.061\n-->"
-  recorded_at: 2021-03-15 14:32:46 GMT
+        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  LoadShardBlock: 165.555
+        (3)\n  exclusion.robots.policy: 0.2\n  captures_list: 243.732\n  esindex:
+        0.022\n  PetaboxLoader3.resolve: 65.321\n  RedisCDXSource: 51.716\n  PetaboxLoader3.datanode:
+        171.206 (4)\n  CDXLines.iter: 22.358 (3)\n  load_resource: 148.232\n  exclusion.robots:
+        0.216\n-->"
+  recorded_at: 2021-03-15 14:42:46 GMT
   recorded_with: vcr/0.6.0, webmockr/0.8.0

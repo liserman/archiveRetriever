@@ -15,7 +15,7 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: nginx/1.19.5
-      date: Mon, 15 Mar 2021 14:32:43 GMT
+      date: Mon, 15 Mar 2021 14:42:32 GMT
       content-type: text/html;charset=utf-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -52,13 +52,13 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: NO404-GDELT-20190501192627-crawl409/NO404-GDELT-20190501204854-00390.warc.gz
-      server-timing: PetaboxLoader3.resolve;dur=180.921341, RedisCDXSource;dur=1.143266,
-        CDXLines.iter;dur=27.373705, captures_list;dur=333.981718, exclusion.robots.policy;dur=0.249430,
-        PetaboxLoader3.datanode;dur=6010.019035, exclusion.robots;dur=0.266501, LoadShardBlock;dur=299.375542,
-        load_resource;dur=5930.808319, esindex;dur=0.024259
+      server-timing: PetaboxLoader3.resolve;dur=37.297573, RedisCDXSource;dur=77.111736,
+        CDXLines.iter;dur=22.226244, captures_list;dur=249.185050, exclusion.robots.policy;dur=2.733590,
+        PetaboxLoader3.datanode;dur=129.258711, exclusion.robots;dur=2.752609, LoadShardBlock;dur=142.664414,
+        load_resource;dur=105.214973, esindex;dur=0.012401
       x-app-server: wwwb-app39
       x-ts: '200'
-      x-tr: '6453'
+      x-tr: '605'
       x-location: All
       x-cache-key: httpweb.archive.org/web/20190501205310/http://taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/DE
       x-rl: '0'
@@ -77,7 +77,7 @@ http_interactions:
         XML, XSL, HTML, CSS, JS (+ toil, tears and sweat) webmaster@taz.de\n\t--><head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app39.us.archive.org';v.server_ms=6287;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app39.us.archive.org';v.server_ms=395;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -1412,13 +1412,13 @@ http_interactions:
         alert('Cookie konnte nicht gesetzt werden');\n\t\t\t\t\t\n\t\t\t\t\"><span>zur
         mobilen Ansicht wechseln</span></a></div></div></div></div></div></body><!--
         DEBUG end 22:53:10+02:00--></html>\n<!--\n     FILE ARCHIVED ON 20:53:10 May
-        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 14:32:43 Mar 15,
+        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 14:42:32 Mar 15,
         2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.\n\n
         \    ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.\n     SECTION
-        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  captures_list: 333.981\n
-        \ PetaboxLoader3.datanode: 6010.019 (4)\n  LoadShardBlock: 299.375 (3)\n  RedisCDXSource:
-        1.143\n  PetaboxLoader3.resolve: 180.921 (3)\n  CDXLines.iter: 27.373 (3)\n
-        \ exclusion.robots: 0.266\n  exclusion.robots.policy: 0.249\n  load_resource:
-        5930.808\n  esindex: 0.024\n-->"
-  recorded_at: 2021-03-15 14:32:41 GMT
+        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  captures_list: 249.185\n
+        \ PetaboxLoader3.datanode: 129.258 (4)\n  LoadShardBlock: 142.664 (3)\n  RedisCDXSource:
+        77.111\n  PetaboxLoader3.resolve: 37.297\n  CDXLines.iter: 22.226 (3)\n  exclusion.robots:
+        2.752\n  exclusion.robots.policy: 2.733\n  load_resource: 105.214\n  esindex:
+        0.012\n-->"
+  recorded_at: 2021-03-15 14:42:31 GMT
   recorded_with: vcr/0.6.0, webmockr/0.8.0

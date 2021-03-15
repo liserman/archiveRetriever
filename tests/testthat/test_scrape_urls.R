@@ -326,7 +326,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
     vcr::use_cassette("scrape_urls_05", {
     scrape_urls(
       "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-      Paths = c(title = "//article//h10", content = "//article//p[contains(@class, 'article')]//text()"),
+      Paths = c(title = "//blablabla", content = "//article//p[contains(@class, 'article')]//text()"),
       ignoreErrors = F,
       encoding = "bytes"
     )
@@ -362,7 +362,7 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
         "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
         "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
         "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope",
-        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
+        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope"
       ),
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
       stopatempty = T,
