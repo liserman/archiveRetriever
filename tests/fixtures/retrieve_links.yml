@@ -15,7 +15,7 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: nginx/1.19.5
-      date: Mon, 15 Mar 2021 19:06:24 GMT
+      date: Tue, 16 Mar 2021 10:27:04 GMT
       content-type: text/html;charset=UTF-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -40,17 +40,18 @@ http_interactions:
         rel="first memento"; datetime="Mon, 23 Dec 1996 06:24:46 GMT", <http://web.archive.org/web/20190731234337/http://www.spiegel.de/>;
         rel="prev memento"; datetime="Wed, 31 Jul 2019 23:43:37 GMT", <http://web.archive.org/web/20190801001228/https://www.spiegel.de/>;
         rel="memento"; datetime="Thu, 01 Aug 2019 00:12:28 GMT", <http://web.archive.org/web/20190801005922/http://spiegel.de/>;
-        rel="next memento"; datetime="Thu, 01 Aug 2019 00:59:22 GMT", <http://web.archive.org/web/20210315114705/https://www.spiegel.de/>;
-        rel="last memento"; datetime="Mon, 15 Mar 2021 11:47:05 GMT"
+        rel="next memento"; datetime="Thu, 01 Aug 2019 00:59:22 GMT", <http://web.archive.org/web/20210316100611/https://www.spiegel.de/>;
+        rel="last memento"; datetime="Tue, 16 Mar 2021 10:06:11 GMT"
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: TWITTER-20190731224427-crawl854/TWITTER-20190731235459-02723.warc.gz
-      server-timing: RedisCDXSource;dur=119.752538, esindex;dur=0.082254, PetaboxLoader3.datanode;dur=813.707033,
-        CDXLines.iter;dur=303.006447, PetaboxLoader3.resolve;dur=245.111515, LoadShardBlock;dur=1601.269790,
-        exclusion.robots.policy;dur=1.134590, load_resource;dur=301.561572, exclusion.robots;dur=1.239390
-      x-app-server: wwwb-app31
+      server-timing: exclusion.robots;dur=0.995287, CDXLines.iter;dur=450.232548,
+        LoadShardBlock;dur=3642.803907, RedisCDXSource;dur=41.928962, PetaboxLoader3.datanode;dur=512.546127,
+        esindex;dur=0.065795, PetaboxLoader3.resolve;dur=273.597731, exclusion.robots.policy;dur=0.906136,
+        load_resource;dur=287.657307
+      x-app-server: wwwb-app104
       x-ts: '200'
-      x-tr: '3068'
+      x-tr: '5236'
       x-location: All
       x-cache-key: httpweb.archive.org/web/20190801001228/https://www.spiegel.de/DE
       x-rl: '0'
@@ -64,7 +65,7 @@ http_interactions:
       string: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html
         lang=\"de\">\n<head><script src=\"//archive.org/includes/analytics.js?v=cf34f82\"
         type=\"text/javascript\"></script>\n<script type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app31.us.archive.org';v.server_ms=885;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app104.us.archive.org';v.server_ms=1204;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -4069,12 +4070,12 @@ http_interactions:
         > -1 ? 'preview.js' : 'live.js');\t\n\t\tvar s = document.createElement('script');\n\t\ts.type
         = 'text/javascript';\n\t\ts.async = 'true';\n\t\ts.src = gujadlinkJS;\n\t\tdocument.body.appendChild(s);\t\t\t\t\t\t\n\t})();\t\n</script>\n</body>\n</html><!--\n
         \    FILE ARCHIVED ON 00:12:28 Aug 01, 2019 AND RETRIEVED FROM THE\n     INTERNET
-        ARCHIVE ON 19:06:22 Mar 15, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
+        ARCHIVE ON 10:27:00 Mar 16, 2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE,
         COPYRIGHT INTERNET ARCHIVE.\n\n     ALL OTHER CONTENT MAY ALSO BE PROTECTED
         BY COPYRIGHT (17 U.S.C.\n     SECTION 108(a)(3)).\n-->\n<!--\nplayback timings
-        (ms):\n  RedisCDXSource: 37.541\n  esindex: 0.016\n  exclusion.robots: 0.368\n
-        \ exclusion.robots.policy: 0.34\n  PetaboxLoader3.resolve: 245.111\n  LoadShardBlock:
-        378.465 (6)\n  CDXLines.iter: 75.325 (3)\n  load_resource: 301.561\n  PetaboxLoader3.datanode:
-        222.541 (7)\n-->"
-  recorded_at: 2021-03-15 19:06:26 GMT
-  recorded_with: vcr/0.6.0, webmockr/0.7.4
+        (ms):\n  exclusion.robots: 0.214\n  CDXLines.iter: 79.866 (3)\n  LoadShardBlock:
+        761.274 (6)\n  RedisCDXSource: 0.909\n  PetaboxLoader3.datanode: 253.756 (7)\n
+        \ esindex: 0.015\n  PetaboxLoader3.resolve: 273.597 (2)\n  exclusion.robots.policy:
+        0.194\n  load_resource: 287.657\n-->"
+  recorded_at: 2021-03-16 10:27:06 GMT
+  recorded_with: vcr/0.6.0, webmockr/0.8.0

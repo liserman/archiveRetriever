@@ -1,7 +1,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/
+    uri: http://web.archive.org/web/20190501205310/http://taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/
     body:
       encoding: ''
       string: ''
@@ -15,7 +15,7 @@ http_interactions:
       message: 'Success: (200) OK'
     headers:
       server: nginx/1.19.5
-      date: Mon, 15 Mar 2021 19:06:36 GMT
+      date: Tue, 16 Mar 2021 10:27:12 GMT
       content-type: text/html;charset=utf-8
       transfer-encoding: chunked
       connection: keep-alive
@@ -52,13 +52,13 @@ http_interactions:
       content-security-policy: 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline''
         data: blob: archive.org web.archive.org analytics.archive.org pragma.archivelab.org'
       x-archive-src: NO404-GDELT-20190501192627-crawl409/NO404-GDELT-20190501204854-00390.warc.gz
-      server-timing: captures_list;dur=441.949555, exclusion.robots;dur=0.126174,
-        exclusion.robots.policy;dur=0.116842, RedisCDXSource;dur=1.826891, esindex;dur=0.010536,
-        LoadShardBlock;dur=413.217963, PetaboxLoader3.datanode;dur=204.632338, CDXLines.iter;dur=22.847303,
-        PetaboxLoader3.resolve;dur=115.297310, load_resource;dur=105.411816
-      x-app-server: wwwb-app205
+      server-timing: PetaboxLoader3.resolve;dur=41.599753, CDXLines.iter;dur=25.400248,
+        LoadShardBlock;dur=65.537877, exclusion.robots;dur=0.185006, PetaboxLoader3.datanode;dur=92.403966,
+        load_resource;dur=96.314135, RedisCDXSource;dur=2.217315, esindex;dur=0.014931,
+        exclusion.robots.policy;dur=0.170833, captures_list;dur=98.203188
+      x-app-server: wwwb-app100
       x-ts: '200'
-      x-tr: '640'
+      x-tr: '379'
       x-location: All
       x-cache-key: httpweb.archive.org/web/20190501205310/http://taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/DE
       x-rl: '0'
@@ -77,7 +77,7 @@ http_interactions:
         XML, XSL, HTML, CSS, JS (+ toil, tears and sweat) webmaster@taz.de\n\t--><head><script
         src=\"//archive.org/includes/analytics.js?v=cf34f82\" type=\"text/javascript\"></script>\n<script
         type=\"text/javascript\">window.addEventListener('DOMContentLoaded',function(){var
-        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app205.us.archive.org';v.server_ms=564;archive_analytics.send_pageview({});});</script><script
+        v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app100.us.archive.org';v.server_ms=221;archive_analytics.send_pageview({});});</script><script
         type=\"text/javascript\" src=\"/_static/js/playback.bundle.js?v=bQvHU8mx\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\" src=\"/_static/js/wombat.js?v=cRqOKCOw\"
         charset=\"utf-8\"></script>\n<script type=\"text/javascript\">\n  __wm.init(\"http://web.archive.org/web\");\n
@@ -1412,13 +1412,12 @@ http_interactions:
         alert('Cookie konnte nicht gesetzt werden');\n\t\t\t\t\t\n\t\t\t\t\"><span>zur
         mobilen Ansicht wechseln</span></a></div></div></div></div></div></body><!--
         DEBUG end 22:53:10+02:00--></html>\n<!--\n     FILE ARCHIVED ON 20:53:10 May
-        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 19:06:36 Mar 15,
+        01, 2019 AND RETRIEVED FROM THE\n     INTERNET ARCHIVE ON 10:27:12 Mar 16,
         2021.\n     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.\n\n
         \    ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.\n     SECTION
-        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  captures_list: 441.949\n
-        \ exclusion.robots: 0.126\n  exclusion.robots.policy: 0.116\n  RedisCDXSource:
-        1.826\n  esindex: 0.01\n  LoadShardBlock: 413.217 (3)\n  PetaboxLoader3.datanode:
-        204.632 (4)\n  CDXLines.iter: 22.847 (3)\n  PetaboxLoader3.resolve: 115.297
-        (2)\n  load_resource: 105.411\n-->"
-  recorded_at: 2021-03-15 19:06:37 GMT
-  recorded_with: vcr/0.6.0, webmockr/0.7.4
+        108(a)(3)).\n-->\n<!--\nplayback timings (ms):\n  PetaboxLoader3.resolve:
+        41.599\n  CDXLines.iter: 25.4 (3)\n  LoadShardBlock: 65.537 (3)\n  exclusion.robots.policy:
+        0.17\n  PetaboxLoader3.datanode: 92.403 (4)\n  load_resource: 96.314\n  RedisCDXSource:
+        2.217\n  esindex: 0.014\n  exclusion.robots: 0.185\n  captures_list: 98.203\n-->"
+  recorded_at: 2021-03-16 10:27:12 GMT
+  recorded_with: vcr/0.6.0, webmockr/0.8.0

@@ -317,15 +317,14 @@ test_that("scrape_urls() needs to fill first row when only second value is scrap
 
 #Check whether only some XPaths could be scraped
 test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
+  skip_on_cran()
   expect_warning(
-    vcr::use_cassette("scrape_urls_05", {
     scrape_urls(
       "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-      Paths = c(title = "//blablabla", content = "//article//p[contains(@class, 'article')]//text()"),
+      Paths = c(title = "/blablabla", content = "//article//p[contains(@class, 'article')]//text()"),
       ignoreErrors = F,
       encoding = "bytes"
-    )
-    }),
+    ),
     "Only some of your Paths"
   )
 })
@@ -333,7 +332,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 #Check whether data is being correctly processed
 test_that("scrape_urls() needs to set NA if page cannot be scraped", {
-  vcr::use_cassette("scrape_urls_06", {
+  vcr::use_cassette("scrape_urls_05", {
   output <-
     scrape_urls(
       c(
@@ -350,8 +349,8 @@ test_that("scrape_urls() needs to set NA if page cannot be scraped", {
 
 #Check whether process stop if too many rows are empty
 test_that("scrape_urls() needs to stop if too many row are empty", {
+  skip_on_cran()
   expect_warning(
-    vcr::use_cassette("scrape_urls_07", {
     scrape_urls(
       c(
         "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
@@ -362,8 +361,7 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
       stopatempty = T,
       emptylim = 2
-    )
-    }, preserve_exact_body_bytes = TRUE),
+    ),
     "Too many empty outputs in a row"
   )
 })
@@ -371,7 +369,7 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
 
 #Check if re-start after break and attachto works
 test_that("scrape_urls() needs to take up process if it breaks", {
-  vcr::use_cassette("scrape_urls_08", {
+  vcr::use_cassette("scrape_urls_06", {
   output <-
     scrape_urls(
       c(
@@ -476,7 +474,7 @@ test_that("scrape_urls() should not take up process if it stems from other proce
 #Check whether sleeper is activated after 20 Urls
 
 test_that("scrape_urls() needs to sleep every 20 Urls", {
-  vcr::use_cassette("scrape_urls_09", {
+  vcr::use_cassette("scrape_urls_07", {
   output <-
     scrape_urls(
       c(
