@@ -14,7 +14,7 @@ retrieve_urls(homepage, startDate, endDate)
 \item{endDate}{A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})}
 }
 \value{
-This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.  As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 }
 \description{
 \code{retrieve_urls} retrieves the Urls of mementos stored in the Internet Archive

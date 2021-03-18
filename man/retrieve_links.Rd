@@ -14,7 +14,7 @@ retrieve_links(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE)
 \item{ignoreErrors}{Ignore errors for some Urls and proceed scraping}
 }
 \value{
-This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 }
 \description{
 \code{retrieve_links} retrieves the Urls of mementos stored in the Internet Archive

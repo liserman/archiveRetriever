@@ -14,7 +14,7 @@
 #' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
 #' @param lengthwarning Warning function for large number of URLs appears. Set FALSE to disable default warning.
 #'
-#' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.
+#' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 
 # Importing dependencies with roxygen2
 #' @importFrom xml2 read_html

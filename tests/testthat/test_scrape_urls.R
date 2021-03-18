@@ -3,6 +3,8 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
+#Two tests are skipped_on_cran as it is always possible that the Internet Archive might be inaccessible. For these two tests, it is also not possible to set use an vcr cassette as the cassette does not store the information required for the test to successfully fail. The tests, however, never failed when testing on our machines.
+
 #Check whether function output is data frame
 test_that("scrape_urls() returns a data frame", {
   vcr::use_cassette("scrape_urls_01", {
