@@ -1,7 +1,7 @@
 # archiveRetriever 0.0.2
 
 * Minor fixes and adjustments to Error-Messages
-
+* More stable testing environment
 
 ---
 
