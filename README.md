@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/liserman/archiveRetriever/branch/main/graph/badge.svg?token=B1VPXBAR7P)](https://codecov.io/gh/liserman/archiveRetriever)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
-
+[![Downloads](https://cranlogs.r-pkg.org/badges/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 
 R-Package to retrieve web data from the Internet Archive
 
@@ -29,6 +29,6 @@ To install the latest development version of `archiveRetriever` directly from
 [GitHub](https://github.com/liserman/archiveRetriever) use:
 
 ``` r
-library(devtools) # Tools to Make Developing R Packages Easier # Tools to Make Developing R Packages Easier
+library(devtools) # Tools to Make Developing R Packages Easier
 devtools::install_github("liserman/archiveRetriever")
 ```
