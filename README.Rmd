@@ -136,3 +136,24 @@ head(nytimes_links)
 
 For some applications, it might not be necessary to include the `retrieve_links` function into the workflow. When only interested in one specific homepage, it can be sufficient to only retrieve the mementos using the `retrieve_urls` function.
 
+### scrape_urls
+
+The `scrape_urls` function is the main function of the `ArchiveRetriever` package. The function takes a memento of the Internet Archive and a XPath (or CSS) vector as obligatory inputs and results in a tibble with the content scraped using the XPath/CSS selectors. There is one important point to consider when entering the `Paths` for scraping: The option only takes named vectors, in order to provide meaningful column names for the resulting tibbles.
+
+
+```{R, message=FALSE, warning=FALSE, results = "hide"}
+nytimes_article <- scrape_urls(Urls = "http://web.archive.org/web/20201001004918/https://www.nytimes.com/2020/09/30/opinion/biden-trump-2020-debate.html",
+                               Paths = c(title = "//h1[@itemprop='headline']",
+                                         author = "//span[@itemprop='name']",
+                                         date = "//time//text()",
+                                         article = "//section[@itemprop='articleBody']//p"))
+```
+
+```{R}
+nytimes_article
+```
+
+
+When using the `scrape_urls` function to scrape large amounts of urls, we added some important (optional) features, ensuring that the scraping process works smoothly. Most importantly, the process breaks when no content could be scraped for a certain number of urls (default is 10) - most often meaning that the XPath have not been selected correctly. Additionally, the process breaks when only some elements of the Paths could be scraped - implying that the XPaths have changed for parts of the content aimed to be scraped. After break-off, the function still outputs a tibble, ensuring that the process does not need to be started anew. After break-off, users need to identify the element position of break-off, fix the error in the Paths and are able to re-start the `scrape_urls` function exactly where it broke off. Lastly, we also added a length warning for long url vector inserted to the `scrape_urls` raising awareness that a large chunk of data is now going to be scraped.
+
+
