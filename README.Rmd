@@ -124,7 +124,7 @@ For many scraping applications, researchers aim to extract information from all 
 
 Sticking to the example of the New York Times, we extract all links of the memento stored on October 01, 2020 using the `retrieve_links` function. Please be aware that the `retrieve_links` function only takes mementos of the Internet Archive as input to ensure only these pages are being scraped using our scraping functions.
 
-```{R}
+```{R, message=FALSE, warning=FALSE, results = "hide"}
 nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/")
 ```
 

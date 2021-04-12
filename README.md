@@ -171,7 +171,6 @@ being scraped using our scraping functions.
 
 ``` r
 nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/")
-#>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 ```
 
 The `retrieve_links` function results in a tibble with two columns,
