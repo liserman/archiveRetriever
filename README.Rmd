@@ -101,5 +101,38 @@ nytimesArticle_overview
 
 As the article has been published on November 07, there are of course no mementos available before that date.
 
+### retrieve_urls
 
+The Internet Archive stores mementos of homepages in their archive which allows researchers to retrieve historical content from the internet or examine changes to existing homepages. Scraping content from the Internet Archive often requires retrieving mementos from a certain time range or specific points in time. 
+
+Applying the `retrieve_urls` function on a homepage results in a character vector of mementos of the homepage available from the Internet Archive. 
+```{R}
+nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
+                     startDate = "2020-10-01",
+                     endDate = "2020-12-31")
+```
+
+In the Internet Archive often more than one memento is stored each day. For convenience, the `retrieve_urls` only retrieves one memento for each day.
+
+```{R}
+nytimes_mementos[1:10]
+```
+
+### retrieve_links
+
+For many scraping applications, researchers aim to extract information from all links within a homepage to get a complete picture of the information stored, e.g. when scraping news content from online newspapers, blogs on Reddit or press releases published by political parties. 
+
+Sticking to the example of the New York Times, we extract all links of the memento stored on October 01, 2020 using the `retrieve_links` function. Please be aware that the `retrieve_links` function only takes mementos of the Internet Archive as input to ensure only these pages are being scraped using our scraping functions.
+
+```{R}
+nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/")
+```
+
+The `retrieve_links` function results in a tibble with two columns, including the base url of the memento in the first column and all links in the second column. From this, user of this function might decide to filter out links which do not point to content relevant for analysis using packages for string operations, such as [stringr](https://github.com/tidyverse/stringr). 
+
+```{R}
+head(nytimes_links)
+```
+
+For some applications, it might not be necessary to include the `retrieve_links` function into the workflow. When only interested in one specific homepage, it can be sufficient to only retrieve the mementos using the `retrieve_urls` function.
 
