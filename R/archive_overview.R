@@ -75,6 +75,16 @@ archive_overview <- function(homepage, startDate, endDate) {
       "&output=json&limit=1"
     )
 
+  possibleError <- tryCatch(
+    r <- httr::GET(ArchiveCheck, httr::timeout(20)),
+    error = function(e)
+      e
+  )
+
+  if (inherits(possibleError, "error")) {
+    stop ("Homepage could not be loaded. Please check whether the page exists.")
+    }
+
   if (nrow(as.data.frame(jsonlite::fromJSON(ArchiveCheck))) == 0)
     stop ("Homepage has never been saved in the Internet Archive. Please choose another homepage.")
 
