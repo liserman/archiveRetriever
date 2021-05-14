@@ -347,7 +347,10 @@ scrape_urls <-
       }
 
       # Progress message
-      setTxtProgressBar(pb, i)
+      if(length(Urls) > 1){
+        setTxtProgressBar(pb, i)
+      }
+
 
     }
 

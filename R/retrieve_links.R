@@ -145,7 +145,9 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE
       }
     }
 
-    setTxtProgressBar(pb, i)
+    if(length(ArchiveUrls) > 1){
+      setTxtProgressBar(pb, i)
+    }
 
   }
 

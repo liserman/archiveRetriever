@@ -82,7 +82,7 @@ archive_overview <- function(homepage, startDate, endDate) {
   )
 
   if (inherits(possibleError, "error")) {
-    stop ("Homepage could not be loaded. Please check whether the page exists.")
+    stop ("Homepage could not be loaded. Please check whether the page exists or try again.")
     }
 
   if (nrow(as.data.frame(jsonlite::fromJSON(ArchiveCheck))) == 0)
