@@ -39,6 +39,7 @@
 scrape_urls_new <-
   function(Urls,
            Paths,
+           collapse = TRUE,
            startnum = 1,
            attachto = NULL,
            CSS = FALSE,
@@ -402,7 +403,6 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
   # Attach attachto to retrived data
   if (!is.null(attachto)) {
     output <- rbind(attachto[,-grep("stoppedat", colnames(attachto))], output)
-    output <- tibble::tibble(output)
   }
 
   # If archiveDate = TRUE, add information
@@ -415,6 +415,9 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
         )
       )
   }
+
+  # Output as tibble
+  output <- tibble::tibble(output)
 
   #### Return output
   return(output)
