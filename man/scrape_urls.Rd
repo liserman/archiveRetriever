@@ -7,6 +7,7 @@
 scrape_urls(
   Urls,
   Paths,
+  collapse = TRUE,
   startnum = 1,
   attachto = NULL,
   CSS = FALSE,
@@ -22,6 +23,8 @@ scrape_urls(
 \item{Urls}{A character vector of the memento of the Internet Archive}
 
 \item{Paths}{A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.}
+
+\item{collapse}{Collapse matching html nodes}
 
 \item{startnum}{Specify the starting number for scraping the Urls. Important when scraping breaks during process.}
 

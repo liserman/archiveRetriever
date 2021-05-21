@@ -6,6 +6,7 @@ library(archiveRetriever)
 
 #Check whether vector is function output
 test_that("retrieve_urls() returns a character vector", {
+  skip_on_cran()
   output <- retrieve_urls("nytimes.com", "Jun/01/2017", "Jun/01/2018")
   expect_is(output, "character")
 })

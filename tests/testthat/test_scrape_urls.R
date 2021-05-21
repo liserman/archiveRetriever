@@ -528,3 +528,18 @@ test_that("scrape_urls() should not fail if website has timeout",
 
             webmockr::disable()
           })
+
+
+#Check whether script runs without problems when collapse is FALSE
+
+test_that("scrape_urls() needs to output 5 rows", {
+  vcr::use_cassette("scrape_urls_08", {
+    output <-
+      scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
+                      Paths = c(title = "//div/h3",
+                                type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
+                      collapse = F,
+                      ignoreErrors = T)
+  })
+  expect_equal(nrow(output), 5)
+})

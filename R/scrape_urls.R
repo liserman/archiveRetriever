@@ -36,7 +36,7 @@
 
 
 
-scrape_urls_new <-
+scrape_urls <-
   function(Urls,
            Paths,
            collapse = TRUE,
@@ -304,11 +304,22 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
     # Stop if too many empty outputs in a row
 
     # Counter for empty outputs in a row
-    if (sum(stringr::str_length(data) == 0) == length(Paths)) {
-      counter <-  counter + 1
+    if(collapse == F){
+
+      if (sum(sapply(sapply(data, stringr::str_length), sum) == 0) == length(Paths)){
+        counter <-  counter + 1
+      } else {
+        counter <- 0
+      }
     } else {
-      counter <- 0
+
+      if (sum(stringr::str_length(data) == 0) == length(Paths)){
+        counter <-  counter + 1
+      } else {
+        counter <- 0
+      }
     }
+
 
     if (counter >= emptylim &
         stopatempty == TRUE & ignoreErrors == FALSE) {
@@ -332,31 +343,59 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
 
     # Stop if non-matching number of paths could be extracted
-    if (any(sapply(sapply(data, stringr::str_length), length)==0) & ignoreErrors == FALSE) {
+    if (collapse == F){
+      if (any(sapply(sapply(data, stringr::str_length), length)==0) & ignoreErrors == FALSE) {
 
-      # Preliminary output
-      predata <- do.call("rbind", scrapedUrls)
+        # Preliminary output
+        predata <- do.call("rbind", scrapedUrls)
 
-      output <- tibble::tibble(predata, stoppedat = i)
+        output <- tibble::tibble(predata, stoppedat = i)
 
-      warning(
-        paste0(
-          "Error in scraping of Url ",
-          i,
-          " '",
-          Urls[i],
-          "'. Only some of your Paths could be extracted. A preliminary output has been printed."
+        warning(
+          paste0(
+            "Error in scraping of Url ",
+            i,
+            " '",
+            Urls[i],
+            "'. Only some of your Paths could be extracted. A preliminary output has been printed."
+          )
         )
-      )
-      return(output)
+        return(output)
 
+      }
+    } else {
+      if (length(unique(sapply(data, stringr::str_length)==0))!=1 & ignoreErrors == FALSE) {
+
+        # Preliminary output
+        predata <- do.call("rbind", scrapedUrls)
+
+        output <- tibble::tibble(predata, stoppedat = i)
+
+        warning(
+          paste0(
+            "Error in scraping of Url ",
+            i,
+            " '",
+            Urls[i],
+            "'. Only some of your Paths could be extracted. A preliminary output has been printed."
+          )
+        )
+        return(output)
+
+      }
     }
+
 
 
   # Data as dataframe
 
     # List as dataframe
-    data <- as.data.frame(data)
+    if (collapse == F){
+      data <- as.data.frame(sapply(data, '[', seq(max(sapply(data, length)))))
+    } else {
+      data <- as.data.frame(data)
+    }
+
 
     # Add column names
     cnames <- seq_len(length(Paths))
