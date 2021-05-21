@@ -438,40 +438,6 @@ test_that("scrape_urls() should not take up process if it stems from other proce
             )
           })
 
-#Check if re-start after break and attachto works
-test_that("scrape_urls() should not take up process if it stems from other process",
-          {
-            expect_error(
-              scrape_urls(
-                c(
-                  "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-                  "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
-                  "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope",
-                  "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
-                ),
-                Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-                stopatempty = F,
-                attachto = tibble::tibble(
-                  Urls = c(
-                    "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit",
-                    "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
-                    "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope"
-                  ),
-                  title = c("Vietnamesen rätseln um Staatschef",
-                            "",
-                            ""),
-                  content = c(
-                    "Wer regiert Vietnam? Offenbar ist Partei- und Staatschef Nguyen Phu Trong dazu nicht mehr fähig:",
-                    "",
-                    ""
-                  ),
-                  progress = c(1, 0, 0)
-                )
-              ),
-              "Input Urls and Urls in attachto file differ"
-            )
-          })
-
 
 #Check whether sleeper is activated after 20 Urls
 
@@ -540,7 +506,7 @@ test_that("scrape_urls() needs to output 5 rows", {
                                 type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
                       collapse = F,
                       ignoreErrors = T)
-  })
+  }, preserve_exact_body_bytes = )
   expect_equal(nrow(output), 5)
 })
 
@@ -567,6 +533,6 @@ test_that("scrape_urls() needs to output 4 rows",
                             author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
                   startnum = 4,
                   attachto = input)
-            })
+            }, preserve_exact_body_bytes = TRUE)
             expect_equal(nrow(output), 4)
           })
