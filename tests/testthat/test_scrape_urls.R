@@ -396,7 +396,7 @@ test_that("scrape_urls() needs to take up process if it breaks", {
           "",
           ""
         ),
-        progress = c(1, 0, 0)
+        stoppedat = 4
       )
     )
   }, preserve_exact_body_bytes = TRUE)
