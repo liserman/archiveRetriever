@@ -66,7 +66,7 @@ test_that("scrape_urls() option archiveDate stores archiving date", {
   scrape_urls(
     "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
     Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-    archiveDate = T,
+    archiveDate = TRUE,
     encoding = "bytes"
   )
   })
@@ -81,7 +81,7 @@ test_that("scrape_urls() takes CSS instead of XPath", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T
+      CSS = TRUE
     )
   })
   expect_is(output, "data.frame")
@@ -144,7 +144,7 @@ test_that("scrape_urls() needs CSS to be a single logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = c(T, T)
+      CSS = c(TRUE, TRUE)
     ),
     "CSS is not a single value"
   )
@@ -156,7 +156,7 @@ test_that("scrape_urls() needs archiveDate to be a logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
+      CSS = TRUE,
       archiveDate = "T"
     ),
     "archiveDate is not a logical value"
@@ -169,8 +169,8 @@ test_that("scrape_urls() needs archiveDate to be a single logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = c(T, T)
+      CSS = TRUE,
+      archiveDate = c(TRUE, TRUE)
     ),
     "archiveDate is not a single value"
   )
@@ -182,8 +182,8 @@ test_that("scrape_urls() needs ignoreErrors to be a logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
       ignoreErrors = "T"
     ),
     "ignoreErrors is not a logical value"
@@ -196,9 +196,9 @@ test_that("scrape_urls() needs ignoreErrors to be a single logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = c(T, T)
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = c(TRUE, TRUE)
     ),
     "ignoreErrors is not a single value"
   )
@@ -210,9 +210,9 @@ test_that("scrape_urls() needs stopatempty to be a logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
       stopatempty = "T"
     ),
     "stopatempty is not a logical value"
@@ -225,10 +225,10 @@ test_that("scrape_urls() needs stopatempty to be a single logical value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
-      stopatempty = c(T, T)
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
+      stopatempty = c(TRUE, TRUE)
     ),
     "stopatempty is not a single value"
   )
@@ -240,10 +240,10 @@ test_that("scrape_urls() needs emptylim to be a numeric value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
-      stopatempty = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
+      stopatempty = TRUE,
       emptylim = "5"
     ),
     "emptylim is not numeric"
@@ -256,10 +256,10 @@ test_that("scrape_urls() needs emptylim to be a numeric value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
-      stopatempty = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
+      stopatempty = TRUE,
       emptylim = c(5, 6)
     ),
     "emptylim is not a single value"
@@ -272,10 +272,10 @@ test_that("scrape_urls() needs encoding to be a character value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
-      stopatempty = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
+      stopatempty = TRUE,
       emptylim = 5,
       encoding = 1991
     ),
@@ -289,10 +289,10 @@ test_that("scrape_urls() needs encoding to be a character value", {
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "article h1"),
-      CSS = T,
-      archiveDate = T,
-      ignoreErrors = T,
-      stopatempty = T,
+      CSS = TRUE,
+      archiveDate = TRUE,
+      ignoreErrors = TRUE,
+      stopatempty = TRUE,
       emptylim = 5,
       encoding = c("UTF-8", "bytes")
     ),
@@ -324,7 +324,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
     scrape_urls(
       "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
       Paths = c(title = "/blablabla", content = "//article//p[contains(@class, 'article')]//text()"),
-      ignoreErrors = F,
+      ignoreErrors = FALSE,
       encoding = "bytes"
     ),
     "Only some of your Paths"
@@ -345,7 +345,7 @@ test_that("scrape_urls() needs to set NA if page cannot be scraped", {
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()")
     )
   })
-  expect_equal(is.na(output$title[3]), T)
+  expect_equal(is.na(output$title[3]), TRUE)
 })
 
 
@@ -361,7 +361,7 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
         "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope"
       ),
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-      stopatempty = T,
+      stopatempty = TRUE,
       emptylim = 2
     ),
     "Too many empty outputs in a row"
@@ -381,7 +381,7 @@ test_that("scrape_urls() needs to take up process if it breaks", {
         "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
       ),
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-      stopatempty = F,
+      stopatempty = FALSE,
       attachto = tibble::tibble(
         Urls = c(
           "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
@@ -416,7 +416,7 @@ test_that("scrape_urls() should not take up process if it stems from other proce
                   "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
                 ),
                 Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-                stopatempty = F,
+                stopatempty = FALSE,
                 attachto = tibble::tibble(
                   Urls = c(
                     "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
@@ -504,9 +504,9 @@ test_that("scrape_urls() needs to output 5 rows", {
       scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                       Paths = c(title = "//div/h3",
                                 type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
-                      collapse = F,
-                      ignoreErrors = T)
-  }, preserve_exact_body_bytes = )
+                      collapse = FALSE,
+                      ignoreErrors = TRUE)
+  }, preserve_exact_body_bytes = TRUE)
   expect_equal(nrow(output), 5)
 })
 
