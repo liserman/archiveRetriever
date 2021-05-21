@@ -301,20 +301,20 @@ test_that("scrape_urls() needs encoding to be a character value", {
 })
 
 #Check whether data is being correctly attached to existing data set
-test_that("scrape_urls() needs to fill first row when only second value is scraped",
+test_that("scrape_urls() needs to start with second row when startnum is 2",
           {
             vcr::use_cassette("scrape_urls_04", {
-            output <-
-              scrape_urls(
-                c(
-                  "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-                  "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
-                ),
-                c(title = "//header//h1"),
-                startnum = 2
-              )
+              output <-
+                scrape_urls(
+                  c(
+                    "http://web.archive.org/web/20190310015353/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+                    "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
+                  ),
+                  c(title = "//header//h1"),
+                  startnum = 2
+                )
             })
-            expect_equal(is.na(output$title[1]), T)
+            expect_equal(output$Urls[1], "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/")
           })
 
 #Check whether only some XPaths could be scraped
@@ -543,3 +543,38 @@ test_that("scrape_urls() needs to output 5 rows", {
   })
   expect_equal(nrow(output), 5)
 })
+
+
+#Check whether new content is being correctly attached to existing object
+test_that("scrape_urls() needs to output 4 rows",
+          {
+            vcr::use_cassette("scrape_urls_09", {
+              output <-
+                scrape_urls(
+                  c(
+                    "http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de",
+                    "http://web.archive.org/web/20171115220704/https://reddit.com/r/de",
+                    "http://web.archive.org/web/20171120193529/http://reddit.com/r/de",
+                    "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
+                    "http://web.archive.org/web/20171129231144/https://reddit.com/r/de"
+                  ),
+                  Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
+                            author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"))
+            })
+            vcr::use_cassette("scrape_urls_09", {
+              output <-
+                scrape_urls(
+                  c(
+                    "http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de",
+                    "http://web.archive.org/web/20171115220704/https://reddit.com/r/de",
+                    "http://web.archive.org/web/20171120193529/http://reddit.com/r/de",
+                    "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
+                    "http://web.archive.org/web/20171129231144/https://reddit.com/r/de"
+                  ),
+                  Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
+                            author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
+                  startnum = 4,
+                  attachto = output)
+            })
+            expect_equal(nrow(output), 4)
+          })
