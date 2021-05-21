@@ -175,26 +175,6 @@ scrape_urls_new <-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #### Main function
 
 # Generate list for output
@@ -205,9 +185,11 @@ counter <- 0
 
 
 #Progress bar
-pb <- txtProgressBar(min = 0,
-                     max = length(Urls),
-                     style = 3)
+if(length(Urls) > 1){
+  pb <- txtProgressBar(min = 0,
+                       max = length(Urls),
+                       style = 3)
+}
 
 
 for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
@@ -350,8 +332,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
 
     # Stop if non-matching number of paths could be extracted
-    if (length(unique(sapply(data, stringr::str_length)==0))!=1
-      & ignoreErrors == FALSE) {
+    if (any(sapply(sapply(data, stringr::str_length), length)==0) & ignoreErrors == FALSE) {
 
       # Preliminary output
       predata <- do.call("rbind", scrapedUrls)
