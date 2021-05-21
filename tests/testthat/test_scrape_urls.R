@@ -548,12 +548,12 @@ test_that("scrape_urls() needs to output 5 rows", {
 #Check whether new content is being correctly attached to existing object
 test_that("scrape_urls() needs to output 4 rows",
           {
-            output <-
-              data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
-                         title = c("Länder-Subreddits Orts-Subreddits Europäische Subreddits Musik Medien Sport Spiele Humor Politik Verschiedenes Learning German Welcome to Reddit, Der Frauen höchstes Glück ist das stillen des Hungers. Am besten mit Frankfurter Kranz. Denkt dran: Zähneputzen nicht vergessen! Jeden Sonntag frage ich mich wer auf die Idee gekommen ist, dass zwei Tage Erholung nach 5 Tagen Arbeit ausreichend sind. Aus gegebenem Anlass: Weltkriegssoldat Kurt Tucholsky über das Heldengedenken Bei amaxon kaufen ist gut Mein Studium macht mich fertig. Böhmermann teilt wieder gegen Erdogan aus - die Fans des türkischen Präsidenten laufen Sturm AfD will aus Klimaschutz aussteigen Never forget Sexmus Ronny Überbackene Bratkartoffeln mit Käse und Bacon Warum ist es immer 13:37 Uhr wenn ich am frühen Nachmittag auf die Uhr schaue? Die deutschen Essgewohnheiten machen vor nichts mehr Halt Lutz van der Horst trifft auf Impfverweigerer | heute-show vom 10.11.2017 Ich mag ZDFinfo Kinder haben den Kontakt zur Natur verloren | derstandard.de Deutscher Hochschulverband: \"Das Klima der Political Correctness ist bedenklich\" Fake News Sieht so aus als hätte Vevo ganz Deutschland einen Sturzhelm verpasst Mario Barth ist der Inbegriff des Dummen und Bösen Paradise Papers: Legal, illegal, ganz egal Von großer Anfeindung hin zum Angebot der Freundschaft - In welcher Welt leben wir, in der Donald Trump am Ende den Nordkoreakonflikt löst? Es läuft Asterix, meine Kerle! Kennzeichnungspflicht für Polizisten ist zwingend notwendig Weihnachtsstollen Wort zum Sontag (vom Bahnhof)", "Länder-Subreddits Orts-Subreddits Europäische Subreddits Musik Medien Sport Spiele Humor Politik Verschiedenes Learning German Welcome to Reddit, Der Frauen höchstes Glück ist das stillen des Hungers. Am besten mit Frankfurter Kranz. Denkt dran: Zähneputzen nicht vergessen! Jeden Sonntag frage ich mich wer auf die Idee gekommen ist, dass zwei Tage Erholung nach 5 Tagen Arbeit ausreichend sind. Aus gegebenem Anlass: Weltkriegssoldat Kurt Tucholsky über das Heldengedenken Bei amaxon kaufen ist gut Mein Studium macht mich fertig. Böhmermann teilt wieder gegen Erdogan aus - die Fans des türkischen Präsidenten laufen Sturm AfD will aus Klimaschutz aussteigen Never forget Sexmus Ronny Überbackene Bratkartoffeln mit Käse und Bacon Warum ist es immer 13:37 Uhr wenn ich am frühen Nachmittag auf die Uhr schaue? Die deutschen Essgewohnheiten machen vor nichts mehr Halt Lutz van der Horst trifft auf Impfverweigerer | heute-show vom 10.11.2017 Ich mag ZDFinfo Kinder haben den Kontakt zur Natur verloren | derstandard.de Deutscher Hochschulverband: \"Das Klima der Political Correctness ist bedenklich\" Fake News Sieht so aus als hätte Vevo ganz Deutschland einen Sturzhelm verpasst Mario Barth ist der Inbegriff des Dummen und Bösen Paradise Papers: Legal, illegal, ganz egal Von großer Anfeindung hin zum Angebot der Freundschaft - In welcher Welt leben wir, in der Donald Trump am Ende den Nordkoreakonflikt löst? Es läuft Asterix, meine Kerle! Kennzeichnungspflicht für Polizisten ist zwingend notwendig Weihnachtsstollen Wort zum Sontag (vom Bahnhof)"),
-                         author = c("iamkarladanger Wilhelm_Blumberg H_Chavez Steppdeckenwolf DerDepp Mendaki Aschebescher boots-of-escaping NebuKadneZaar rattenfurz portfreak ThatStalky Arthe Yoda_Holmes Fabius_Cunctator Gretchen_Modermoese scorcher24 Tillerino 11252411445182028 Schlabberbar regdayrf2 s0nderv0gel m1lh0us3 rattenfurz Gnurx", "iamkarladanger Wilhelm_Blumberg H_Chavez Steppdeckenwolf DerDepp Mendaki Aschebescher boots-of-escaping NebuKadneZaar rattenfurz portfreak ThatStalky Arthe Yoda_Holmes Fabius_Cunctator Gretchen_Modermoese scorcher24 Tillerino 11252411445182028 Schlabberbar regdayrf2 s0nderv0gel m1lh0us3 rattenfurz Gnurx"),
-                         stoppedat = 3)
             vcr::use_cassette("scrape_urls_09", {
+            input <-
+              data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
+                         title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
+                         author = c("Wilhelm_Blumberg", "NebuKadneZaar"),
+                         stoppedat = 3)
               output <-
                 scrape_urls(
                   c(
@@ -566,7 +566,7 @@ test_that("scrape_urls() needs to output 4 rows",
                   Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
                             author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
                   startnum = 4,
-                  attachto = output)
+                  attachto = input)
             })
             expect_equal(nrow(output), 4)
           })
