@@ -1,23 +1,23 @@
 context("check-scrapeURLs-output")
 library(testthat)
 library(webmockr)
+library(httptest)
 library(archiveRetriever)
 
-#Two tests are skipped_on_cran as it is always possible that the Internet Archive might be inaccessible. For these two tests, it is also not possible to set use an vcr cassette as the cassette does not store the information required for the test to successfully fail. The tests, however, never failed when testing on our machines.
+#Two tests are skipped_on_cran as it is always possible that the Internet Archive might be inaccessible. For these two tests, it is also not possible to set use a mock file as mock file does not store the information required for the test to successfully fail. The tests, however, never failed when testing on our machines.
 
 #Check whether function output is data frame
-test_that("scrape_urls() returns a data frame", {
-  vcr::use_cassette("scrape_urls_01", {
-  output <-
-    scrape_urls(
-      "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-      encoding = "bytes"
-    )
+with_mock_dir("fixtures/scrape_urls01", {
+  test_that("scrape_urls() returns a data frame", {
+    output <-
+      scrape_urls(
+        "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+        Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+        encoding = "bytes"
+      )
+    expect_is(output, "data.frame")
   })
-  expect_is(output, "data.frame")
 })
-
 
 #Check whether function only takes Archive links
 test_that("scrape_urls() only takes Internet Archive URLs as input", {
@@ -54,39 +54,37 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 })
 
 #Check whether Archive date is taken from the URL
-test_that("scrape_urls() option archiveDate stores archiving date", {
-  vcr::use_cassette("scrape_urls_02", {
-  output <-
-    scrape_urls(
-      "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
-      Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'] | //h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //article/div[@class='article-content ']/div/div/div//p//text() | //div[@class='aentry aentry--lined']//p//text())"),
-      archiveDate = T,
-      encoding = "bytes"
-    )
-  scrape_urls(
-    "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
-    Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-    archiveDate = TRUE,
-    encoding = "bytes"
-  )
-  })
-  expect_equal(names(output)[4], "archiveDate")
-})
-
-
-#Check whether function takes CSS instead of XPath
-test_that("scrape_urls() takes CSS instead of XPath", {
-  vcr::use_cassette("scrape_urls_03", {
-  output <-
+with_mock_dir("fixtures/scrape_urls02", {
+  test_that("scrape_urls() option archiveDate stores archiving date", {
+    output <-
+      scrape_urls(
+        "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
+        Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'] | //h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //article/div[@class='article-content ']/div/div/div//p//text() | //div[@class='aentry aentry--lined']//p//text())"),
+        archiveDate = T,
+        encoding = "bytes"
+      )
     scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
-      Paths = c(title = "article h1"),
-      CSS = TRUE
+      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+      archiveDate = TRUE,
+      encoding = "bytes"
     )
+    expect_equal(names(output)[4], "archiveDate")
   })
-  expect_is(output, "data.frame")
 })
 
+#Check whether function takes CSS instead of XPath
+with_mock_dir("fixtures/scrape_urls03", {
+  test_that("scrape_urls() takes CSS instead of XPath", {
+    output <-
+      scrape_urls(
+        "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
+        Paths = c(title = "article h1"),
+        CSS = TRUE
+      )
+    expect_is(output, "data.frame")
+  })
+})
 
 #Check whether startnum is numeric
 test_that("scrape_urls() needs numeric startnum", {
@@ -301,21 +299,21 @@ test_that("scrape_urls() needs encoding to be a character value", {
 })
 
 #Check whether data is being correctly attached to existing data set
-test_that("scrape_urls() needs to start with second row when startnum is 2",
-          {
-            vcr::use_cassette("scrape_urls_04", {
-              output <-
-                scrape_urls(
-                  c(
-                    "http://web.archive.org/web/20190310015353/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-                    "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
-                  ),
-                  c(title = "//header//h1"),
-                  startnum = 2
-                )
-            })
-            expect_equal(output$Urls[1], "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/")
-          })
+with_mock_dir("fixtures/scrape_urls04", {
+  test_that("scrape_urls() needs to start with second row when startnum is 2", {
+    output <-
+      scrape_urls(
+        c(
+          "http://web.archive.org/web/20190310015353/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
+        ),
+        c(title = "//header//h1"),
+        startnum = 2
+      )
+
+    expect_equal(output$Urls[1], "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/")
+  })
+})
 
 #Check whether only some XPaths could be scraped
 test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
@@ -333,21 +331,20 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 
 #Check whether data is being correctly processed
-test_that("scrape_urls() needs to set NA if page cannot be scraped", {
-  vcr::use_cassette("scrape_urls_05", {
-  output <-
-    scrape_urls(
-      c(
-        "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
-        "http://web.archive.org/web/20190502052859/http://www.taz.de/Galerie/Die-Revolution-im-Sudan/!g5591075/"
-      ),
-      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()")
-    )
+with_mock_dir("fixtures/scrape_urls05", {
+  test_that("scrape_urls() needs to set NA if page cannot be scraped", {
+    output <-
+      scrape_urls(
+        c(
+          "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+          "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
+          "http://web.archive.org/web/20190502052859/http://www.taz.de/Galerie/Die-Revolution-im-Sudan/!g5591075/"
+        ),
+        Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()")
+      )
+    expect_equal(is.na(output$title[3]), TRUE)
   })
-  expect_equal(is.na(output$title[3]), TRUE)
 })
-
 
 #Check whether process stop if too many rows are empty
 test_that("scrape_urls() needs to stop if too many row are empty", {
@@ -368,41 +365,39 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
   )
 })
 
-
 #Check if re-start after break and attachto works
-test_that("scrape_urls() needs to take up process if it breaks", {
-  vcr::use_cassette("scrape_urls_06", {
-  output <-
-    scrape_urls(
-      c(
-        "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
-        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope",
-        "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
-      ),
-      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-      stopatempty = FALSE,
-      attachto = tibble::tibble(
-        Urls = c(
+with_mock_dir("fixtures/scrape_urls06", {
+  test_that("scrape_urls() needs to take up process if it breaks", {
+    output <-
+      scrape_urls(
+        c(
           "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
           "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
-          "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope"
+          "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope",
+          "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope/blogfeed/"
         ),
-        title = c("Vietnamesen rätseln um Staatschef",
-                  "",
-                  ""),
-        content = c(
-          "Wer regiert Vietnam? Offenbar ist Partei- und Staatschef Nguyen Phu Trong dazu nicht mehr fähig:",
-          "",
-          ""
-        ),
-        stoppedat = 4
+        Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+        stopatempty = FALSE,
+        attachto = tibble::tibble(
+          Urls = c(
+            "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+            "http://web.archive.org/web/20190502052859/http://blogs.taz.de/",
+            "http://web.archive.org/web/20190502052859/http://blogs.taz.de/lostineurope"
+          ),
+          title = c("Vietnamesen rätseln um Staatschef",
+                    "",
+                    ""),
+          content = c(
+            "Wer regiert Vietnam? Offenbar ist Partei- und Staatschef Nguyen Phu Trong dazu nicht mehr fähig:",
+            "",
+            ""
+          ),
+          stoppedat = 4
+        )
       )
-    )
-  }, preserve_exact_body_bytes = TRUE)
-  expect_equal(ncol(output), 3)
+    expect_equal(ncol(output), 3)
+  })
 })
-
 
 #Check if re-start after break and attachto works
 test_that("scrape_urls() should not take up process if it stems from other process",
@@ -440,99 +435,94 @@ test_that("scrape_urls() should not take up process if it stems from other proce
 
 
 #Check whether sleeper is activated after 20 Urls
-
-test_that("scrape_urls() needs to sleep every 20 Urls", {
-  vcr::use_cassette("scrape_urls_07", {
-  output <-
-    scrape_urls(
-      c(
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-        "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
-      ),
-      c(title = "//header//h1")
-    )
+with_mock_dir("fixtures/scrape_urls07", {
+  test_that("scrape_urls() needs to sleep every 20 Urls", {
+    output <-
+      scrape_urls(
+        c(
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+          "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/"
+        ),
+        c(title = "//header//h1")
+      )
+    expect_equal(nrow(output), 21)
   })
-  expect_equal(nrow(output), 21)
 })
 
-
 #Check whether script runs without problems in case of timeout of website
-test_that("scrape_urls() should not fail if website has timeout",
-          {
+test_that("scrape_urls() should not fail if website has timeout", {
+  webmockr::enable()
 
-            webmockr::enable()
+  webmockr::to_timeout(
+    webmockr::stub_request(
+      "get", "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/")
+  )
+  output <- scrape_urls(
+    "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
+    Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+    encoding = "bytes"
+  )
+  expect_is(output, "data.frame")
 
-            webmockr::to_timeout(
-              webmockr::stub_request(
-                "get", "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/")
-            )
-            output <- scrape_urls(
-              "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
-              Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
-              encoding = "bytes"
-            )
-            expect_is(output, "data.frame")
-
-            webmockr::disable()
-          })
+  webmockr::disable()
+})
 
 
 #Check whether script runs without problems when collapse is FALSE
-
-test_that("scrape_urls() needs to output 5 rows", {
-  vcr::use_cassette("scrape_urls_08", {
+with_mock_dir("fixtures/scrape_urls08", {
+  test_that("scrape_urls() needs to output 5 rows", {
     output <-
       scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
-                      Paths = c(title = "//div/h3",
-                                type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
-                      collapse = FALSE,
-                      ignoreErrors = TRUE)
-  }, preserve_exact_body_bytes = TRUE)
-  expect_equal(nrow(output), 5)
+                  Paths = c(title = "//div/h3",
+                            type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
+                  collapse = FALSE,
+                  ignoreErrors = TRUE)
+    expect_equal(nrow(output), 5)
+  })
 })
 
-
 #Check whether new content is being correctly attached to existing object
-test_that("scrape_urls() needs to output 4 rows",
-          {
-            vcr::use_cassette("scrape_urls_09", {
-            input <-
-              data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
-                         title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
-                         author = c("Wilhelm_Blumberg", "NebuKadneZaar"),
-                         stoppedat = 3)
-              output <-
-                scrape_urls(
-                  c(
-                    "http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de",
-                    "http://web.archive.org/web/20171115220704/https://reddit.com/r/de",
-                    "http://web.archive.org/web/20171120193529/http://reddit.com/r/de",
-                    "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
-                    "http://web.archive.org/web/20171129231144/https://reddit.com/r/de"
-                  ),
-                  Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
-                            author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
-                  startnum = 4,
-                  attachto = input)
-            }, preserve_exact_body_bytes = TRUE)
-            expect_equal(nrow(output), 4)
-          })
+with_mock_dir("fixtures/scrape_urls09", {
+  test_that("scrape_urls() needs to output 4 rows", {
+    input <-
+      data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
+                 title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
+                 author = c("Wilhelm_Blumberg", "NebuKadneZaar"),
+                 stoppedat = 3)
+    output <-
+      scrape_urls(
+        c(
+          "http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de",
+          "http://web.archive.org/web/20171115220704/https://reddit.com/r/de",
+          "http://web.archive.org/web/20171120193529/http://reddit.com/r/de",
+          "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
+          "http://web.archive.org/web/20171129231144/https://reddit.com/r/de"
+        ),
+        Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
+                  author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
+        startnum = 4,
+        attachto = input)
+
+    expect_equal(nrow(output), 4)
+  })
+})
+
