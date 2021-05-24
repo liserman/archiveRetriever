@@ -35,7 +35,6 @@ Imports:
     utils,
     xml2
 Suggests: 
-    httptest,
     testthat,
     webmockr
 Encoding: UTF-8

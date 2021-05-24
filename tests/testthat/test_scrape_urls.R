@@ -4,11 +4,11 @@ library(webmockr)
 library(httptest)
 library(archiveRetriever)
 
-#Two tests are skipped_on_cran as it is always possible that the Internet Archive might be inaccessible. For these two tests, it is also not possible to set use a mock file as mock file does not store the information required for the test to successfully fail. The tests, however, never failed when testing on our machines.
+#Several tests are skipped_on_cran as they require an internet connection and it is always possible that the Internet Archive might be inaccessible at times. The tests do run successfully on our machines and were originally run on Cran using mock files with the vcr package. As the testing environment with vcr is not working at the moment due to problems with the package vcr, we are working towards a new solution to run our tests with mock files and will update our testing environment as soon as possible!
 
 #Check whether function output is data frame
-with_mock_dir("fixtures/scrape_urls01", {
-  test_that("scrape_urls() returns a data frame", {
+test_that("scrape_urls() returns a data frame", {
+  skip_on_cran()
     output <-
       scrape_urls(
         "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
@@ -17,7 +17,6 @@ with_mock_dir("fixtures/scrape_urls01", {
       )
     expect_is(output, "data.frame")
   })
-})
 
 #Check whether function only takes Archive links
 test_that("scrape_urls() only takes Internet Archive URLs as input", {
@@ -54,8 +53,8 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 })
 
 #Check whether Archive date is taken from the URL
-with_mock_dir("fixtures/scrape_urls02", {
   test_that("scrape_urls() option archiveDate stores archiving date", {
+    skip_on_cran()
     output <-
       scrape_urls(
         "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
@@ -71,11 +70,10 @@ with_mock_dir("fixtures/scrape_urls02", {
     )
     expect_equal(names(output)[4], "archiveDate")
   })
-})
 
 #Check whether function takes CSS instead of XPath
-with_mock_dir("fixtures/scrape_urls03", {
   test_that("scrape_urls() takes CSS instead of XPath", {
+    skip_on_cran()
     output <-
       scrape_urls(
         "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
@@ -84,7 +82,6 @@ with_mock_dir("fixtures/scrape_urls03", {
       )
     expect_is(output, "data.frame")
   })
-})
 
 #Check whether startnum is numeric
 test_that("scrape_urls() needs numeric startnum", {
@@ -299,8 +296,8 @@ test_that("scrape_urls() needs encoding to be a character value", {
 })
 
 #Check whether data is being correctly attached to existing data set
-with_mock_dir("fixtures/scrape_urls04", {
   test_that("scrape_urls() needs to start with second row when startnum is 2", {
+    skip_on_cran()
     output <-
       scrape_urls(
         c(
@@ -310,10 +307,8 @@ with_mock_dir("fixtures/scrape_urls04", {
         c(title = "//header//h1"),
         startnum = 2
       )
-
     expect_equal(output$Urls[1], "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/")
   })
-})
 
 #Check whether only some XPaths could be scraped
 test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
@@ -331,8 +326,8 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 
 #Check whether data is being correctly processed
-with_mock_dir("fixtures/scrape_urls05", {
   test_that("scrape_urls() needs to set NA if page cannot be scraped", {
+    skip_on_cran()
     output <-
       scrape_urls(
         c(
@@ -344,7 +339,6 @@ with_mock_dir("fixtures/scrape_urls05", {
       )
     expect_equal(is.na(output$title[3]), TRUE)
   })
-})
 
 #Check whether process stop if too many rows are empty
 test_that("scrape_urls() needs to stop if too many row are empty", {
@@ -366,8 +360,8 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
 })
 
 #Check if re-start after break and attachto works
-with_mock_dir("fixtures/scrape_urls06", {
   test_that("scrape_urls() needs to take up process if it breaks", {
+    skip_on_cran()
     output <-
       scrape_urls(
         c(
@@ -397,7 +391,6 @@ with_mock_dir("fixtures/scrape_urls06", {
       )
     expect_equal(ncol(output), 3)
   })
-})
 
 #Check if re-start after break and attachto works
 test_that("scrape_urls() should not take up process if it stems from other process",
@@ -435,8 +428,8 @@ test_that("scrape_urls() should not take up process if it stems from other proce
 
 
 #Check whether sleeper is activated after 20 Urls
-with_mock_dir("fixtures/scrape_urls07", {
   test_that("scrape_urls() needs to sleep every 20 Urls", {
+    skip_on_cran()
     output <-
       scrape_urls(
         c(
@@ -466,7 +459,6 @@ with_mock_dir("fixtures/scrape_urls07", {
       )
     expect_equal(nrow(output), 21)
   })
-})
 
 #Check whether script runs without problems in case of timeout of website
 test_that("scrape_urls() should not fail if website has timeout", {
@@ -488,8 +480,8 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 
 #Check whether script runs without problems when collapse is FALSE
-with_mock_dir("fixtures/scrape_urls08", {
   test_that("scrape_urls() needs to output 5 rows", {
+    skip_on_cran()
     output <-
       scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                   Paths = c(title = "//div/h3",
@@ -498,11 +490,10 @@ with_mock_dir("fixtures/scrape_urls08", {
                   ignoreErrors = TRUE)
     expect_equal(nrow(output), 5)
   })
-})
 
 #Check whether new content is being correctly attached to existing object
-with_mock_dir("fixtures/scrape_urls09", {
   test_that("scrape_urls() needs to output 4 rows", {
+    skip_on_cran()
     input <-
       data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
                  title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
@@ -524,5 +515,4 @@ with_mock_dir("fixtures/scrape_urls09", {
 
     expect_equal(nrow(output), 4)
   })
-})
 
