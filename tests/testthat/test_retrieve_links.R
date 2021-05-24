@@ -1,7 +1,6 @@
 context("check-retrieveLinks-output")
 library(testthat)
 library(webmockr)
-library(httptest)
 library(archiveRetriever)
 
 #Check whether function output is data frame

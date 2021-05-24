@@ -1,7 +1,6 @@
 context("check-scrapeURLs-output")
 library(testthat)
 library(webmockr)
-library(httptest)
 library(archiveRetriever)
 
 #Several tests are skipped_on_cran as they require an internet connection and it is always possible that the Internet Archive might be inaccessible at times. The tests do run successfully on our machines and were originally run on Cran using mock files with the vcr package. As the testing environment with vcr is not working at the moment due to problems with the package vcr, we are working towards a new solution to run our tests with mock files and will update our testing environment as soon as possible!
