@@ -5,13 +5,12 @@ library(httptest)
 library(archiveRetriever)
 
 #Check whether function output is data frame
-with_mock_dir("fixtures/retrieve_links", {
   test_that("retrieve_links() returns a data frame", {
+    skip_on_cran()
     output <-
       retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
     expect_is(output, "data.frame")
   })
-})
 
 #Check that encoding is character
 test_that("retrieve_links() requires encoding to be character", {
