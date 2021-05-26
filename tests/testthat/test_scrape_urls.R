@@ -532,7 +532,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
 test_that("scrape_urls() needs the number of elements for paths to be equal", {
    skip_on_cran()
    expect_warning(
-     scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
+     output <- scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                  Paths = c(title = "//div/h3",
                            type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
                  collapse = FALSE,
