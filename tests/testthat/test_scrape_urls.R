@@ -558,12 +558,13 @@ test_that("scrape_urls() needs to output 1 row", {
 
 
 #Check whether script runs without problems when collapse & ignoreErrors is FALSE
-test_that("scrape_urls() needs to output 39 rows", {
+test_that("scrape_urls() needs to output 5 rows", {
   skip_on_cran()
   output <-
-    scrape_urls(Urls = "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
-                Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)"),
+    scrape_urls(Urls = "http://web.archive.org/web/20201230202327/https://www.reddit.com/r/de/",
+                Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
+                          type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
                 collapse = FALSE,
                 ignoreErrors = FALSE)
-  expect_equal(nrow(output), 39)
+  expect_equal(nrow(output), 5)
 })
