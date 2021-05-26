@@ -515,3 +515,55 @@ test_that("scrape_urls() should not fail if website has timeout", {
     expect_equal(nrow(output), 4)
   })
 
+
+#Check whether script runs without problems when collapse is TRUE
+  test_that("scrape_urls() needs to output 1 row", {
+    skip_on_cran()
+    output <-
+      scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
+                  Paths = c(title = "//div/h3",
+                            type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
+                  collapse = TRUE)
+    expect_equal(nrow(output), 1)
+})
+
+
+#Check whether number of elements for paths differs
+test_that("scrape_urls() needs the number of elements for paths to be equal", {
+   skip_on_cran()
+   expect_warning(
+     scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
+                 Paths = c(title = "//div/h3",
+                           type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
+                 collapse = FALSE,
+                ignoreErrors = FALSE
+     ),
+     "Number of elements for paths differs"
+   )
+   expect_is(output, "data.frame")
+})
+
+
+#Check whether script runs without problems when collapse & ignoreErrors is TRUE
+test_that("scrape_urls() needs to output 1 row", {
+  skip_on_cran()
+  output <-
+    scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
+                Paths = c(title = "//div/h3",
+                          type = "//div[@class='rpBJOHq2PR60pnwJlUyP0']//a//div[contains(@class,'2X6EB3ZhEeXCh1eIVA64XM')]/span"),
+                collapse = TRUE,
+                ignoreErrors = TRUE)
+  expect_equal(nrow(output), 1)
+})
+
+
+#Check whether script runs without problems when collapse & ignoreErrors is FALSE
+test_that("scrape_urls() needs to output 39 rows", {
+  skip_on_cran()
+  output <-
+    scrape_urls(Urls = "http://web.archive.org/web/20171123081007/https://www.reddit.com/r/de/",
+                Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)"),
+                collapse = FALSE,
+                ignoreErrors = FALSE)
+  expect_equal(nrow(output), 39)
+})
