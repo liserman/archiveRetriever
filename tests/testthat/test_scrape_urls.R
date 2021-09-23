@@ -7,13 +7,14 @@ library(archiveRetriever)
 
 #Check whether function output is data frame
 test_that("scrape_urls() returns a data frame", {
-  skip_on_cran()
+  vcr::use_cassette("scrape_url1", {
     output <-
       scrape_urls(
         "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
         Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
         encoding = "bytes"
       )
+  })
     expect_is(output, "data.frame")
   })
 
@@ -53,7 +54,7 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 
 #Check whether Archive date is taken from the URL
   test_that("scrape_urls() option archiveDate stores archiving date", {
-    skip_on_cran()
+    vcr::use_cassette("scrape_url2", {
     output <-
       scrape_urls(
         "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
@@ -67,18 +68,20 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
       archiveDate = TRUE,
       encoding = "bytes"
     )
+    })
     expect_equal(names(output)[4], "archiveDate")
   })
 
 #Check whether function takes CSS instead of XPath
   test_that("scrape_urls() takes CSS instead of XPath", {
-    skip_on_cran()
+    vcr::use_cassette("scrape_url3", {
     output <-
       scrape_urls(
         "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
         Paths = c(title = "article h1"),
         CSS = TRUE
       )
+    })
     expect_is(output, "data.frame")
   })
 
@@ -296,7 +299,7 @@ test_that("scrape_urls() needs encoding to be a character value", {
 
 #Check whether data is being correctly attached to existing data set
   test_that("scrape_urls() needs to start with second row when startnum is 2", {
-    skip_on_cran()
+    vcr::use_cassette("scrape_url4", {
     output <-
       scrape_urls(
         c(
@@ -306,6 +309,7 @@ test_that("scrape_urls() needs encoding to be a character value", {
         c(title = "//header//h1"),
         startnum = 2
       )
+    })
     expect_equal(output$Urls[1], "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/")
   })
 
@@ -326,7 +330,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 #Check whether data is being correctly processed
   test_that("scrape_urls() needs to set NA if page cannot be scraped", {
-    skip_on_cran()
+    vcr::use_cassette("scrape_url5", {
     output <-
       scrape_urls(
         c(
@@ -336,6 +340,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
         ),
         Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()")
       )
+    })
     expect_equal(is.na(output$title[3]), TRUE)
   })
 
@@ -428,7 +433,7 @@ test_that("scrape_urls() should not take up process if it stems from other proce
 
 #Check whether sleeper is activated after 20 Urls
   test_that("scrape_urls() needs to sleep every 20 Urls", {
-    skip_on_cran()
+    vcr::use_cassette("scrape_url6", {
     output <-
       scrape_urls(
         c(
@@ -456,6 +461,7 @@ test_that("scrape_urls() should not take up process if it stems from other proce
         ),
         c(title = "//header//h1")
       )
+    })
     expect_equal(nrow(output), 21)
   })
 
@@ -492,12 +498,12 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 #Check whether new content is being correctly attached to existing object
   test_that("scrape_urls() needs to output 4 rows", {
-    skip_on_cran()
     input <-
       data.frame(Urls = c("http://web.archive.org/web/20171112174048/http://reddit.com:80/r/de", "http://web.archive.org/web/20171115220704/https://reddit.com/r/de"),
                  title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
                  author = c("Wilhelm_Blumberg", "NebuKadneZaar"),
                  stoppedat = 3)
+    vcr::use_cassette("scrape_url7", {
     output <-
       scrape_urls(
         c(
@@ -511,7 +517,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
                   author = "(//p[contains(@class,'tagline')]/a | //div[contains(@class,'scrollerItem')]//a[starts-with(.,'u/')]/text() | //div[contains(@class,'NAURX0ARMmhJ5eqxQrlQW')]//span)"),
         startnum = 4,
         attachto = input)
-
+    })
     expect_equal(nrow(output), 4)
   })
 
@@ -530,7 +536,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 #Check whether number of elements for paths differs
 test_that("scrape_urls() needs the number of elements for paths to be equal", {
-   skip_on_cran()
+  skip_on_cran()
    expect_warning(
      output <- scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                  Paths = c(title = "//div/h3",

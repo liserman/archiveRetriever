@@ -5,9 +5,10 @@ library(archiveRetriever)
 
 #Check whether function output is data frame
   test_that("retrieve_links() returns a data frame", {
-    skip_on_cran()
+    vcr::use_cassette("retrieve_links1", {
     output <-
       retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
+    })
     expect_is(output, "data.frame")
   })
 

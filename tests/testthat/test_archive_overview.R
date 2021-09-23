@@ -9,7 +9,7 @@ library(archiveRetriever)
 test_that("archive_overview() returns a plot with the correct time frame", {
   skip_on_cran()
   output_overview <-
-    archive_overview(homepage = "https://www.nytimes.com/",
+    archive_overview(homepage = "http://www.nytimes.com/",
                      startDate = "2018-06-01",
                      endDate = "Dec/01/2018")
   expect_equal(output_overview$data$date[1], as.Date("2018-06-01"))

@@ -35,6 +35,7 @@ Imports:
     utils,
     xml2
 Suggests: 
+    vcr (>= 0.6.0),
     testthat,
     webmockr
 Encoding: UTF-8
