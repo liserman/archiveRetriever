@@ -134,6 +134,12 @@ The `retrieve_links` function results in a tibble with two columns, including th
 head(nytimes_links)
 ```
 
+Sometimes, some of the rerieved urls are unable to access, producing an error message. Especially when retrieving links from a larger body of archive-urls, you may not want your process to break due to these unaccessible urls. For this purpose, you can use the `ignoreErrors` option.
+
+```{R, message=FALSE, warning=FALSE, results = "hide"}
+nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/", ignoreErrors = TRUE)
+```
+
 For some applications, it might not be necessary to include the `retrieve_links` function into the workflow. When only interested in one specific homepage, it can be sufficient to only retrieve the mementos using the `retrieve_urls` function.
 
 ### scrape_urls
@@ -156,4 +162,8 @@ nytimes_article
 
 When using the `scrape_urls` function to scrape large amounts of urls, we added some important (optional) features, ensuring that the scraping process works smoothly. Most importantly, the process breaks when no content could be scraped for a certain number of urls (default is 10) - most often meaning that the XPath have not been selected correctly. Additionally, the process breaks when only some elements of the Paths could be scraped - implying that the XPaths have changed for parts of the content aimed to be scraped. After break-off, the function still outputs a tibble, ensuring that the process does not need to be started anew. After break-off, users need to identify the element position of break-off, fix the error in the Paths and are able to re-start the `scrape_urls` function exactly where it broke off. Lastly, we also added a length warning for long url vector inserted to the `scrape_urls` raising awareness that a large chunk of data is now going to be scraped.
 
+All these different break-offs can be deactivated using the optional arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we advise to use these options with care. The cutoff point for the number of urls without content in a row until break-off can be set using `emptylim`. In order to facilitate the automation of the scraping process, we also added the optional argument `lengthwarning = FALSE` to deactivate the length warning.
+
+archivedate
+collapse
 
