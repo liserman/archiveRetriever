@@ -183,4 +183,8 @@ nytimes_teaser
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a column indicating the date of the retrieved Internet Archive memento.
 
+All these different break-offs can be deactivated using the optional arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we advise to use these options with care. The cutoff point for the number of urls without content in a row until break-off can be set using `emptylim`. In order to facilitate the automation of the scraping process, we also added the optional argument `lengthwarning = FALSE` to deactivate the length warning.
+
+archivedate
+collapse
 
