@@ -3,7 +3,6 @@ library(testthat)
 library(webmockr)
 library(archiveRetriever)
 
-#Several tests are skipped_on_cran as they require an internet connection and it is always possible that the Internet Archive might be inaccessible at times. The tests do run successfully on our machines and were originally run on Cran using mock files with the vcr package. As the testing environment with vcr is not working at the moment due to problems with the package vcr, we are working towards a new solution to run our tests with mock files and will update our testing environment as soon as possible!
 
 #Check whether function output is data frame
 test_that("scrape_urls() returns a data frame", {
@@ -37,6 +36,18 @@ test_that("scrape_urls() only takes character vectors as Paths", {
       c(title = 1)
     ),
     "Paths is not a character vector"
+  )
+})
+
+#Check whether collapse is logical
+test_that("scrape_urls() collapse must be logical", {
+  expect_error(
+    scrape_urls(
+      "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+      c(title = "//h1",
+        collapse = 5)
+    ),
+    "callapse is not a logical value"
   )
 })
 
@@ -296,6 +307,7 @@ test_that("scrape_urls() needs encoding to be a character value", {
     "encoding is not a single value"
   )
 })
+
 
 #Check whether data is being correctly attached to existing data set
   test_that("scrape_urls() needs to start with second row when startnum is 2", {
