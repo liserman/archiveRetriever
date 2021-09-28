@@ -44,10 +44,10 @@ test_that("scrape_urls() collapse must be logical", {
   expect_error(
     scrape_urls(
       "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
-      c(title = "//h1",
-        collapse = 5)
+      c(title = "//h1"),
+        collapse = 5
     ),
-    "callapse is not a logical value"
+    "collapse is not a logical value"
   )
 })
 
