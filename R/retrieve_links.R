@@ -103,7 +103,24 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE
 
     status <- httr::status_code(r)
     if (status == 200) {
-      paper_html <- xml2::read_html(r, encoding = encoding)
+      possibleError <- tryCatch(
+      paper_html <- xml2::read_html(r, encoding = encoding),
+      error = function(e)
+        e
+      )
+
+      if (inherits(possibleError, "error")) {
+
+        if(!ignoreErrors){
+
+          stop(
+            possibleError[[1]]
+          )
+
+        } else {
+          next
+        }
+      }
 
       paper_urls <- rvest::html_nodes(paper_html, "a")
       paper_urls <- rvest::html_attr(paper_urls, "href")
