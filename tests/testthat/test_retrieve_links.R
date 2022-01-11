@@ -73,7 +73,7 @@ test_that("retrieve_links() returns error if request timeout",
           })
 
 #Check ignoreErrors function
-test_that("retrieve_links() returns error if request timeout",
+test_that("retrieve_links() returns dataframe if ignoreErrors = TRUE",
           {
             webmockr::enable()
 
@@ -89,3 +89,14 @@ test_that("retrieve_links() returns error if request timeout",
 
             webmockr::disable()
           })
+
+
+#Check ingoreErrors for encoding errors
+test_that("retrieve_links() returns dataframe if ignoreErrors = TRUE", {
+          output <- retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                                   encoding = "BIG5",
+                                   ignoreErrors = TRUE)
+          expect_is(output, "data.frame")
+          })
+
+
