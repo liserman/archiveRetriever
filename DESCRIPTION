@@ -10,7 +10,7 @@ Authors@R:
       person(given = "Lukas",
              family = "Isermann",
              role = c("aut", "cre"),
-             email = "lukas.isermann@mzes.uni-mannheim.de",
+             email = "lukas.isermann@uni-mannheim.de",
              comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302")))
 Description: Scraping content from archived web pages stored in
     the 'Internet Archive' (<https://archive.org>) using a systematic
