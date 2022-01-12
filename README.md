@@ -12,7 +12,7 @@ The goal of the archiveRetriever package is to provide a systematic
 workflow for retrieving web data from mementos stored in the Internet
 Archive. Currently, the package includes the following functions:
 
--   `archive_overview` generates a calender providing an overview of the
+-   `archive_overview` generates a calendar providing an overview of the
     available mementos of the homepage in the Internet Archive within a
     specific time range. This function is very useful for getting a
     quick glimpse of the web data available when planning to retrieve a
@@ -183,20 +183,20 @@ using packages for string operations, such as
 ``` r
 head(nytimes_links)
 #> # A tibble: 6 x 2
-#>   baseUrl                               links                                   
-#>   <chr>                                 <chr>                                   
-#> 1 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
-#> 2 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
-#> 3 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
-#> 4 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
-#> 5 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
-#> 6 http://web.archive.org/web/202010010~ http://web.archive.org/web/202010010000~
+#>   baseUrl                                                            links      
+#>   <chr>                                                              <chr>      
+#> 1 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 2 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 3 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 4 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 5 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 6 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
 ```
 
-Sometimes, some of the rerieved urls are unable to access, producing an
+Sometimes, some of the retrieved urls are unable to access, producing an
 error message. Especially when retrieving links from a larger body of
 archive-urls, you may not want your process to break due to these
-unaccessible urls. For this purpose, you can use the `ignoreErrors`
+inaccessible urls. For this purpose, you can use the `ignoreErrors`
 option.
 
 ``` r
@@ -295,3 +295,13 @@ nytimes_teaser
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a
 column indicating the date of the retrieved Internet Archive memento.
+
+All these different break-offs can be deactivated using the optional
+arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we
+advise to use these options with care. The cutoff point for the number
+of urls without content in a row until break-off can be set using
+`emptylim`. In order to facilitate the automation of the scraping
+process, we also added the optional argument `lengthwarning = FALSE` to
+deactivate the length warning.
+
+archivedate collapse

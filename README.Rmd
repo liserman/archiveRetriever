@@ -25,7 +25,7 @@ R-Package to retrieve web data from the Internet Archive
 
 The goal of the archiveRetriever package is to provide a systematic workflow for retrieving web data from mementos stored in the Internet Archive. Currently, the package includes the following functions:
 
-- `archive_overview` generates a calender providing an overview of the available mementos of the homepage in the Internet Archive within a specific time range. This function is very useful for getting a quick glimpse of the web data available when planning to retrieve a comprehensive coverage of the homepage from the Internet Archive
+- `archive_overview` generates a calendar providing an overview of the available mementos of the homepage in the Internet Archive within a specific time range. This function is very useful for getting a quick glimpse of the web data available when planning to retrieve a comprehensive coverage of the homepage from the Internet Archive
 - `retrieve_urls` generates a vector of links to mementos of the homepage stored in the Internet Archive within a specific time range.
 - `retrieve_links` generates a tibble with two columns including the link to the memento of the homepage stored in the Internet Archive as well as all links within the memento. The two column translate to the parent link with its child references. This function is useful to fully cover the content within a homepage for retrieval.
 - `scrape_urls` generates a tibble including the link of the memento being scraped as well as the scraped content structured in different columns. The number of columns for the scraped content amounts to the length of the XPath or CSS selectors used to scrape the content.
@@ -134,7 +134,7 @@ The `retrieve_links` function results in a tibble with two columns, including th
 head(nytimes_links)
 ```
 
-Sometimes, some of the rerieved urls are unable to access, producing an error message. Especially when retrieving links from a larger body of archive-urls, you may not want your process to break due to these unaccessible urls. For this purpose, you can use the `ignoreErrors` option.
+Sometimes, some of the retrieved urls are unable to access, producing an error message. Especially when retrieving links from a larger body of archive-urls, you may not want your process to break due to these inaccessible urls. For this purpose, you can use the `ignoreErrors` option.
 
 ```{R, message=FALSE, warning=FALSE, results = "hide"}
 nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/", ignoreErrors = TRUE)
