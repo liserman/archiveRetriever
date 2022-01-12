@@ -327,7 +327,7 @@ test_that("scrape_urls() needs encoding to be a character value", {
 
 #Check whether only some XPaths could be scraped
 test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
-  skip_on_cran()
+#  skip_on_cran()
   expect_warning(
     scrape_urls(
       "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/",
@@ -358,7 +358,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 #Check whether process stop if too many rows are empty
 test_that("scrape_urls() needs to stop if too many row are empty", {
-  skip_on_cran()
+#  skip_on_cran()
   expect_warning(
     scrape_urls(
       c(
@@ -377,7 +377,7 @@ test_that("scrape_urls() needs to stop if too many row are empty", {
 
 #Check if re-start after break and attachto works
   test_that("scrape_urls() needs to take up process if it breaks", {
-    skip_on_cran()
+#    skip_on_cran()
     output <-
       scrape_urls(
         c(
@@ -498,7 +498,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 #Check whether script runs without problems when collapse is FALSE
   test_that("scrape_urls() needs to output 5 rows", {
-    skip_on_cran()
+#    skip_on_cran()
     output <-
       scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                   Paths = c(title = "//div/h3",
@@ -536,7 +536,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 #Check whether script runs without problems when collapse is TRUE
   test_that("scrape_urls() needs to output 1 row", {
-    skip_on_cran()
+#    skip_on_cran()
     output <-
       scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                   Paths = c(title = "//div/h3",
@@ -548,7 +548,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
 
 #Check whether number of elements for paths differs
 test_that("scrape_urls() needs the number of elements for paths to be equal", {
-  skip_on_cran()
+#  skip_on_cran()
    expect_warning(
      output <- scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                  Paths = c(title = "//div/h3",
@@ -564,7 +564,7 @@ test_that("scrape_urls() needs the number of elements for paths to be equal", {
 
 #Check whether script runs without problems when collapse & ignoreErrors is TRUE
 test_that("scrape_urls() needs to output 1 row", {
-  skip_on_cran()
+#  skip_on_cran()
   output <-
     scrape_urls(Urls = "http://web.archive.org/web/20201216060059/https://www.reddit.com/r/de/",
                 Paths = c(title = "//div/h3",
@@ -577,7 +577,7 @@ test_that("scrape_urls() needs to output 1 row", {
 
 #Check whether script runs without problems when collapse & ignoreErrors is FALSE
 test_that("scrape_urls() needs to output 5 rows", {
-  skip_on_cran()
+#  skip_on_cran()
   output <-
     scrape_urls(Urls = "http://web.archive.org/web/20201230202327/https://www.reddit.com/r/de/",
                 Paths = c(title = "(//p[@class='title']/a | //div//a/h2 | //div//h3)",
