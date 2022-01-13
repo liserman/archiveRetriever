@@ -59,6 +59,7 @@ test_that("retrieve_urls() needs endDate to be not in the future", {
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           {
+            skip_on_cran()
             expect_error(
               retrieve_urls(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",
