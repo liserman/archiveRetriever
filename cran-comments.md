@@ -12,19 +12,12 @@
     Lukas Isermann <lukas.isermann@uni-mannheim.de>
   Old maintainer(s):
     Lukas Isermann <lukas.isermann@mzes.uni-mannheim.de>
-  
-  Found the following (possibly) invalid URLs:
-    URL: https://codecov.io/gh/liserman/archiveRetriever (moved to https://app.codecov.io/gh/liserman/archiveRetriever)
-      From: README.md
-      Status: 200
-      Message: OK
 
 > On windows-x86_64-devel (r-devel), ubuntu-gcc-release (r-release), fedora-clang-devel (r-devel)
   checking Rd line widths ... NOTE
-    \examples lines wider than 100 characters:
-       scrape_urls(Urls = "http://web.archive.org/web/20201001004918/https://www.nytimes.com/2020/09/30/opinion/biden-trump-2020-debate.html",
   Rd file 'scrape_urls.Rd':
-       scrape_urls(Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
+    \examples lines wider than 100 characters:
+       Urls = "http://web.archive.org/web/20201001004918/https://www.nytimes.com/2020/09/30/opinion/biden-trump-2020-debate.html",
   
   These lines will be truncated in the PDF manual.
 
