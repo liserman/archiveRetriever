@@ -5,7 +5,7 @@ Authors@R:
     c(person(given = "Konstantin",
              family = "Gavras",
              role = "aut",
-             email = "konstantin.gavras@uni-mannheim.de",
+             email = "konstantin@gavras.de",
              comment = c(ORCID = "https://orcid.org/0000-0002-9222-0101")),
       person(given = "Lukas",
              family = "Isermann",
