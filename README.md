@@ -5,7 +5,7 @@
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![CRAN\_latest\_release\_date](https://www.r-pkg.org/badges/last-release/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![Downloads](https://cranlogs.r-pkg.org/badges/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/archiveRetriever)]((https://cran.r-project.org/package=archiveRetriever))
+[![total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/archiveRetriever)]((https://cran.r-project.org/package=archiveRetriever))
 
 R-Package to retrieve web data from the Internet Archive
 
