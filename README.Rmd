@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# archiveRetriever
+# archiveRetriever <img src="man/figures/logo.png" align="right" height="139" />
 
 
 [![codecov](https://codecov.io/gh/liserman/archiveRetriever/branch/main/graph/badge.svg?token=B1VPXBAR7P)](https://app.codecov.io/gh/liserman/archiveRetriever)

@@ -1,5 +1,5 @@
 
-# archiveRetriever
+# archiveRetriever <img src="man/figures/logo.png" align="right" height="139" />
 
 [![codecov](https://codecov.io/gh/liserman/archiveRetriever/branch/main/graph/badge.svg?token=B1VPXBAR7P)](https://app.codecov.io/gh/liserman/archiveRetriever)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
@@ -229,9 +229,9 @@ nytimes_article <- scrape_urls(Urls = "http://web.archive.org/web/20201001004918
 ``` r
 nytimes_article
 #> # A tibble: 1 x 5
-#>   Urls                  title             author   date   article               
-#>   <chr>                 <chr>             <chr>    <chr>  <chr>                 
-#> 1 http://web.archive.o~ After That Fiasc~ Frank B~ Sept.~ "I wasn’t in the crow~
+#>   Urls                                                title author date  article
+#>   <chr>                                               <chr> <chr>  <chr> <chr>  
+#> 1 http://web.archive.org/web/20201001004918/https://~ Afte~ Frank~ Sept~ "I was~
 ```
 
 When using the `scrape_urls` function to scrape large amounts of urls,
@@ -285,12 +285,12 @@ nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859
 ``` r
 nytimes_teaser
 #> # A tibble: 4 x 4
-#>   Urls                   title                 teaser                archiveDate
-#>   <chr>                  <chr>                 <chr>                 <date>     
-#> 1 https://web.archive.o~ Tuesday’s Debate Mad~ President Trump’s un~ 2020-10-01 
-#> 2 https://web.archive.o~ Takeaways on Trump, ~ A New York Times Mag~ 2020-10-01 
-#> 3 https://web.archive.o~ Biden Tours Ohio and~ A day after a turbul~ 2020-10-01 
-#> 4 https://web.archive.o~ Six Takeaways From t~ It was 90 minutes of~ 2020-10-01
+#>   Urls                                                  title teaser archiveDate
+#>   <chr>                                                 <chr> <chr>  <date>     
+#> 1 https://web.archive.org/web/20201001000859/https://w~ Tues~ Presi~ 2020-10-01 
+#> 2 https://web.archive.org/web/20201001000859/https://w~ Take~ A New~ 2020-10-01 
+#> 3 https://web.archive.org/web/20201001000859/https://w~ Bide~ A day~ 2020-10-01 
+#> 4 https://web.archive.org/web/20201001000859/https://w~ Six ~ It wa~ 2020-10-01
 ```
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a
