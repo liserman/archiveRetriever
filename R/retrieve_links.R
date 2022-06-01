@@ -170,7 +170,7 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE
   }
 
   if (length(fullUrls) > 0) {
-  names(fullUrls) <- ArchiveUrls
+  names(fullUrls) <- ArchiveUrls[1:length(fullUrls)]
   }
 
   dataReturn <- tibble::enframe(fullUrls)

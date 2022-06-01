@@ -242,7 +242,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
   # Retrieve if status = 200
   if (status == 200) {
 
-    tryCatch({
+    possibleError <- tryCatch({
     html <- xml2::read_html(r, encoding = encoding)
 
     # Retrieve elements and store in data list
@@ -269,9 +269,16 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
   # End trycatch
   },
-  error = function(e) {
-    cat("ERROR :", conditionMessage(e), "\n")
-  })
+  error = function(e) e)
+
+    if(inherits(possibleError, "error")){
+      if(ignoreErrors == TRUE){
+        next
+      } else {
+        cat("ERROR in Urls[",i,"]:", conditionMessage(possibleError), "\n")
+      }
+
+    }
 
   # End status == 200 if clause
   } else {
