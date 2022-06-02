@@ -17,6 +17,33 @@ test_that("scrape_urls() returns a data frame", {
     expect_is(output, "data.frame")
   })
 
+
+# Check whether function takes output from retrieve_links
+test_that("scrape_urls() takes input from retrieve_links()", {
+  vcr::use_cassette("scrape_url7", {
+    output <-
+      scrape_urls(
+        data.frame(baseUrl = "http://web.archive.org/web/20190502052859/http://www.taz.de/",links = "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/"),
+        Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+        encoding = "bytes"
+      )
+  })
+  expect_is(output, "data.frame")
+})
+
+# Check whether function blocks dataframe inputs other than output from retrieve_links
+test_that("scrape_urls() blocks dataframes that do not stem from retrieve_links()", {
+  expect_error(
+    scrape_urls(
+      data.frame(wrongName = "http://web.archive.org/web/20190502052859/http://www.taz.de/",links = "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/"),
+      Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
+      encoding = "bytes"
+    ),
+    "Dataframes not obtained"
+  )
+})
+
+
 #Check whether function only takes Archive links
 test_that("scrape_urls() only takes Internet Archive URLs as input", {
   expect_error(

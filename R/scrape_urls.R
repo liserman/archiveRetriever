@@ -65,6 +65,30 @@ scrape_urls <-
     # Globally bind variables
     counter <- NULL
 
+
+    # If Urls is dataframe, check if output from retrieve_links. If yes, reduce to Urls of interest and generate vector
+    if(is.data.frame(Urls)){
+      if(ncol(Urls)==1){
+        Urls <- Urls[,1]
+      } else
+        if(ncol(Urls)>2){
+          stop("Urls must be vector of Urls or output from retrieve_links(). Dataframes not obtained from retrieve_links() are not allowed.")
+        } else
+          if(ncol(Urls)==2){
+            if (identical(names(Urls), c("baseUrl", "links"))){
+              Urls <- Urls$links
+            } else {
+              stop("Urls must be vector of Urls or output from retrieve_links(). Dataframes not obtained from retrieve_links() are not allowed.")
+            }
+          }
+    }
+
+    # Check if Urls is atomic
+    if(!is.atomic(Urls)){
+      stop("Urls must be vector of Urls or output from retrieve_links(). Other object types are not allowed.")
+    }
+
+
     # Urls must start with http
     if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")))
       stop (
