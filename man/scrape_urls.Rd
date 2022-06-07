@@ -53,9 +53,6 @@ This function scrapes the content of mementos or lower-level web pages from the 
 \examples{
 \dontrun{
 scrape_urls(
-Urls = "http://web.archive.org/web/20201001004918/https://www.nytimes.com/2020/09/30/opinion/biden-trump-2020-debate.html",
-Paths = c(title = "//h1[@itemprop='headline']", author = "//span[@itemprop='name']"))
-scrape_urls(
 Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
 Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),
 collapse = FALSE, archiveDate = TRUE)
