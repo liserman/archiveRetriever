@@ -1,3 +1,10 @@
+# archiveRetriever 0.1.3
+
+* New option *collapse* added to *retrieve_urls()*. This option allows users to choose whether *retrieve_urls* outputs all or just one memento per requested day.
+
+---
+
+
 # archiveRetriever 0.1.2
 
 * Fixes to *ignoreErrors* option for html reading-errors in *scrape_urls()*

@@ -12,6 +12,14 @@ test_that("retrieve_urls() returns a character vector", {
 })
 
 
+#Check if homepage is character
+test_that("retrieve_urls() only takes character vectors as homepage", {
+  expect_error(
+    retrieve_urls(123, "19Sep2015", "20Sep2015"),
+    "homepage is not a character vector"
+  )
+})
+
 #Check if start date is character
 test_that("retrieve_urls() only takes character vectors as startDate", {
   expect_error(
@@ -27,6 +35,47 @@ test_that("retrieve_urls() only takes character vectors as endDate", {
     "endDate is not a character vector"
   )
 })
+
+#Check if collapse is logical
+test_that("retrieve_urls() only takes logical vectors as collapse", {
+  expect_error(
+    retrieve_urls("nytimes.com", "2015-01-01", "2015-05-31", collapse = "asd"),
+    "collapse is not a logical value"
+  )
+})
+
+#Check if homepage only takes single values
+test_that("retrieve_urls() only takes single values as homepage", {
+  expect_error(
+    retrieve_urls(c("nytimes.com", "spiegel.de"), "2015-01-01", "2015-05-31"),
+    "homepage can only take a single value"
+  )
+})
+
+#Check if startDate only takes single values
+test_that("retrieve_urls() only takes single values as startDate", {
+  expect_error(
+    retrieve_urls("nytimes.com", c("2015-01-01", "2015-01-02"), "2015-05-31"),
+    "startDate can only take a single value"
+  )
+})
+
+#Check if endDate only takes single values
+test_that("retrieve_urls() only takes single values as endDate", {
+  expect_error(
+    retrieve_urls("nytimes.com", "2015-01-01", c("2015-05-30", "2015-05-31")),
+    "endDate can only take a single value"
+  )
+})
+
+#Check if collapse only takes single values
+test_that("retrieve_urls() only takes single values as collapse", {
+  expect_error(
+    retrieve_urls("nytimes.com", "2015-01-01", "2015-05-31", c(TRUE, FALSE)),
+    "collapse can only take a single value"
+  )
+})
+
 
 #Check if startdate is a date
 test_that("retrieve_urls() only takes dates as startDate", {
@@ -71,7 +120,7 @@ test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           })
 
 #Check error message if timeout
-test_that("retrieve_links() returns error if request timeout",
+test_that("retrieve_urls() returns error if request timeout",
           {
             webmockr::enable()
 
@@ -88,5 +137,21 @@ test_that("retrieve_links() returns error if request timeout",
             )
             webmockr::disable()
           })
+
+#Check output if collapse is TRUE
+test_that("retrieve_urls() returns 1 Url per day if collapse is TRUE", {
+  vcr::use_cassette("retrieve_urls1", {
+    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapse = TRUE)
+  })
+  expect_equal(length(output), 2)
+})
+
+#Check output if collapse is FALSE
+test_that("retrieve_urls() returns more than 1 Url per day if collapse is FALSE", {
+  vcr::use_cassette("retrieve_urls2", {
+    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapse = FALSE)
+  })
+  expect_gt(length(output), 2)
+})
 
 
