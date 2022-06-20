@@ -71,6 +71,8 @@ The workflow of the package follows a simple rule:
 
 4. Scrape the content and get it conveniently stored in tibbles.
 
+Here, the functions `retrieve_urls`, `retrieve_links` and `scrape_urls` can build apon eachother, each function can take the output of the previous function as input to continue the work process.
+
 ### archive_overview
 
 As the Internet Archive is not able to archive the complete internet it is always important to check whether the memento of the homepage you want to scrape is actually available in the Internet Archive. 
@@ -112,12 +114,18 @@ Applying the `retrieve_urls` function on a homepage results in a character vecto
 nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
                      startDate = "2020-10-01",
                      endDate = "2020-12-31")
+
+nytimes_mementos[1:10]
+
 ```
 
-In the Internet Archive often more than one memento is stored each day. For convenience, the `retrieve_urls` only retrieves one memento for each day.
+In the Internet Archive often more than one memento is stored each day. For convenience, `retrieve_urls` only retrieves one memento for each day. If you would like to retrieve all mementos stored in the Internet Archive in your requested timeframe, you can use the option `collapseDate` to disable the automatic collapsing of the mementos.
 
 ```{R}
-nytimes_mementos[1:10]
+nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
+                     startDate = "2020-10-01",
+                     endDate = "2020-12-31",
+                     collapseDate = FALSE)
 ```
 
 ### retrieve_links
@@ -185,8 +193,6 @@ nytimes_teaser
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a column indicating the date of the retrieved Internet Archive memento.
 
-All these different break-offs can be deactivated using the optional arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we advise to use these options with care. The cutoff point for the number of urls without content in a row until break-off can be set using `emptylim`. In order to facilitate the automation of the scraping process, we also added the optional argument `lengthwarning = FALSE` to deactivate the length warning.
 
-archivedate
-collapse
+
 

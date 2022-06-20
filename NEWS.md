@@ -1,6 +1,6 @@
-# archiveRetriever 0.1.3
+# archiveRetriever 0.2.0
 
-* New option *collapse* added to *retrieve_urls()*. This option allows users to choose whether *retrieve_urls* outputs all or just one memento per requested day.
+* New option *collapseDate* added to *retrieve_urls()*. This option allows users to choose whether *retrieve_urls* outputs all or just one memento per requested day.
 
 ---
 

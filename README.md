@@ -2,8 +2,8 @@
 # archiveRetriever <img src="man/figures/logo.png" align="right" height="139" />
 
 [![codecov](https://codecov.io/gh/liserman/archiveRetriever/branch/main/graph/badge.svg?token=B1VPXBAR7P)](https://app.codecov.io/gh/liserman/archiveRetriever)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
-[![CRAN\_latest\_release\_date](https://www.r-pkg.org/badges/last-release/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
+[![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![Downloads](https://cranlogs.r-pkg.org/badges/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/archiveRetriever?color=yellow)](https://cran.r-project.org/package=archiveRetriever)
 
@@ -74,7 +74,11 @@ The workflow of the package follows a simple rule:
 
 4.  Scrape the content and get it conveniently stored in tibbles.
 
-### archive\_overview
+Here, the functions `retrieve_urls`, `retrieve_links` and `scrape_urls`
+can build apon eachother, each function can take the output of the
+previous function as input to continue the work process.
+
+### archive_overview
 
 As the Internet Archive is not able to archive the complete internet it
 is always important to check whether the memento of the homepage you
@@ -120,7 +124,7 @@ nytimesArticle_overview
 As the article has been published on November 07, there are of course no
 mementos available before that date.
 
-### retrieve\_urls
+### retrieve_urls
 
 The Internet Archive stores mementos of homepages in their archive which
 allows researchers to retrieve historical content from the internet or
@@ -136,13 +140,7 @@ Archive.
 nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
                      startDate = "2020-10-01",
                      endDate = "2020-12-31")
-```
 
-In the Internet Archive often more than one memento is stored each day.
-For convenience, the `retrieve_urls` only retrieves one memento for each
-day.
-
-``` r
 nytimes_mementos[1:10]
 #>  [1] "http://web.archive.org/web/20201001000041/https://www.nytimes.com/"
 #>  [2] "http://web.archive.org/web/20201002000016/http://nytimes.com/"     
@@ -156,7 +154,20 @@ nytimes_mementos[1:10]
 #> [10] "http://web.archive.org/web/20201010000605/http://nytimes.com/"
 ```
 
-### retrieve\_links
+In the Internet Archive often more than one memento is stored each day.
+For convenience, `retrieve_urls` only retrieves one memento for each
+day. If you would like to retrieve all mementos stored in the Internet
+Archive in your requested timeframe, you can use the option
+`collapseDate` to disable the automatic collapsing of the mementos.
+
+``` r
+nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
+                     startDate = "2020-10-01",
+                     endDate = "2020-12-31",
+                     collapseDate = FALSE)
+```
+
+### retrieve_links
 
 For many scraping applications, researchers aim to extract information
 from all links within a homepage to get a complete picture of the
@@ -183,15 +194,15 @@ using packages for string operations, such as
 
 ``` r
 head(nytimes_links)
-#> # A tibble: 6 x 2
+#> # A tibble: 6 × 2
 #>   baseUrl                                                            links      
 #>   <chr>                                                              <chr>      
-#> 1 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
-#> 2 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
-#> 3 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
-#> 4 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
-#> 5 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
-#> 6 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web~
+#> 1 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
+#> 2 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
+#> 3 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
+#> 4 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
+#> 5 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
+#> 6 http://web.archive.org/web/20201001000041/https://www.nytimes.com/ http://web…
 ```
 
 Sometimes, some of the retrieved urls are unable to access, producing an
@@ -209,7 +220,7 @@ For some applications, it might not be necessary to include the
 specific homepage, it can be sufficient to only retrieve the mementos
 using the `retrieve_urls` function.
 
-### scrape\_urls
+### scrape_urls
 
 The `scrape_urls` function is the main function of the
 `ArchiveRetriever` package. The function takes a memento of the Internet
@@ -229,10 +240,10 @@ nytimes_article <- scrape_urls(Urls = "http://web.archive.org/web/20201001004918
 
 ``` r
 nytimes_article
-#> # A tibble: 1 x 5
+#> # A tibble: 1 × 5
 #>   Urls                                                title author date  article
 #>   <chr>                                               <chr> <chr>  <chr> <chr>  
-#> 1 http://web.archive.org/web/20201001004918/https://~ Afte~ Frank~ Sept~ "I was~
+#> 1 http://web.archive.org/web/20201001004918/https://… Afte… Frank… Sept… "I was…
 ```
 
 When using the `scrape_urls` function to scrape large amounts of urls,
@@ -285,24 +296,14 @@ nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859
 
 ``` r
 nytimes_teaser
-#> # A tibble: 4 x 4
+#> # A tibble: 4 × 4
 #>   Urls                                                  title teaser archiveDate
 #>   <chr>                                                 <chr> <chr>  <date>     
-#> 1 https://web.archive.org/web/20201001000859/https://w~ Tues~ Presi~ 2020-10-01 
-#> 2 https://web.archive.org/web/20201001000859/https://w~ Take~ A New~ 2020-10-01 
-#> 3 https://web.archive.org/web/20201001000859/https://w~ Bide~ A day~ 2020-10-01 
-#> 4 https://web.archive.org/web/20201001000859/https://w~ Six ~ It wa~ 2020-10-01
+#> 1 https://web.archive.org/web/20201001000859/https://w… Tues… Presi… 2020-10-01 
+#> 2 https://web.archive.org/web/20201001000859/https://w… Take… A New… 2020-10-01 
+#> 3 https://web.archive.org/web/20201001000859/https://w… Bide… A day… 2020-10-01 
+#> 4 https://web.archive.org/web/20201001000859/https://w… Six … It wa… 2020-10-01
 ```
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a
 column indicating the date of the retrieved Internet Archive memento.
-
-All these different break-offs can be deactivated using the optional
-arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we
-advise to use these options with care. The cutoff point for the number
-of urls without content in a row until break-off can be set using
-`emptylim`. In order to facilitate the automation of the scraping
-process, we also added the optional argument `lengthwarning = FALSE` to
-deactivate the length warning.
-
-archivedate collapse

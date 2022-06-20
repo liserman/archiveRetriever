@@ -5,14 +5,14 @@
 #' @param homepage A character vector of the homepage, including the top-level-domain
 #' @param startDate A character vector of the starting date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
 #' @param endDate A character vector of the ending date of the overview. Accepts a large variety of date formats (see \link[anytime]{anytime})
-#' @param collapse A logical value indicating whether the output should be limited to one memento per day
+#' @param collapseDate A logical value indicating whether the output should be limited to one memento per day
 #'
 #' @return This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.  As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
 #' \dontrun{
 #' retrieve_urls("www.spiegel.de", "20190801", "20190901")
 #' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
-#' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "2018-01-02", collapse = FALSE)
+#' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "2018-01-02", collapseDate = FALSE)
 #' }
 
 # Importing dependencies with roxygen2
@@ -27,7 +27,7 @@
 ### Function --------------------
 
 # Retrieve URLs function
-retrieve_urls <- function(homepage, startDate, endDate, collapse = TRUE) {
+retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
 
   #### A priori consistency checks
 
@@ -41,8 +41,8 @@ retrieve_urls <- function(homepage, startDate, endDate, collapse = TRUE) {
   if (!is.character(endDate))
     stop ("endDate is not a character vector.")
 
-  if (!is.logical(collapse))
-    stop ("collapse is not a logical value.")
+  if (!is.logical(collapseDate))
+    stop ("collapseDate is not a logical value.")
 
   if (length(homepage)>1)
     stop ("homepage can only take a single value.")
@@ -53,8 +53,8 @@ retrieve_urls <- function(homepage, startDate, endDate, collapse = TRUE) {
   if (length(endDate)>1)
     stop ("endDate can only take a single value.")
 
-  if (length(collapse)>1)
-    stop ("collapse can only take a single value.")
+  if (length(collapseDate)>1)
+    stop ("collapseDate can only take a single value.")
 
   if (is.na(anytime::anydate(startDate)))
     stop ("startDate is not a date.")
@@ -82,7 +82,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapse = TRUE) {
 
   # Check homepage input
 
-  if(collapse){
+  if(collapseDate){
   ArchiveCheck <-
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",
@@ -119,7 +119,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapse = TRUE) {
   if (nrow(as.data.frame(jsonlite::fromJSON(ArchiveCheck))) == 0)
     stop ("Homepage has never been saved in the Internet Archive. Please choose another homepage.")
 
-  if(collapse){
+  if(collapseDate){
   urlArchive <-
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",

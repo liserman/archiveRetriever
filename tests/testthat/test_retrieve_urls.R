@@ -36,11 +36,11 @@ test_that("retrieve_urls() only takes character vectors as endDate", {
   )
 })
 
-#Check if collapse is logical
-test_that("retrieve_urls() only takes logical vectors as collapse", {
+#Check if collapseDate is logical
+test_that("retrieve_urls() only takes logical vectors as collapseDate", {
   expect_error(
-    retrieve_urls("nytimes.com", "2015-01-01", "2015-05-31", collapse = "asd"),
-    "collapse is not a logical value"
+    retrieve_urls("nytimes.com", "2015-01-01", "2015-05-31", collapseDate = "asd"),
+    "collapseDate is not a logical value"
   )
 })
 
@@ -68,11 +68,11 @@ test_that("retrieve_urls() only takes single values as endDate", {
   )
 })
 
-#Check if collapse only takes single values
-test_that("retrieve_urls() only takes single values as collapse", {
+#Check if collapseDate only takes single values
+test_that("retrieve_urls() only takes single values as collapseDate", {
   expect_error(
     retrieve_urls("nytimes.com", "2015-01-01", "2015-05-31", c(TRUE, FALSE)),
-    "collapse can only take a single value"
+    "collapseDate can only take a single value"
   )
 })
 
@@ -138,18 +138,18 @@ test_that("retrieve_urls() returns error if request timeout",
             webmockr::disable()
           })
 
-#Check output if collapse is TRUE
-test_that("retrieve_urls() returns 1 Url per day if collapse is TRUE", {
+#Check output if collapseDate is TRUE
+test_that("retrieve_urls() returns 1 Url per day if collapseDate is TRUE", {
   vcr::use_cassette("retrieve_urls1", {
-    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapse = TRUE)
+    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = TRUE)
   })
   expect_equal(length(output), 2)
 })
 
-#Check output if collapse is FALSE
-test_that("retrieve_urls() returns more than 1 Url per day if collapse is FALSE", {
+#Check output if collapseDate is FALSE
+test_that("retrieve_urls() returns more than 1 Url per day if collapseDate is FALSE", {
   vcr::use_cassette("retrieve_urls2", {
-    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapse = FALSE)
+    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = FALSE)
   })
   expect_gt(length(output), 2)
 })
