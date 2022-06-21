@@ -140,17 +140,15 @@ test_that("retrieve_urls() returns error if request timeout",
 
 #Check output if collapseDate is TRUE
 test_that("retrieve_urls() returns 1 Url per day if collapseDate is TRUE", {
-  vcr::use_cassette("retrieve_urls1", {
-    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = TRUE)
-  })
+  skip_on_cran()
+  output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = TRUE)
   expect_equal(length(output), 2)
 })
 
 #Check output if collapseDate is FALSE
 test_that("retrieve_urls() returns more than 1 Url per day if collapseDate is FALSE", {
-  vcr::use_cassette("retrieve_urls2", {
-    output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = FALSE)
-  })
+  skip_on_cran()
+  output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = FALSE)
   expect_gt(length(output), 2)
 })
 
