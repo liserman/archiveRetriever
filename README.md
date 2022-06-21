@@ -75,7 +75,7 @@ The workflow of the package follows a simple rule:
 4.  Scrape the content and get it conveniently stored in tibbles.
 
 Here, the functions `retrieve_urls`, `retrieve_links` and `scrape_urls`
-can build apon eachother, each function can take the output of the
+can build on each other, each function can take the output of the
 previous function as input to continue the work process.
 
 ### archive_overview
@@ -157,7 +157,7 @@ nytimes_mementos[1:10]
 In the Internet Archive often more than one memento is stored each day.
 For convenience, `retrieve_urls` only retrieves one memento for each
 day. If you would like to retrieve all mementos stored in the Internet
-Archive in your requested timeframe, you can use the option
+Archive in your requested time frame, you can use the option
 `collapseDate` to disable the automatic collapsing of the mementos.
 
 ``` r
