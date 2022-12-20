@@ -187,9 +187,13 @@ nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/202010
 
 The `retrieve_links` function results in a tibble with two columns,
 including the base url of the memento in the first column and all links
-in the second column. From this, user of this function might decide to
-filter out links which do not point to content relevant for analysis
-using packages for string operations, such as
+in the second column. By default, the function filters links to be
+subpages to the top-level domain that has been scraped. This filtering
+can be disabled using the option *filter = FALSE*. Alternatively, the
+function also allows users to set a custom pattern by which links are
+filtered before output. However, users of this function might also
+decide to filter out links which do not point to content relevant for
+analysis using packages for string operations, such as
 [stringr](https://github.com/tidyverse/stringr).
 
 ``` r
@@ -297,12 +301,13 @@ nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859
 ``` r
 nytimes_teaser
 #> # A tibble: 4 × 4
-#>   Urls                                                  title teaser archiveDate
-#>   <chr>                                                 <chr> <chr>  <date>     
-#> 1 https://web.archive.org/web/20201001000859/https://w… Tues… Presi… 2020-10-01 
-#> 2 https://web.archive.org/web/20201001000859/https://w… Take… A New… 2020-10-01 
-#> 3 https://web.archive.org/web/20201001000859/https://w… Bide… A day… 2020-10-01 
-#> 4 https://web.archive.org/web/20201001000859/https://w… Six … It wa… 2020-10-01
+#>   Urls                                                   title teaser archiveD…¹
+#>   <chr>                                                  <chr> <chr>  <date>    
+#> 1 https://web.archive.org/web/20201001000859/https://ww… Tues… Presi… 2020-10-01
+#> 2 https://web.archive.org/web/20201001000859/https://ww… Take… A New… 2020-10-01
+#> 3 https://web.archive.org/web/20201001000859/https://ww… Bide… A day… 2020-10-01
+#> 4 https://web.archive.org/web/20201001000859/https://ww… Six … It wa… 2020-10-01
+#> # … with abbreviated variable name ¹​archiveDate
 ```
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a

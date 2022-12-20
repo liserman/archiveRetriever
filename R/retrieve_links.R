@@ -5,6 +5,8 @@
 #' @param ArchiveUrls A string of the memento of the Internet Archive
 #' @param encoding  	Specify a encoding for the homepage. Default is 'UTF-8'
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
+#' @param filter Filter links by top-level domain. Only sub-domains of top-level domain will be returned. Default is TRUE.
+#' @param pattern Filter links by custom pattern instead of top-level domains. Default is NULL.
 #'
 #' @return This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
@@ -33,7 +35,7 @@
 
 # Retrieve URLs function
 
-retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE) {
+retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE, filter = TRUE, pattern = NULL) {
   #### A priori consistency checks
 
   # Globally bind variables
@@ -58,21 +60,58 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE
       "encoding is not a single value. Please provide a single character string to indicate the encoding of the homepage you are about to scrape."
     )
 
-  #Get homepage and top-level-domain
-  #(does this always work?) - needs lot of testing!!!
 
-  extracting <-
-    stringr::str_extract(ArchiveUrls, '\\/http.*\\..*\\/$')
-  extracting <-
-    stringr::str_remove_all(extracting, 'www.|http\\:\\/\\/|https\\:\\/\\/')
-  extracting <- stringr::str_remove_all(extracting, '\\/|\\:.*')
+  # filter must be logical
+  if (!is.logical(filter))
+    stop(
+      "filter is not a logical value. Please provide a logical value of TRUE or FALSE as input to filter to indicate whether you want to filter the results by top-level domain or not. The default value of filter is TRUE."
+    )
 
-  page <- stringr::str_extract(extracting, '^.*\\.')
-  page <- stringr::str_remove_all(page, "\\.")
-  tld <- stringr::str_extract(extracting, '\\..*$')
-  tld <- stringr::str_remove_all(tld, "\\.")
+  # filter must be of length 1
+  if (length(filter) > 1)
+    stop(
+      "filter is not a single value. Please provide a single logical value to indicate whether you want to filter the results by top-level domain or not."
+    )
+
+  # if pattern is given, force filter to be TRUE
+  if (!is.null(pattern))
+    filter <- TRUE
+
+  # pattern must be NULL or character
+  if (!is.null(pattern) & !is.character(pattern))
+    stop(
+      "pattern must be a character value. Please provide a character string by which you want to filter links before output. If you do not provide a character string, the top-level domain of the page you want to scrape is taken as default."
+    )
+
+  # pattern must be of length 1
+  if (length(pattern) > 1)
+    stop(
+      "pattern is not a single value. Please provide a single character string by which wou want to filter links before output. If you do not provide a character string, the top-level domain of the page you want to scrape is taken as default."
+    )
+
+
+
 
   #### Main function
+
+  # if pattern is given, generate n-length vector of pattern
+  if (!is.null(pattern))
+    pattern <- rep(pattern, length(ArchiveUrls))
+
+
+  #Get homepage and top-level-domain to filter by pattern
+  if (filter & is.null(pattern)) {
+
+    # extract domain from internet archive url
+    pattern <- stringr::str_extract(ArchiveUrls, '\\/http.*\\..*$')
+
+    # strip beginning of url
+    pattern <- stringr::str_remove_all(pattern, '^\\/*www([0-9])?\\.|^\\/*http(s)*\\:\\/\\/(www([0-9])?\\.)?|^\\/')
+
+    # strip ending of url
+    pattern <- stringr::str_remove_all(pattern, '\\/.*|\\:.*')
+  }
+
 
   fullUrls <- list()
   if(length(ArchiveUrls) > 1){
@@ -124,8 +163,12 @@ retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE
 
       paper_urls <- rvest::html_nodes(paper_html, "a")
       paper_urls <- rvest::html_attr(paper_urls, "href")
+
+
+      if (filter) {
       paper_urls <-
-        paper_urls[grepl(paste0(page[i], "\\.", tld[i]), paper_urls)]
+        paper_urls[grepl(pattern[i], paper_urls)]
+      }
 
       paper_urlsFinal <- list()
 

@@ -138,7 +138,7 @@ Sticking to the example of the New York Times, we extract all links of the memen
 nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/")
 ```
 
-The `retrieve_links` function results in a tibble with two columns, including the base url of the memento in the first column and all links in the second column. From this, user of this function might decide to filter out links which do not point to content relevant for analysis using packages for string operations, such as [stringr](https://github.com/tidyverse/stringr). 
+The `retrieve_links` function results in a tibble with two columns, including the base url of the memento in the first column and all links in the second column. By default, the function filters links to be subpages to the top-level domain that has been scraped. This filtering can be disabled using the option *filter = FALSE*. Alternatively, the function also allows users to set a custom pattern by which links are filtered before output. However, users of this function might also decide to filter out links which do not point to content relevant for analysis using packages for string operations, such as [stringr](https://github.com/tidyverse/stringr). 
 
 ```{R}
 head(nytimes_links)

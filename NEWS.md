@@ -1,3 +1,11 @@
+# archiveRetriver 0.3.0
+
+* Fixes to filtering of links in *retrieve_links()* to enable link scraping from domains with more than one domain ending.
+* New option *filter* added to *retrieve_links()*. This options allows to disable the filtering of links to be sub-domains of the top-level domain.
+* New option *pattern* added to *retrieve_links()*. This option allows for custom patterns by which links are filtered before output.
+
+---
+
 # archiveRetriever 0.2.0
 
 * New option *collapseDate* added to *retrieve_urls()*. This option allows users to choose whether *retrieve_urls* outputs all or just one memento per requested day.

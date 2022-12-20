@@ -4,7 +4,13 @@
 \alias{retrieve_links}
 \title{retrieve_links: Retrieving Links of Lower-level web pages of mementos from the Internet Archive}
 \usage{
-retrieve_links(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE)
+retrieve_links(
+  ArchiveUrls,
+  encoding = "UTF-8",
+  ignoreErrors = FALSE,
+  filter = TRUE,
+  pattern = NULL
+)
 }
 \arguments{
 \item{ArchiveUrls}{A string of the memento of the Internet Archive}
@@ -12,6 +18,10 @@ retrieve_links(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE)
 \item{encoding}{Specify a encoding for the homepage. Default is 'UTF-8'}
 
 \item{ignoreErrors}{Ignore errors for some Urls and proceed scraping}
+
+\item{filter}{Filter links by top-level domain. Only sub-domains of top-level domain will be returned. Default is TRUE.}
+
+\item{pattern}{Filter links by custom pattern instead of top-level domains. Default is NULL.}
 }
 \value{
 This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.

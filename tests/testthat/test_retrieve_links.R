@@ -35,6 +35,57 @@ test_that("retrieve_links() requires encoding to be character with length 1",
             )
           })
 
+
+# Check error if filter not logical
+test_that("retrieve_links() requires filter to be logical",
+          {
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                filter = "TRUE"),
+              "filter is not a logical"
+            )
+          })
+
+
+# Check error if filter length > 1
+test_that("retrieve_links() requires filter to be logical",
+          {
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                filter = c(TRUE, FALSE)),
+              "filter is not a single"
+            )
+          })
+
+
+# Check error if pattern not character
+test_that("retrieve_links() requires filter to be logical",
+          {
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                pattern = TRUE),
+              "pattern must be a character"
+            )
+          })
+
+
+# Check error if pattern length > 1
+test_that("retrieve_links() requires filter to be logical",
+          {
+            expect_error(
+              retrieve_links(
+                "http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                pattern = c("pat1", "pat2")),
+              "pattern is not a single"
+            )
+          })
+
+
+
+
 #Check error message if timeout
 test_that("retrieve_links() returns error if request timeout",
           {
@@ -98,5 +149,52 @@ test_that("retrieve_links() returns dataframe if ignoreErrors = TRUE", {
                                    ignoreErrors = TRUE)
           expect_is(output, "data.frame")
           })
+
+
+
+# Check filter = TRUE
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links2", {
+    output <-
+      retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                     filter = TRUE)
+  })
+  expect_equal(nrow(output), 679)
+})
+
+
+# Check filter = TRUE for complicated top-level domains
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links5", {
+    output <-
+      retrieve_links("http://web.archive.org/web/20200101044442/http://www.folha.uol.com.br/",
+                     filter = TRUE)
+  })
+  expect_equal(nrow(output), 323)
+})
+
+
+# Check filter = FALSE
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links3", {
+    output <-
+      retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                     filter = FALSE)
+  })
+  expect_equal(nrow(output), 807)
+})
+
+
+# Check custom pattern
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links4", {
+    output <-
+      retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                     pattern = "spiegel.de/politik")
+  })
+  expect_equal(nrow(output), 37)
+})
+
+
 
 
