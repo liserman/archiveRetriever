@@ -163,17 +163,6 @@ test_that("retrieve_links() returns a data frame", {
 })
 
 
-# Check filter = TRUE for complicated top-level domains
-test_that("retrieve_links() returns a data frame", {
-  vcr::use_cassette("retrieve_links5", {
-    output <-
-      retrieve_links("http://web.archive.org/web/20200101044442/http://www.folha.uol.com.br/",
-                     filter = TRUE)
-  })
-  expect_equal(nrow(output), 323)
-})
-
-
 # Check filter = FALSE
 test_that("retrieve_links() returns a data frame", {
   vcr::use_cassette("retrieve_links3", {
