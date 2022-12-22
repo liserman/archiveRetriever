@@ -73,6 +73,7 @@ test_that("archive_overview() needs endDate to be not in the future", {
 #Check whether Homepage has ever been saved in the Internet Archive
 test_that("archive_overview() needs homepage to be saved in the Internet Archive",
           {
+            skip_on_cran()
             expect_error(
               archive_overview(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",

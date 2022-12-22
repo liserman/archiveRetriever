@@ -183,7 +183,7 @@ scrape_urls <-
       )
 
     # Warning and wait to proceed if large number of Urls
-    if (length(Urls) >= 100 & lengthwarning != FALSE) {
+    if (length(Urls) >= 100 & lengthwarning & interactive()) {
       message(
         "Warning: You are about to scrape the information from a large number of Urls. This process may take some time. Press \"y\" to proceed. \n For automated processes using a virtual machine disable this warning message with the option lengthwarning = F"
       )
@@ -217,7 +217,7 @@ counter <- 0
 
 
 #Progress bar
-if(length(Urls) > 1){
+if(length(Urls) > 1 & interactive()){
   pb <- txtProgressBar(min = 0,
                        max = length(Urls),
                        style = 3)
@@ -450,7 +450,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
 
     # Progress message
-    if(length(Urls) > 1){
+    if(length(Urls) > 1 & interactive()){
       setTxtProgressBar(pb, i)
     }
 

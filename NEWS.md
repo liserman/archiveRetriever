@@ -1,3 +1,10 @@
+# archiveRetriever 0.3.1
+
+* Changes to the testing environment.
+* Disable progress bar in non-interactive use.
+
+---
+
 # archiveRetriver 0.3.0
 
 * Fixes to filtering of links in *retrieve_links()* to enable link scraping from domains with more than one domain ending.
