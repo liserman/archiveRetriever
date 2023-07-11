@@ -13,26 +13,56 @@ The goal of the archiveRetriever package is to provide a systematic
 workflow for retrieving web data from mementos stored in the Internet
 Archive. Currently, the package includes the following functions:
 
--   `archive_overview` generates a calendar providing an overview of the
-    available mementos of the homepage in the Internet Archive within a
-    specific time range. This function is very useful for getting a
-    quick glimpse of the web data available when planning to retrieve a
-    comprehensive coverage of the homepage from the Internet Archive
--   `retrieve_urls` generates a vector of links to mementos of the
-    homepage stored in the Internet Archive within a specific time
-    range.
--   `retrieve_links` generates a tibble with two columns including the
-    link to the memento of the homepage stored in the Internet Archive
-    as well as all links within the memento. The two column translate to
-    the parent link with its child references. This function is useful
-    to fully cover the content within a homepage for retrieval.
--   `scrape_urls` generates a tibble including the link of the memento
-    being scraped as well as the scraped content structured in different
-    columns. The number of columns for the scraped content amounts to
-    the length of the XPath or CSS selectors used to scrape the content.
+- `archive_overview` generates a calendar providing an overview of the
+  available mementos of the homepage in the Internet Archive within a
+  specific time range. This function is very useful for getting a quick
+  glimpse of the web data available when planning to retrieve a
+  comprehensive coverage of the homepage from the Internet Archive
+- `retrieve_urls` generates a vector of links to mementos of the
+  homepage stored in the Internet Archive within a specific time range.
+- `retrieve_links` generates a tibble with two columns including the
+  link to the memento of the homepage stored in the Internet Archive as
+  well as all links within the memento. The two column translate to the
+  parent link with its child references. This function is useful to
+  fully cover the content within a homepage for retrieval.
+- `scrape_urls` generates a tibble including the link of the memento
+  being scraped as well as the scraped content structured in different
+  columns. The number of columns for the scraped content amounts to the
+  length of the XPath or CSS selectors used to scrape the content.
 
 We present a short step-by-step guide as well as the functions in more
 detail below.
+
+## How to cite this package
+
+To cite the archiveRetriever package, you can use:
+
+> Gavras, Konstantin; Isermann, Lukas. (2022). archiveRetriever:
+> Retrieve Archived Web Pages from the ‘Internet Archive’. R package
+> version 0.3.1. <https://CRAN.R-project.org/package=archiveRetriever>.
+
+You can also access the preferred citation as well as the bibtex entry
+for the archiveRetriever Package via R:
+
+``` r
+citation("archiveRetriever")
+#> Um Paket 'archiveRetriever' in Publikationen zu zitieren, nutzen Sie
+#> bitte:
+#> 
+#>   Gavras K, Isermann L (2022). _archiveRetriever: Retrieve Archived Web
+#>   Pages from the 'Internet Archive'_. R package version 0.3.1,
+#>   <https://CRAN.R-project.org/package=archiveRetriever>.
+#> 
+#> Ein BibTeX-Eintrag für LaTeX-Benutzer ist
+#> 
+#>   @Manual{,
+#>     title = {archiveRetriever: Retrieve Archived Web Pages from the 'Internet Archive'},
+#>     author = {Konstantin Gavras and Lukas Isermann},
+#>     year = {2022},
+#>     note = {R package version 0.3.1},
+#>     url = {https://CRAN.R-project.org/package=archiveRetriever},
+#>   }
+```
 
 ## Installation
 
@@ -97,7 +127,7 @@ of the homepage’s availability in the Internet Archive.
 nytimes_overview
 ```
 
-<img src="man/figures/unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/unnamed-chunk-7-1.png" width="100%" />
 
 For the New York Times, we find that the Internet Archive save a memento
 of their homepage every day, which is highly reasonable as this homepage
@@ -119,7 +149,7 @@ nytimesArticle_overview <- archive_overview(homepage = "https://www.nytimes.com/
 nytimesArticle_overview
 ```
 
-<img src="man/figures/unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/unnamed-chunk-9-1.png" width="100%" />
 
 As the article has been published on November 07, there are of course no
 mementos available before that date.
@@ -301,13 +331,12 @@ nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859
 ``` r
 nytimes_teaser
 #> # A tibble: 4 × 4
-#>   Urls                                                   title teaser archiveD…¹
-#>   <chr>                                                  <chr> <chr>  <date>    
-#> 1 https://web.archive.org/web/20201001000859/https://ww… Tues… Presi… 2020-10-01
-#> 2 https://web.archive.org/web/20201001000859/https://ww… Take… A New… 2020-10-01
-#> 3 https://web.archive.org/web/20201001000859/https://ww… Bide… A day… 2020-10-01
-#> 4 https://web.archive.org/web/20201001000859/https://ww… Six … It wa… 2020-10-01
-#> # … with abbreviated variable name ¹​archiveDate
+#>   Urls                                                  title teaser archiveDate
+#>   <chr>                                                 <chr> <chr>  <date>     
+#> 1 https://web.archive.org/web/20201001000859/https://w… Tues… Presi… 2020-10-01 
+#> 2 https://web.archive.org/web/20201001000859/https://w… Take… A New… 2020-10-01 
+#> 3 https://web.archive.org/web/20201001000859/https://w… Bide… A day… 2020-10-01 
+#> 4 https://web.archive.org/web/20201001000859/https://w… Six … It wa… 2020-10-01
 ```
 
 Lastly, `scrape_urls` comes with a handy option `archiveDate`, to add a

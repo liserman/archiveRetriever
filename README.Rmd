@@ -35,6 +35,23 @@ The goal of the archiveRetriever package is to provide a systematic workflow for
 
 We present a short step-by-step guide as well as the functions in more detail below.
 
+
+
+## How to cite this package
+
+To cite the archiveRetriever package, you can use:
+
+> Gavras, Konstantin; Isermann, Lukas. (2022). archiveRetriever: Retrieve Archived Web Pages from the 'Internet Archive'. R package version 0.3.1. <https://CRAN.R-project.org/package=archiveRetriever>.
+
+You can also access the preferred citation as well as the bibtex entry for the archiveRetriever Package via R:
+
+```{r}
+citation("archiveRetriever")
+```
+
+
+
+
 ## Installation
 
 A stable version of `archiveRetriever` can be directly accessed on CRAN:
