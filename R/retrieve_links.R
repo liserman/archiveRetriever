@@ -7,10 +7,11 @@
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
 #' @param filter Filter links by top-level domain. Only sub-domains of top-level domain will be returned. Default is TRUE.
 #' @param pattern Filter links by custom pattern instead of top-level domains. Default is NULL.
+#' @param nonArchive
 #'
 #' @return This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
 #' }
 
@@ -35,19 +36,27 @@
 
 # Retrieve URLs function
 
-retrieve_links <- function(ArchiveUrls, encoding = "UTF-8", ignoreErrors = FALSE, filter = TRUE, pattern = NULL) {
+retrieve_links <- function(ArchiveUrls,
+                           encoding = "UTF-8",
+                           ignoreErrors = FALSE,
+                           filter = TRUE,
+                           pattern = NULL,
+                           nonArchive = FALSE) {
+
   #### A priori consistency checks
 
-  # Globally bind variables
-  value <- NULL
+  # Check if nonArchive is logical
+  if(!is.logical(nonArchive))
+    stop("nonArchive must be logical.")
+
+  # Check Archive Urls are string vector
+  if (!is.character(ArchiveUrls))
+    stop("ArchiveUrls must be a character vector of Urls from the Internet Archive. Please use the retrieve_urls function to obtain mementos from the Internet Archive.")
 
 
   # Check Archive Url input
-
-  stopifnot(
-    "Urls need to be Internet Archive Urls. Please use the retrieve_urls function to obtain mementos from the Internet Archive." = stringr::str_detect(ArchiveUrls, "web\\.archive\\.org") == T
-  )
-
+  if (!nonArchive & !stringr::str_detect(ArchiveUrls, "web\\.archive\\.org"))
+    stop("Urls need to be Internet Archive Urls. Please use the retrieve_urls function to obtain mementos from the Internet Archive.")
 
   # Encoding must be character
   if (!is.character(encoding))

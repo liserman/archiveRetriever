@@ -8,16 +8,18 @@
 #' @param startnum Specify the starting number for scraping the Urls. Important when scraping breaks during process.
 #' @param attachto Scraper attaches new content to existing object in working memory. Object should stem from same scraping process.
 #' @param CSS Use CSS selectors as input for the Paths
+#' @param structure
 #' @param archiveDate Retrieve the archiving date
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
 #' @param stopatempty Stop if scraping does not succeed
 #' @param emptylim Specify the number of Urls not being scraped until break-off
 #' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
 #' @param lengthwarning Warning function for large number of URLs appears. Set FALSE to disable default warning.
+#' @param nonArchive
 #'
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' scrape_urls(
 #' Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
 #' Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),
@@ -27,7 +29,7 @@
 
 # Importing dependencies with roxygen2
 #' @importFrom xml2 read_html
-#' @importFrom rvest html_nodes
+#' @importFrom rvest html_elements
 #' @importFrom rvest html_text
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_extract
@@ -42,8 +44,6 @@
 
 ### Function --------------------
 
-
-
 scrape_urls <-
   function(Urls,
            Paths,
@@ -51,12 +51,14 @@ scrape_urls <-
            startnum = 1,
            attachto = NULL,
            CSS = FALSE,
+           structure = NULL,
            archiveDate = FALSE,
            ignoreErrors = FALSE,
            stopatempty = TRUE,
            emptylim = 10,
            encoding = "UTF-8",
-           lengthwarning = TRUE) {
+           lengthwarning = TRUE,
+           nonArchive = FALSE) {
 
 
   #### A priori consistency checks
@@ -87,9 +89,13 @@ scrape_urls <-
       stop("Urls must be vector of Urls or output from retrieve_links(). Other object types are not allowed.")
     }
 
+    # Check if nonArchive is logical
+    if(!is.logical(nonArchive))
+      stop("nonArchive must be logical.")
+
 
     # Urls must start with http
-    if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")))
+    if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")) & !nonArchive)
       stop (
         "Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive."
       )
@@ -103,7 +109,6 @@ scrape_urls <-
       stop (
         "Paths is not a character vector. Please provide a named character vector of Xpath or CSS paths."
       )
-
 
     # collapse must be logical
     if (!is.logical(collapse))
@@ -141,6 +146,18 @@ scrape_urls <-
 
     if (length(CSS) > 1)
       stop ("CSS is not a single value. Please provide TRUE or FALSE.")
+
+    # Structure can only be used with CSS FALSE
+    if (!is.null(structure) & CSS)
+      stop("structure can only be used with xpath. Please provide a xpath selector and set CSS to FALSE.")
+
+    # Structure must be string
+    if (!is.character(structure) & !is.null(structure))
+      stop("structure must be a character string of a xpath you want to structure your observations by.")
+
+    # Structure must be single value
+    if (length(structure)>1 & !is.null(structure))
+      stop("structure must be a single character string of a xpath you want to structure your observations by.")
 
     # archiveDate must be logical
     if (!is.logical(archiveDate))
@@ -266,33 +283,47 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
   if (status == 200) {
 
     possibleError <- tryCatch({
-    html <- xml2::read_html(r, encoding = encoding)
+      html <- xml2::read_html(r, encoding = encoding)
 
-    # Retrieve elements and store in data list
-    if (CSS == T) {
-      # Extract nodes
-      for (x in seq_len(length(Paths))) {
-        data[[x]] <- rvest::html_nodes(html, css = Paths[x])
-        data[[x]] <- rvest::html_text(data[[x]])
-      }
-    } else {
-      # Extract nodes
-      for (x in seq_len(length(Paths))) {
-        data[[x]] <- rvest::html_nodes(html, xpath = Paths[x])
-        data[[x]] <- rvest::html_text(data[[x]])
-      }
-    }
 
-    # If collapse = TRUE, collapse retrieved html elements
-    if (collapse == TRUE) {
-      for (x in seq_len(length(Paths))) {
-        data[[x]] <- paste(data[[x]], collapse = ' ')
-      }
-    }
+      if (is.null(structure)){
+        # Retrieve elements and store in data list
+        if (CSS == T) {
+          # Extract nodes
+          for (x in seq_len(length(Paths))) {
+            data[[x]] <- rvest::html_elements(html, css = Paths[x])
+            data[[x]] <- rvest::html_text(data[[x]])
+          }
+        } else {
+          # Extract nodes
+          for (x in seq_len(length(Paths))) {
+            data[[x]] <- rvest::html_elements(html, xpath = Paths[x])
+            data[[x]] <- rvest::html_text(data[[x]])
+          }
+        }
 
-  # End trycatch
-  },
-  error = function(e) e)
+        # If collapse = TRUE, collapse retrieved html elements
+        if (collapse == TRUE) {
+          for (x in seq_len(length(Paths))) {
+            data[[x]] <- paste(data[[x]], collapse = ' ')
+          }
+        }
+      } else {
+        # Code if xpath
+        n <- length(rvest::html_elements(html, xpath = structure))
+        for (x in seq_len(length(Paths))) {
+          data[[x]] <- vector("list", n)
+          for (s in seq_len(n)) {
+            data[[x]][[s]] <- rvest::html_elements(html, xpath = paste0("(", structure, ")[", s, "]", Paths[x]))
+            data[[x]][[s]] <- rvest::html_text2(data[[x]][[s]])
+          }
+          data[[x]] <- vapply(data[[x]], function(v) paste(v, collapse = ' '), FUN.VALUE = "xxx")
+        }
+      }
+
+      # End trycatch
+    },
+    error = function(e) e)
 
     if(inherits(possibleError, "error")){
       if(ignoreErrors == TRUE){
@@ -303,7 +334,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
     }
 
-  # End status == 200 if clause
+    # End status == 200 if clause
   } else {
     # Fill data
     data <- as.data.frame(matrix(ncol = length(Paths), nrow = 1))
