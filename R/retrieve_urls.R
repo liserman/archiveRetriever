@@ -9,7 +9,7 @@
 #'
 #' @return This function retrieves the mementos of a homepage available from the Internet Archive. It returns a vector of strings of all mementos stored in the Internet Archive in the respective time frame. The mementos only refer to the homepage being retrieved and not its lower level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped.  As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' retrieve_urls("www.spiegel.de", "20190801", "20190901")
 #' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
 #' retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "2018-01-02", collapseDate = FALSE)

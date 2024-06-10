@@ -8,7 +8,7 @@
 #'
 #' @return This function provides an overview of mementos available from the Internet Archive. It returns a calendar indicating all dates in which mementos of the homepage have been stored in the Internet Archive at least once. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' archive_overview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
 #' archive_overview(homepage = "nytimes.com", startDate = "2018-06-01", endDate = "2019-05-01")
 #' }

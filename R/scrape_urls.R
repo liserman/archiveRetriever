@@ -18,7 +18,7 @@
 #'
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' scrape_urls(
 #' Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
 #' Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),

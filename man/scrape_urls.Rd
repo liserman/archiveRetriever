@@ -25,7 +25,7 @@ scrape_urls(
 
 \item{Paths}{A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.}
 
-\item{collapse}{Logical value indicating whether to collapse matching html nodes, or character input of xpath by which matches are supposed to be collapsed. Structuring xpaths can only be used with xpath selectors as Paths input and CSS = FALSE. If a xpath is given, the Paths argument only refers to children of the structure given in collapse.}
+\item{collapse}{Logical value indicating whether to collapse matching html nodes, or character input of xpath by which matches are supposed to be collapsed. Structuring Xpaths can only be used with Xpath selectors as Paths input and CSS = FALSE. If a Xpath is given, the Paths argument only refers to children of the structure given in collapse.}
 
 \item{startnum}{Specify the starting number for scraping the Urls. Important when scraping breaks during process.}
 
@@ -54,7 +54,7 @@ This function scrapes the content of mementos or lower-level web pages from the 
 \code{scrape_urls} scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
 }
 \examples{
-\donttest{
+\dontrun{
 scrape_urls(
 Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
 Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),

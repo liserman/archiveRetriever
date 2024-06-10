@@ -8,6 +8,7 @@ library(archiveRetriever)
 #Check for the sensitivity of the date format
 test_that("archive_overview() returns a plot with the correct time frame", {
   skip_on_cran()
+  skip_on_ci()
   output_overview <-
     archive_overview(homepage = "http://www.nytimes.com/",
                      startDate = "2018-06-01",
@@ -19,6 +20,7 @@ test_that("archive_overview() returns a plot with the correct time frame", {
 #Check for correct output when covering more than one year
 test_that("archive_overview() returns a plot in gtable class", {
   skip_on_cran()
+  skip_on_ci()
   output_overview <-
     archive_overview(homepage = "https://www.nytimes.com/",
                      startDate = "2018-06-01",
@@ -74,6 +76,7 @@ test_that("archive_overview() needs endDate to be not in the future", {
 test_that("archive_overview() needs homepage to be saved in the Internet Archive",
           {
             skip_on_cran()
+            skip_on_ci()
             expect_error(
               archive_overview(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",

@@ -33,7 +33,7 @@ This function retrieves the links of all lower-level web pages of mementos of a 
 \code{retrieve_links} retrieves the Urls of mementos stored in the Internet Archive
 }
 \examples{
-\donttest{
+\dontrun{
 retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
 }
 }

@@ -7,6 +7,7 @@ library(archiveRetriever)
 #Check whether vector is function output
 test_that("retrieve_urls() returns a character vector", {
   skip_on_cran()
+  skip_on_ci()
   output <- retrieve_urls("spiegel.de", "Jun/01/2017", "Jun/01/2018")
   expect_is(output, "character")
 })
@@ -109,6 +110,7 @@ test_that("retrieve_urls() needs endDate to be not in the future", {
 test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
           {
             skip_on_cran()
+            skip_on_ci()
             expect_error(
               retrieve_urls(
                 "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",
@@ -141,6 +143,7 @@ test_that("retrieve_urls() returns error if request timeout",
 #Check output if collapseDate is TRUE
 test_that("retrieve_urls() returns 1 Url per day if collapseDate is TRUE", {
   skip_on_cran()
+  skip_on_ci()
   output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = TRUE)
   expect_equal(length(output), 2)
 })
@@ -148,6 +151,7 @@ test_that("retrieve_urls() returns 1 Url per day if collapseDate is TRUE", {
 #Check output if collapseDate is FALSE
 test_that("retrieve_urls() returns more than 1 Url per day if collapseDate is FALSE", {
   skip_on_cran()
+  skip_on_ci()
   output <- retrieve_urls("nytimes.com", "20191201", "20191202", collapseDate = FALSE)
   expect_gt(length(output), 2)
 })
