@@ -20,7 +20,7 @@ This function provides an overview of mementos available from the Internet Archi
 \code{archive_overview} provides an overview of available mementos of the homepage from the Internet Archive
 }
 \examples{
-\dontrun{
+\donttest{
 archive_overview(homepage = "www.spiegel.de", startDate = "20180601", endDate = "20190615")
 archive_overview(homepage = "nytimes.com", startDate = "2018-06-01", endDate = "2019-05-01")
 }

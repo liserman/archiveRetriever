@@ -4,18 +4,17 @@
 #'
 #' @param Urls A character vector of the memento of the Internet Archive
 #' @param Paths A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.
-#' @param collapse Collapse matching html nodes
+#' @param collapse Logical value indicating whether to collapse matching html nodes, or character input of xpath by which matches are supposed to be collapsed. Structuring Xpaths can only be used with Xpath selectors as Paths input and CSS = FALSE. If a Xpath is given, the Paths argument only refers to children of the structure given in collapse.
 #' @param startnum Specify the starting number for scraping the Urls. Important when scraping breaks during process.
 #' @param attachto Scraper attaches new content to existing object in working memory. Object should stem from same scraping process.
 #' @param CSS Use CSS selectors as input for the Paths
-#' @param structure
 #' @param archiveDate Retrieve the archiving date
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
 #' @param stopatempty Stop if scraping does not succeed
 #' @param emptylim Specify the number of Urls not being scraped until break-off
 #' @param encoding  	Specify a default encoding for the homepage. Default is 'UTF-8'
 #' @param lengthwarning Warning function for large number of URLs appears. Set FALSE to disable default warning.
-#' @param nonArchive
+#' @param nonArchive Logical input. Can be set to TRUE if you want to use the archiveRetriever to scrape web pages outside the Internet Archive. Cannot be used in combination with archiveDate.
 #'
 #' @return This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
@@ -25,6 +24,12 @@
 #' Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),
 #' collapse = FALSE, archiveDate = TRUE)
 #'
+#' scrape_urls(
+#'  Urls = "https://stackoverflow.com/questions/21167159/css-nth-match-doesnt-work",
+#'  Paths = c(ans="//div[@itemprop='text']/*", aut="//div[@itemprop='author']/span[@itemprop='name']"),
+#'  collapse = "//div[@id='answers']/div[contains(@class, 'answer')]",
+#'  nonArchive = TRUE,
+#'  encoding = "bytes")
 #' }
 
 # Importing dependencies with roxygen2
@@ -51,7 +56,6 @@ scrape_urls <-
            startnum = 1,
            attachto = NULL,
            CSS = FALSE,
-           structure = NULL,
            archiveDate = FALSE,
            ignoreErrors = FALSE,
            stopatempty = TRUE,
@@ -89,10 +93,25 @@ scrape_urls <-
       stop("Urls must be vector of Urls or output from retrieve_links(). Other object types are not allowed.")
     }
 
+
+    # archiveDate must be logical
+    if (!is.logical(archiveDate))
+      stop ("archiveDate is not a logical value. Please provide TRUE or FALSE.")
+
+    if (length(archiveDate) > 1)
+      stop ("archiveDate is not a single value. Please provide TRUE or FALSE.")
+
+    # Check if nonArchive is single value
+    if(length(nonArchive) > 1)
+      stop("nonArchive must be a single value.")
+
     # Check if nonArchive is logical
     if(!is.logical(nonArchive))
       stop("nonArchive must be logical.")
 
+    # Check if nonArchive is combinded with archiveDate
+    if(nonArchive & archiveDate)
+      stop("nonArchive = TRUE cannot be used with archiveDate = TRUE.")
 
     # Urls must start with http
     if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")) & !nonArchive)
@@ -110,9 +129,13 @@ scrape_urls <-
         "Paths is not a character vector. Please provide a named character vector of Xpath or CSS paths."
       )
 
-    # collapse must be logical
-    if (!is.logical(collapse))
-      stop ("collapse is not a logical value. Please provide TRUE or FALSE.")
+    # collapse must be logical or character
+    if (!is.logical(collapse) & !is.character(collapse))
+      stop ("collapse is not a logical or character value. Please provide TRUE or FALSE, or set a xpath by which you want to structure your observations.")
+
+    # collapse must be a single value
+    if (length(collapse) > 1)
+      stop("collapse must be a single value.")
 
 
     # startnum must be a single numerical value in the range of the length of Urls
@@ -148,23 +171,9 @@ scrape_urls <-
       stop ("CSS is not a single value. Please provide TRUE or FALSE.")
 
     # Structure can only be used with CSS FALSE
-    if (!is.null(structure) & CSS)
-      stop("structure can only be used with xpath. Please provide a xpath selector and set CSS to FALSE.")
+    if (is.character(collapse) & CSS)
+      stop("A structuring xpath as collapse statement can only be used with xpath. Please provide a xpath selector and set CSS to FALSE.")
 
-    # Structure must be string
-    if (!is.character(structure) & !is.null(structure))
-      stop("structure must be a character string of a xpath you want to structure your observations by.")
-
-    # Structure must be single value
-    if (length(structure)>1 & !is.null(structure))
-      stop("structure must be a single character string of a xpath you want to structure your observations by.")
-
-    # archiveDate must be logical
-    if (!is.logical(archiveDate))
-      stop ("archiveDate is not a logical value. Please provide TRUE or FALSE.")
-
-    if (length(archiveDate) > 1)
-      stop ("archiveDate is not a single value. Please provide TRUE or FALSE.")
 
     # ignoreErrors must be logical
     if (!is.logical(ignoreErrors))
@@ -211,16 +220,6 @@ scrape_urls <-
       }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -286,37 +285,45 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
       html <- xml2::read_html(r, encoding = encoding)
 
 
-      if (is.null(structure)){
+      if (is.logical(collapse)){
         # Retrieve elements and store in data list
         if (CSS == T) {
           # Extract nodes
           for (x in seq_len(length(Paths))) {
             data[[x]] <- rvest::html_elements(html, css = Paths[x])
-            data[[x]] <- rvest::html_text(data[[x]])
+            data[[x]] <- rvest::html_text2(data[[x]])
           }
         } else {
           # Extract nodes
           for (x in seq_len(length(Paths))) {
             data[[x]] <- rvest::html_elements(html, xpath = Paths[x])
-            data[[x]] <- rvest::html_text(data[[x]])
+            data[[x]] <- rvest::html_text2(data[[x]])
           }
         }
 
         # If collapse = TRUE, collapse retrieved html elements
-        if (collapse == TRUE) {
+        if (collapse) {
           for (x in seq_len(length(Paths))) {
             data[[x]] <- paste(data[[x]], collapse = ' ')
           }
         }
       } else {
-        # Code if xpath
-        n <- length(rvest::html_elements(html, xpath = structure))
+      # If collapse is structuring xpath
+        # Get number of structuring units in html
+        struck <- rvest::html_elements(html, xpath = collapse)
+        n <- ifelse(class(struck)=="xml_node", 1, length(struck))
+
+        # Loop over xpaths
         for (x in seq_len(length(Paths))) {
+          # Initialize list for outcome
           data[[x]] <- vector("list", n)
+
+          # Loop over structuring elements
           for (s in seq_len(n)) {
-            data[[x]][[s]] <- rvest::html_elements(html, xpath = paste0("(", structure, ")[", s, "]", Paths[x]))
+            data[[x]][[s]] <- rvest::html_elements(html, xpath = paste0("(", collapse, ")[", s, "]", Paths[x]))
             data[[x]][[s]] <- rvest::html_text2(data[[x]][[s]])
           }
+          # Collapse observations per structure
           data[[x]] <- vapply(data[[x]], function(v) paste(v, collapse = ' '), FUN.VALUE = "xxx")
         }
       }
@@ -374,7 +381,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
     # Stop if too many empty outputs in a row
 
     # Counter for empty outputs in a row
-    if(collapse == F){
+    if(collapse == FALSE | is.character(collapse)){
 
       if (sum(sapply(sapply(data, stringr::str_length), sum) == 0) == length(Paths)){
         counter <-  counter + 1
@@ -413,7 +420,7 @@ for (i in (seq_len(length(Urls)-(startnum-1))+(startnum-1))) {
 
 
     # Stop if non-matching number of paths could be extracted
-    if (collapse == F){
+    if (collapse == FALSE | is.character(collapse)){
       if (any(sapply(sapply(data, stringr::str_length), length)==0) & ignoreErrors == FALSE) {
 
         # Preliminary output

@@ -16,7 +16,8 @@ scrape_urls(
   stopatempty = TRUE,
   emptylim = 10,
   encoding = "UTF-8",
-  lengthwarning = TRUE
+  lengthwarning = TRUE,
+  nonArchive = FALSE
 )
 }
 \arguments{
@@ -24,7 +25,7 @@ scrape_urls(
 
 \item{Paths}{A named character vector of the content to be scraped from the memento. Takes XPath expressions as default.}
 
-\item{collapse}{Collapse matching html nodes}
+\item{collapse}{Logical value indicating whether to collapse matching html nodes, or character input of xpath by which matches are supposed to be collapsed. Structuring xpaths can only be used with xpath selectors as Paths input and CSS = FALSE. If a xpath is given, the Paths argument only refers to children of the structure given in collapse.}
 
 \item{startnum}{Specify the starting number for scraping the Urls. Important when scraping breaks during process.}
 
@@ -43,6 +44,8 @@ scrape_urls(
 \item{encoding}{Specify a default encoding for the homepage. Default is 'UTF-8'}
 
 \item{lengthwarning}{Warning function for large number of URLs appears. Set FALSE to disable default warning.}
+
+\item{nonArchive}{Logical input. Can be set to TRUE if you want to use the archiveRetriever to scrape web pages outside the Internet Archive. Cannot be used in combination with archiveDate.}
 }
 \value{
 This function scrapes the content of mementos or lower-level web pages from the Internet Archive. It returns a tibble including Urls and the scraped content. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
@@ -51,11 +54,17 @@ This function scrapes the content of mementos or lower-level web pages from the 
 \code{scrape_urls} scrapes Urls of mementos and lower-level web pages stored in the Internet Archive using XPaths as default
 }
 \examples{
-\dontrun{
+\donttest{
 scrape_urls(
 Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
 Paths = c(title = "//article/div/h2//text()", teaser = "//article/div/p/text()"),
 collapse = FALSE, archiveDate = TRUE)
 
+scrape_urls(
+ Urls = "https://stackoverflow.com/questions/21167159/css-nth-match-doesnt-work",
+ Paths = c(ans="//div[@itemprop='text']/*", aut="//div[@itemprop='author']/span[@itemprop='name']"),
+ collapse = "//div[@id='answers']/div[contains(@class, 'answer')]",
+ nonArchive = TRUE,
+ encoding = "bytes")
 }
 }

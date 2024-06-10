@@ -22,7 +22,7 @@ This function retrieves the mementos of a homepage available from the Internet A
 \code{retrieve_urls} retrieves the Urls of mementos stored in the Internet Archive
 }
 \examples{
-\dontrun{
+\donttest{
 retrieve_urls("www.spiegel.de", "20190801", "20190901")
 retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "01/02/2018")
 retrieve_urls("nytimes.com", startDate = "2018-01-01", endDate = "2018-01-02", collapseDate = FALSE)

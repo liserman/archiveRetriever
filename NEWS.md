@@ -1,3 +1,12 @@
+# archiveRetriever 0.4.0
+
+* Replace deprecated functions of dependencies
+* Fix bugs in *archive_overview()* and *retrieve_urls()*
+* New option *nonArchive* added to *retrieve_links()* and *scrape_urls()*. This option allows users to scrape internet pages not stemming from the Internet Archive.
+* New feature added to the *collapse* option of *scrape_urls()*. *collapse* can now also take a Xpath as input, to collapse results based on a structuring Xpath. Unfortunately, this works only with Xpaths and not with CSS selectors. If used, *Paths* refers only to children of the structuring Xpath given in *collapse*.
+
+---
+
 # archiveRetriever 0.3.1
 
 * Changes to the testing environment.

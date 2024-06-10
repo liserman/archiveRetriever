@@ -1,17 +1,17 @@
 Package: archiveRetriever
 Title: Retrieve Archived Web Pages from the 'Internet Archive'
-Version: 0.3.1
+Version: 0.4.0
 Authors@R: 
-    c(person(given = "Konstantin",
-             family = "Gavras",
-             role = "aut",
-             email = "konstantin@gavras.de",
-             comment = c(ORCID = "https://orcid.org/0000-0002-9222-0101")),
-      person(given = "Lukas",
+    c(person(given = "Lukas",
              family = "Isermann",
              role = c("aut", "cre"),
              email = "lukas.isermann@uni-mannheim.de",
-             comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302")))
+             comment = c(ORCID = "https://orcid.org/0000-0002-7195-9302")),
+             person(given = "Konstantin",
+             family = "Gavras",
+             role = "aut",
+             email = "konstantin@gavras.de",
+             comment = c(ORCID = "https://orcid.org/0000-0002-9222-0101")))
 Description: Scraping content from archived web pages stored in
     the 'Internet Archive' (<https://archive.org>) using a systematic
     workflow.  Get an overview of the mementos available from the
@@ -41,4 +41,4 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1

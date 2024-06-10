@@ -87,7 +87,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",
       homepage,
-      "&matchType=url&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+      "&matchType=exact&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
       "19900101",
       "&to=",
       stringr::str_remove_all(lubridate::today(), "\\-"),
@@ -98,7 +98,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
       paste0(
         "http://web.archive.org/cdx/search/cdx?url=",
         homepage,
-        "&matchType=url&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+        "&matchType=exact&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
         "19900101",
         "&to=",
         stringr::str_remove_all(lubridate::today(), "\\-"),
@@ -124,7 +124,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",
       homepage,
-      "&matchType=url&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+      "&matchType=exact&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
       startDate,
       "&to=",
       endDate,
@@ -135,7 +135,7 @@ retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
       paste0(
         "http://web.archive.org/cdx/search/cdx?url=",
         homepage,
-        "&matchType=url&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+        "&matchType=exact&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
         startDate,
         "&to=",
         endDate,

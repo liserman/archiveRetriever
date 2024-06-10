@@ -1,0 +1,14 @@
+citHeader("To cite archiveRetriever in publications, please use:")
+
+note <- sprintf("R package version %s", meta$Version)
+
+bibentry(
+  bibtype  = "Misc",
+  title    = "Archive Retriever: Retrieve Archived Web Pages from the 'Internet Archive'",
+  author   = c(as.person("Lukas Isermann"), as.person("Konstantin Gavras")),
+  year     = "2024",
+  note     = note,
+  doi      = "10.5281/zenodo.11548776",
+  url      = "https://CRAN.R-project.org/package=archiveRetriever",
+  textVersion = paste0("Lukas Isermann, & Konstantin Gavras. (2024). Archive Retriever: Retrieve Archived Web Pages from the 'Internet Archive'.", note, ". https://CRAN.R-project.org/package=archiveRetriever.")
+)

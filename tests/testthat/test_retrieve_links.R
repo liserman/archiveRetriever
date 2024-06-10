@@ -4,7 +4,7 @@ library(webmockr)
 library(archiveRetriever)
 
 #Check whether function output is data frame
-  test_that("retrieve_links() returns a data frame", {
+test_that("retrieve_links() returns a data frame", {
     vcr::use_cassette("retrieve_links1", {
     output <-
       retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
@@ -184,6 +184,23 @@ test_that("retrieve_links() returns a data frame", {
   expect_equal(nrow(output), 37)
 })
 
+# Check nonArchive logical
+test_that("retrieve_links() returns error if nonArchive not logical", {
+  expect_error(
+    retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                   nonArchive = "TRUE"),
+    "nonArchive must be logical"
+  )
+})
 
 
+# Check nonArchive = TRUE
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links5", {
+    output <-
+      retrieve_links("https://de.wikipedia.org/wiki/Jesus_von_Nazaret",
+                     nonArchive = TRUE)
+  })
+  expect_is(output, "data.frame")
+})
 

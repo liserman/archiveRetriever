@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN_latest_release_date](https://www.r-pkg.org/badges/last-release/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![Downloads](https://cranlogs.r-pkg.org/badges/archiveRetriever)](https://cran.r-project.org/package=archiveRetriever)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/archiveRetriever?color=yellow)](https://cran.r-project.org/package=archiveRetriever)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11548776.svg)](https://doi.org/10.5281/zenodo.11548776)
 
 R-Package to retrieve web data from the Internet Archive
 
@@ -41,7 +41,7 @@ We present a short step-by-step guide as well as the functions in more detail be
 
 To cite the archiveRetriever package, you can use:
 
-> Gavras, Konstantin; Isermann, Lukas. (2022). archiveRetriever: Retrieve Archived Web Pages from the 'Internet Archive'. R package version 0.3.1. <https://CRAN.R-project.org/package=archiveRetriever>.
+> Isermann, Lukas; Gavras, Konstantin. (2024). archiveRetriever: Retrieve Archived Web Pages from the 'Internet Archive'. R package version 0.4.0. <https://CRAN.R-project.org/package=archiveRetriever>.
 
 You can also access the preferred citation as well as the bibtex entry for the archiveRetriever Package via R:
 
@@ -149,7 +149,7 @@ nytimes_mementos <- retrieve_urls(homepage = "https://www.nytimes.com/",
 
 For many scraping applications, researchers aim to extract information from all links within a homepage to get a complete picture of the information stored, e.g. when scraping news content from online newspapers, blogs on Reddit or press releases published by political parties. 
 
-Sticking to the example of the New York Times, we extract all links of the memento stored on October 01, 2020 using the `retrieve_links` function. Please be aware that the `retrieve_links` function only takes mementos of the Internet Archive as input to ensure only these pages are being scraped using our scraping functions.
+Sticking to the example of the New York Times, we extract all links of the memento stored on October 01, 2020 using the `retrieve_links` function. Please be aware that by default the `retrieve_links` function only takes mementos of the Internet Archive as input. If you want to use `retrieve_links` on web pages not on the Internet Archive, you can disable this limitation by setting the option *nonArchive = TRUE*.
 
 ```{R, message=FALSE, warning=FALSE, results = "hide"}
 nytimes_links <- retrieve_links(ArchiveUrls = "http://web.archive.org/web/20201001000041/https://www.nytimes.com/")
@@ -171,7 +171,7 @@ For some applications, it might not be necessary to include the `retrieve_links`
 
 ### scrape_urls
 
-The `scrape_urls` function is the main function of the `ArchiveRetriever` package. The function takes a memento of the Internet Archive and a XPath (or CSS) vector as obligatory inputs and results in a tibble with the content scraped using the XPath/CSS selectors. There is one important point to consider when entering the *Paths* for scraping: The option only takes named vectors, in order to provide meaningful column names for the resulting tibbles.
+The `scrape_urls` function is the main function of the `ArchiveRetriever` package. The function takes a memento of the Internet Archive and a XPath (or CSS) vector as obligatory inputs and results in a tibble with the content scraped using the XPath/CSS selectors. Similarly to `retrieve_links`, the limitation to Internet Archive mementos in `scrape_urls` can be disabled using the option *nonArchive = TRUE*. There is one important point to consider when entering the *Paths* for scraping: The option only takes named vectors, in order to provide meaningful column names for the resulting tibbles.
 
 
 ```{R, message=FALSE, warning=FALSE, results = "hide"}
@@ -187,7 +187,7 @@ nytimes_article
 ```
 
 
-When using the `scrape_urls` function to scrape large amounts of urls, we added some important (optional) features, ensuring that the scraping process works smoothly. Most importantly, the process breaks when no content could be scraped for a certain number of urls (default is 10) - most often meaning that the XPath have not been selected correctly. Additionally, the process breaks when only some elements of the Paths could be scraped - implying that the XPaths have changed for parts of the content aimed to be scraped. After break-off, the function still outputs a tibble, ensuring that the process does not need to be started anew. After break-off, users need to identify the element position of break-off, fix the error in the Paths and are able to re-start the `scrape_urls` function exactly where it broke off. The scraping process until break-off can be attached to the new process via the `attachto` option. Lastly, we also added a length warning for long url vector inserted to the `scrape_urls` raising awareness that a large chunk of data is now going to be scraped.
+When using the `scrape_urls` function to scrape large amounts of urls, we added some important (optional) features, ensuring that the scraping process works smoothly. Most importantly, the process breaks when no content could be scraped for a certain number of urls (default is 10) - most often meaning that the XPaths have not been selected correctly. Additionally, the process breaks when only some elements of the Paths could be scraped - implying that the XPaths have changed for parts of the content aimed to be scraped. After break-off, the function still outputs a tibble, ensuring that the process does not need to be started anew. After break-off, users need to identify the element position of break-off, fix the error in the Paths and are able to re-start the `scrape_urls` function exactly where it broke off. The scraping process until break-off can be attached to the new process via the `attachto` option. Lastly, we also added a length warning for long url vector inserted to the `scrape_urls` raising awareness that a large chunk of data is now going to be scraped.
 
 All these different break-offs can be deactivated using the optional arguments `ignoreErrors = TRUE` and `stopatempty = FALSE`. However, we advise to use these options with care. The cutoff point for the number of urls without content in a row until break-off can be set using `emptylim`. In order to facilitate the automation of the scraping process, we also added the optional argument `lengthwarning = FALSE` to deactivate the length warning.
 
@@ -198,10 +198,23 @@ In many scraping projects it is very convenient to collapse similar html-nodes i
 nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
                     Paths = c(title = "//article/div/h2//text()",
                               teaser = "//article/div/p/text()"),
-                    collapse = FALSE,
+                    collapse = FALSE)
+
+
+```
+
+```{R}
+nytimes_teaser
+```
+
+If we want to have even more control over what content gets collapsed into one observation and when `scrape_urls` starts a new observation, we can also set `collapse` to a structuring Xpath. This Xpath should be a parent node of the nodes we want to collapse. To demonstrate this, we take the example above, but this time use the `article` node as structuring Xpath. 
+
+```{R, message=FALSE, warning=FALSE, results = "hide"}
+nytimes_teaser <- scrape_urls(Urls = "https://web.archive.org/web/20201001000859/https://www.nytimes.com/section/politics",
+                    Paths = c(title = "//h2//text()",
+                              teaser = "//p/text()"),
+                    collapse = "//article",
                     archiveDate = TRUE)
-
-
 ```
 
 ```{R}

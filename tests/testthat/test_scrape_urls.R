@@ -20,7 +20,7 @@ test_that("scrape_urls() returns a data frame", {
 
 # Check whether function takes output from retrieve_links
 test_that("scrape_urls() takes input from retrieve_links()", {
-  vcr::use_cassette("scrape_url7", {
+  vcr::use_cassette("scrape_url2", {
     output <-
       scrape_urls(
         data.frame(baseUrl = "http://web.archive.org/web/20190502052859/http://www.taz.de/",links = "http://web.archive.org/web/20190502052859/http://www.taz.de/Praesident-Trong-scheut-Oeffentlichkeit/!5588752/"),
@@ -66,17 +66,32 @@ test_that("scrape_urls() only takes character vectors as Paths", {
   )
 })
 
-#Check whether collapse is logical
-test_that("scrape_urls() collapse must be logical", {
+#Check whether collapse is logical or xpath
+test_that("scrape_urls() collapse must be logical or xpath", {
   expect_error(
     scrape_urls(
       "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
       c(title = "//h1"),
         collapse = 5
     ),
-    "collapse is not a logical value"
+    "collapse is not a logical or character"
   )
 })
+
+#Check that collapse as xpath can not be used with CSS
+test_that("scrape_urls() collapse as structure can only be used with xpath", {
+  expect_error(
+    scrape_urls(
+      "http://web.archive.org/web/20201009174440/https://www.uni-mannheim.de/universitaet/profil/geschichte/",
+      c(title = "h1"),
+      collapse = "//div[@class='title']",
+      CSS = TRUE
+    ),
+    "A structuring xpath as collapse statement can only be used with xpath."
+  )
+})
+
+
 
 
 #Check whether XPath vector is named
@@ -92,7 +107,7 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 
 #Check whether Archive date is taken from the URL
   test_that("scrape_urls() option archiveDate stores archiving date", {
-    vcr::use_cassette("scrape_url2", {
+    vcr::use_cassette("scrape_url3", {
     output <-
       scrape_urls(
         "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
@@ -112,7 +127,7 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 
 #Check whether function takes CSS instead of XPath
   test_that("scrape_urls() takes CSS instead of XPath", {
-    vcr::use_cassette("scrape_url3", {
+    vcr::use_cassette("scrape_url4", {
     output <-
       scrape_urls(
         "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
@@ -335,10 +350,53 @@ test_that("scrape_urls() needs encoding to be a character value", {
   )
 })
 
+# Check whether nonArchive is logical
+test_that("scrape_urls() needs nonArchive to be a logical value", {
+  expect_error(
+    scrape_urls(
+      "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
+      Paths = c(title = "article h1"),
+      CSS = TRUE,
+      nonArchive = "T"
+    ),
+    "nonArchive must be logical"
+  )
+})
+
+
+# Check whether nonArchive is single value
+test_that("scrape_urls() needs nonArchive to be single value", {
+  expect_error(
+    scrape_urls(
+      "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
+      Paths = c(title = "article h1"),
+      CSS = TRUE,
+      nonArchive = c(TRUE, FALSE)
+    ),
+    "nonArchive must be a single value"
+  )
+})
+
+
+# Check that nonArchive can't be combined with archiveDate
+test_that("scrape_urls() needs nonArchive to be a logical value", {
+  expect_error(
+    scrape_urls(
+      "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
+      Paths = c(title = "article h1"),
+      CSS = TRUE,
+      nonArchive = TRUE,
+      archiveDate = TRUE
+    ),
+    "nonArchive = TRUE cannot be used with archiveDate = TRUE."
+  )
+})
+
+
 
 #Check whether data is being correctly attached to existing data set
   test_that("scrape_urls() needs to start with second row when startnum is 2", {
-    vcr::use_cassette("scrape_url4", {
+    vcr::use_cassette("scrape_url5", {
     output <-
       scrape_urls(
         c(
@@ -369,7 +427,7 @@ test_that("scrape_urls() needs to warn if only some XPaths can be scraped", {
 
 #Check whether data is being correctly processed
   test_that("scrape_urls() needs to set NA if page cannot be scraped", {
-    vcr::use_cassette("scrape_url5", {
+    vcr::use_cassette("scrape_url6", {
     output <-
       scrape_urls(
         c(
@@ -472,7 +530,7 @@ test_that("scrape_urls() should not take up process if it stems from other proce
 
 #Check whether sleeper is activated after 20 Urls
   test_that("scrape_urls() needs to sleep every 20 Urls", {
-    vcr::use_cassette("scrape_url6", {
+    vcr::use_cassette("scrape_url7", {
     output <-
       scrape_urls(
         c(
@@ -542,7 +600,7 @@ test_that("scrape_urls() should not fail if website has timeout", {
                  title = c("Der Frauen höchstes Glück ist das stillen des Hungers", "Am besten mit Frankfurter Kranz."),
                  author = c("Wilhelm_Blumberg", "NebuKadneZaar"),
                  stoppedat = 3)
-    vcr::use_cassette("scrape_url7", {
+    vcr::use_cassette("scrape_url8", {
     output <-
       scrape_urls(
         c(
@@ -613,3 +671,33 @@ test_that("scrape_urls() needs to output 5 rows", {
                 ignoreErrors = FALSE)
   expect_equal(nrow(output), 5)
 })
+
+
+#Check nonArchive
+test_that("scrape_urls() returns a data frame", {
+  vcr::use_cassette("scrape_url9", {
+    output <-
+      scrape_urls(
+        Urls = "https://stackoverflow.com/questions/21167159/css-nth-match-doesnt-work",
+        Paths = c(answer = "//div[@itemprop='text']/*", author = "//div[@itemprop='author']/span[@itemprop='name']"),
+        collapse = "//div[@id='answers']/div[contains(@class, 'answer')]",
+        nonArchive = TRUE,
+        encoding = "bytes")
+  })
+  expect_is(output, "data.frame")
+})
+
+#Check structuring xpaths in collapse
+test_that("scrape_urls() returns a data frame", {
+  skip_on_cran()
+    output <-
+      scrape_urls(
+        Urls = "https://web.archive.org/web/20221013232615/https://stackoverflow.com/questions/21167159/css-nth-match-doesnt-work",
+        Paths = c(answer = "//div[@itemprop='text']/*", author = "//div[@itemprop='author']/span[@itemprop='name']"),
+        collapse = "//div[@id='answers']/div[contains(@class, 'answer')]",
+        encoding = "bytes")
+  expect_is(output, "data.frame")
+})
+
+
+

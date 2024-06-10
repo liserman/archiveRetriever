@@ -68,7 +68,7 @@ archive_overview <- function(homepage, startDate, endDate) {
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",
       homepage,
-      "&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+      "&matchType=exact&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
       "19900101",
       "&to=",
       stringr::str_remove_all(lubridate::today(), "\\-"),
@@ -93,7 +93,7 @@ archive_overview <- function(homepage, startDate, endDate) {
     paste0(
       "http://web.archive.org/cdx/search/cdx?url=",
       homepage,
-      "&matchType=url&&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
+      "&matchType=exact&collapse=timestamp:8&limit=15000&filter=!mimetype:image/gif&filter=!mimetype:image/jpeg&from=",
       startDate,
       "&to=",
       endDate,

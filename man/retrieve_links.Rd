@@ -9,7 +9,8 @@ retrieve_links(
   encoding = "UTF-8",
   ignoreErrors = FALSE,
   filter = TRUE,
-  pattern = NULL
+  pattern = NULL,
+  nonArchive = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ retrieve_links(
 \item{filter}{Filter links by top-level domain. Only sub-domains of top-level domain will be returned. Default is TRUE.}
 
 \item{pattern}{Filter links by custom pattern instead of top-level domains. Default is NULL.}
+
+\item{nonArchive}{Logical input. Can be set to TRUE if you want to use the archiveRetriever to scrape web pages outside the Internet Archive.}
 }
 \value{
 This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
@@ -30,7 +33,7 @@ This function retrieves the links of all lower-level web pages of mementos of a 
 \code{retrieve_links} retrieves the Urls of mementos stored in the Internet Archive
 }
 \examples{
-\dontrun{
+\donttest{
 retrieve_links("http://web.archive.org/web/20190801001228/https://www.spiegel.de/")
 }
 }

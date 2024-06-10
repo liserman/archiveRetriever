@@ -7,7 +7,7 @@
 #' @param ignoreErrors Ignore errors for some Urls and proceed scraping
 #' @param filter Filter links by top-level domain. Only sub-domains of top-level domain will be returned. Default is TRUE.
 #' @param pattern Filter links by custom pattern instead of top-level domains. Default is NULL.
-#' @param nonArchive
+#' @param nonArchive Logical input. Can be set to TRUE if you want to use the archiveRetriever to scrape web pages outside the Internet Archive.
 #'
 #' @return This function retrieves the links of all lower-level web pages of mementos of a homepage available from the Internet Archive. It returns a tibble including the baseUrl and all links of lower-level web pages. However, a memento being stored in the Internet Archive does not guarantee that the information from the homepage can be actually scraped. As the Internet Archive is an internet resource, it is always possible that a request fails due to connectivity problems. One easy and obvious solution is to re-try the function.
 #' @examples
