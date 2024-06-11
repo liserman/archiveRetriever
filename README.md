@@ -47,22 +47,21 @@ for the archiveRetriever Package via R:
 
 ``` r
 citation("archiveRetriever")
-#> Warning in citation("archiveRetriever"): konnte das Jahr für 'archiveRetriever'
-#> aus der DESCRIPTION des Paketes nicht bestimmen
-#> Um Paket 'archiveRetriever' in Publikationen zu zitieren, nutzen Sie
-#> bitte:
+#> To cite archiveRetriever in publications, please use:
 #> 
-#>   Isermann L, Gavras K (????). _archiveRetriever: Retrieve Archived Web
-#>   Pages from the 'Internet Archive'_. R package version 0.4.0,
-#>   <https://github.com/liserman/archiveRetriever/>.
+#>   Lukas Isermann, & Konstantin Gavras. (2024). Archive Retriever:
+#>   Retrieve Archived Web Pages from the 'Internet Archive'.R package
+#>   version 0.4.0. https://CRAN.R-project.org/package=archiveRetriever.
 #> 
 #> Ein BibTeX-Eintrag für LaTeX-Benutzer ist
 #> 
-#>   @Manual{,
-#>     title = {archiveRetriever: Retrieve Archived Web Pages from the 'Internet Archive'},
+#>   @Misc{,
+#>     title = {Archive Retriever: Retrieve Archived Web Pages from the 'Internet Archive'},
 #>     author = {Lukas Isermann and Konstantin Gavras},
+#>     year = {2024},
 #>     note = {R package version 0.4.0},
-#>     url = {https://github.com/liserman/archiveRetriever/},
+#>     doi = {10.5281/zenodo.11548776},
+#>     url = {https://CRAN.R-project.org/package=archiveRetriever},
 #>   }
 ```
 
