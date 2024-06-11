@@ -226,7 +226,7 @@ retrieve_links <- function(ArchiveUrls,
   }
 
   dataReturn <- tibble::enframe(fullUrls)
-  dataReturn <- tidyr::unnest(dataReturn, cols = c(.data$value))
+  dataReturn <- tidyr::unnest(dataReturn, cols = c("value"))
 
   names(dataReturn) <- c("baseUrl", "links")
 
