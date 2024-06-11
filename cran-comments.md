@@ -1,21 +1,9 @@
 ## R CMD check results
-❯ On ubuntu-gcc-release (r-release)
-  checking CRAN incoming feasibility ... NOTE
-  Maintainer: ‘Lukas Isermann <lukas.isermann@uni-mannheim.de>’
-  
-  Days since last update: 1
-  
-  > Last update threw an unexpected error that was corrected in this update
 
+> Locally on Windows 10, R 4.1.1
 
-❯ On fedora-clang-devel (r-devel)
-  checking CRAN incoming feasibility ... [7s/35s] NOTE
-  Maintainer: ‘Lukas Isermann <lukas.isermann@uni-mannheim.de>’
-  
-  Days since last update: 1
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-❯ On fedora-clang-devel (r-devel)
-  checking HTML version of manual ... NOTE
-  Skipping checking HTML validation: no command 'tidy' found
+> On linux, macos, macos-arm64, windows
 
-0 errors ✔ | 0 warnings ✔ | 3 notes ✖
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
