@@ -55,7 +55,7 @@ retrieve_links <- function(ArchiveUrls,
 
 
   # Check Archive Url input
-  if (!nonArchive & !stringr::str_detect(ArchiveUrls, "web\\.archive\\.org"))
+  if (!nonArchive & !all(stringr::str_detect(ArchiveUrls, "web\\.archive\\.org")))
     stop("Urls need to be Internet Archive Urls. Please use the retrieve_urls function to obtain mementos from the Internet Archive.")
 
   # Encoding must be character
