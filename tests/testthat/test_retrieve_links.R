@@ -23,6 +23,19 @@ test_that("retrieve_links() requires encoding to be character", {
   )
 })
 
+test_that("retrieve_links() requires webarchive urls", {
+  expect_error(
+    retrieve_links(
+      c(
+        "https://web.archive.org/web/20210101/example.com",
+        "https://web.org/web/20210202/test.com"
+      ),
+      nonArchive = F
+    ),
+    "Urls need to be Internet Archive Urls"
+  )
+})
+
 #Check that encoding is character with length 1
 test_that("retrieve_links() requires encoding to be character with length 1",
           {
