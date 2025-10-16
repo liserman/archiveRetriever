@@ -1,3 +1,10 @@
+# archiveRetriever 0.4.1
+
+* Fixed bug in *retrieve_links()*
+* Fix Error message in *archive_overview()*
+
+---
+
 # archiveRetriever 0.4.0
 
 * Replace deprecated functions of dependencies

@@ -12,6 +12,17 @@ test_that("retrieve_links() returns a data frame", {
     expect_is(output, "data.frame")
   })
 
+# Check for multiple Urls
+test_that("retrieve_links() returns a data frame", {
+  vcr::use_cassette("retrieve_links6", {
+    output <-
+      retrieve_links(c("http://web.archive.org/web/20190801001228/https://www.spiegel.de/",
+                       "http://web.archive.org/web/20220120000324/http://www.spiegel.de/"))
+  })
+  expect_is(output, "data.frame")
+})
+
+
 #Check that encoding is character
 test_that("retrieve_links() requires encoding to be character", {
   expect_error(

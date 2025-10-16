@@ -43,10 +43,10 @@ archive_overview <- function(homepage, startDate, endDate) {
   if (!is.character(endDate))
     stop ("endDate is not a character vector.")
 
-  if (is.na(anytime::anydate(startDate)))
+  if (is.na(suppressWarnings(anytime::anydate(startDate))))
     stop ("startDate is not a date.")
 
-  if (is.na(anytime::anydate(endDate)))
+  if (is.na(suppressWarnings(anytime::anydate(endDate))))
     stop ("endDate is not a date.")
 
   if (anytime::anydate(startDate) > anytime::anydate(endDate))

@@ -108,14 +108,7 @@ test_that("scrape_urls() only takes named XPath/CSS vector as Paths", {
 #Check whether Archive date is taken from the URL
   test_that("scrape_urls() option archiveDate stores archiving date", {
     vcr::use_cassette("scrape_url3", {
-    output <-
-      scrape_urls(
-        "http://web.archive.org/web/20170125090337/http://www.ilsole24ore.com/art/motori/2017-01-23/toyota-yaris-205049.shtml?uuid=AEAqSFG&nmll=2707",
-        Paths = c(title = "(//div[contains(@class,'title art11_title')]//h1 | //header/h1 | //h1[@class='atitle'] | //h1[@class='atitle '] | //article//article/header/h2[@class = 'title'] | //h2[@class = 'title'])", content = "(//*[@class='grid-8 top art11_body body']//p//text() | //article/div[@class='article-content ']/div/div/div//p//text() | //div[@class='aentry aentry--lined']//p//text())"),
-        archiveDate = T,
-        encoding = "bytes"
-      )
-    scrape_urls(
+    output <- scrape_urls(
       "http://web.archive.org/web/20190528072311/https://www.taz.de/Fusionsangebot-in-der-Autobranche/!5598075/",
       Paths = c(title = "//article//h1", content = "//article//p[contains(@class, 'article')]//text()"),
       archiveDate = TRUE,

@@ -56,10 +56,10 @@ retrieve_urls <- function(homepage, startDate, endDate, collapseDate = TRUE) {
   if (length(collapseDate)>1)
     stop ("collapseDate can only take a single value.")
 
-  if (is.na(anytime::anydate(startDate)))
+  if (is.na(suppressWarnings(anytime::anydate(startDate))))
     stop ("startDate is not a date.")
 
-  if (is.na(anytime::anydate(endDate)))
+  if (is.na(suppressWarnings(anytime::anydate(endDate))))
     stop ("endDate is not a date.")
 
   if (anytime::anydate(startDate) > anytime::anydate(endDate))

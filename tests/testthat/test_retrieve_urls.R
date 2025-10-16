@@ -113,7 +113,7 @@ test_that("retrieve_urls() needs homepage to be saved in the Internet Archive",
             skip_on_ci()
             expect_error(
               retrieve_urls(
-                "https://cyprus-mail.com/2021/02/18/the-secret-helping-car-companies-stay-profitable/",
+                "thiswebsitehasneverexisted.com",
                 "2016-01-01",
                 "2016-05-31"
               ),

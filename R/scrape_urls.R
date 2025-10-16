@@ -116,7 +116,7 @@ scrape_urls <-
     # Urls must start with http
     if (!any(stringr::str_detect(Urls, "web\\.archive\\.org")) & !nonArchive)
       stop (
-        "Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive."
+        "Urls do not originate from the Internet Archive. Please use the retrieveArchiveLinks function to obtain Urls from the Internet Archive or set nonArchive to TRUE."
       )
 
     # Xpath vector shall be named vector
